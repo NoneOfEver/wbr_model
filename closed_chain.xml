@@ -1,0 +1,127 @@
+<mujoco model="closed_chain_full">
+
+    <compiler angle="degree" coordinate="local"/>
+    <option timestep="0.001" gravity="0 0 -9.81" iterations="50"/>
+
+    <visual>
+        <map force="0.1" zfar="30"/>
+        <rgba haze="0.15 0.25 0.35 1"/>
+        <global offwidth="2560" offheight="1440" elevation="-20" azimuth="120"/>
+    </visual>
+
+    <asset>
+        <texture type="skybox" builtin="gradient" rgb1=".3 .5 .7" rgb2="0 0 0" width="32" height="512"/>
+        <texture name="grid" type="2d" builtin="checker" width="512" height="512" rgb1=".1 .2 .3" rgb2=".2 .3 .4"/>
+        <material name="grid" texture="grid" texrepeat="1 1" texuniform="true" reflectance=".2"/>
+    </asset>
+
+    <size njmax="1000" nconmax="200"/>
+
+    <worldbody>
+        <geom name="floor" size="0 0 .05" type="plane" material="grid" condim="3"/>
+        <light name="spotlight" mode="targetbody" target="A" diffuse=".8 .8 .8" specular="0.3 0.3 0.3" pos="0 -6 4" cutoff="30"/>
+        <light name="top" pos="0 0 2" mode="trackcom"/>
+
+        <!-- A 点固定 -->
+        <body name="A" pos="0 0 0">
+            <camera name="main" pos="-0.6 0 0.3" xyaxes="0 -1 0 1 0 1" mode="trackcom"/>
+            <geom type="sphere" size="0.01"/>
+
+            <!-- B branch -->
+            <body name="B" pos="0 0 0">
+                <joint name="q_B" type="hinge" axis="0 0 1" damping="0.2" frictionloss="0.01"/>
+                <geom type="capsule" fromto="0 0 0 0.0945 0 0" size="0.01"/>
+
+                <!-- B-C link -->
+                <body name="BC" pos="0.0945 0 0">
+                    <joint name="q_BC" type="hinge" axis="0 0 1" damping="0.2" frictionloss="0.01"/>
+                    <geom type="capsule" fromto="0 0 0 0.1125 0 0" size="0.01"/>
+
+                    <!-- C 点 / C-D link -->
+                    <body name="C" pos="0.1125 0 0">
+                        <joint name="q_C" type="hinge" axis="0 0 1" damping="0.2" frictionloss="0.01"/>
+                        <geom type="capsule" fromto="0 0 0 0.116 0 0" size="0.01"/>
+                        <site name="C_site" pos="0.116 0 0"/>
+                    </body>
+                </body>
+            </body>
+
+            <!-- D branch -->
+            <body name="D" pos="0 0 0">
+                <joint name="q_D" type="hinge" axis="0 0 1" damping="0.2" frictionloss="0.01"/>
+                <geom type="capsule" fromto="0 0 0 0.090 0 0" size="0.01"/>
+                <site name="D_site" pos="0.090 0 0"/>
+
+                <!-- A-G link (same axis as A-D) -->
+                <geom type="capsule" fromto="0 0 0 0.210 0 0" size="0.006"/>
+                <site name="G_site" pos="0.210 0 0"/>
+
+                <!-- Parallelogram loop: D-E-F-G -->
+                <body name="DE" pos="0.090 0 0">
+                    <joint name="q_DE" type="hinge" axis="0 0 1" damping="0.2" frictionloss="0.01"/>
+                    <geom type="capsule" fromto="0 0 0 0.060 0 0" size="0.01"/>
+                    <site name="E_site" pos="0.060 0 0"/>
+
+                    <body name="E" pos="0.060 0 0">
+                        <joint name="q_E" type="hinge" axis="0 0 1" damping="0.2" frictionloss="0.01"/>
+                        <geom type="capsule" fromto="0 0 0 0.120 0 0" size="0.01"/>
+                        <site name="F_site" pos="0.120 0 0"/>
+
+                        <body name="F" pos="0.120 0 0">
+                            <joint name="q_F" type="hinge" axis="0 0 1" damping="0.2" frictionloss="0.01"/>
+                            <geom type="capsule" fromto="0 0 0 0.060 0 0" size="0.01"/>
+
+                            <body name="G_loop" pos="0.060 0 0">
+                                <site name="G_loop_site" pos="0 0 0"/>
+                                <geom type="capsule" fromto="0 0 0 0.250 0 0" size="0.008"/>
+                                <site name="H_site" pos="0.250 0 0"/>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>
+
+        </body>
+
+    </worldbody>
+
+    <!-- ==================== -->
+    <!-- 角度耦合 tendon -->
+    <!-- ==================== -->
+    <tendon>
+        <fixed name="t_de_abs">
+            <joint joint="q_D" coef="1"/>
+            <joint joint="q_DE" coef="1"/>
+        </fixed>
+        <fixed name="t_dc_abs">
+            <joint joint="q_B" coef="1"/>
+            <joint joint="q_BC" coef="1"/>
+            <joint joint="q_C" coef="1"/>
+        </fixed>
+    </tendon>
+
+    <!-- ==================== -->
+    <!-- 驱动 actuator -->
+    <!-- ==================== -->
+    <actuator>
+        <position name="act_q_B" joint="q_B" kp="0.0" ctrlrange="-180 180"/>
+        <position name="act_q_D" joint="q_D" kp="0.0" ctrlrange="-180 180"/>
+    </actuator>
+    <equality>
+        <!-- 主闭链 C-D -->
+        <connect site1="C_site" site2="D_site" solref="0.01 1" solimp="0.9 0.95 0.001"/>
+        <!-- 平行四边形闭链 -->
+        <connect site1="G_loop_site" site2="G_site" solref="0.01 1" solimp="0.9 0.95 0.001"/>
+        <!-- FG方向与DC平行：q_D + q_DE = q_B + q_BC + q_C -->
+        <tendon tendon1="t_de_abs" tendon2="t_dc_abs" solref="0.01 1" solimp="0.9 0.95 0.001"/>
+    </equality>
+
+    <!-- ==================== -->
+    <!-- 初始姿态 keyframe -->
+    <!-- ==================== -->
+    <keyframe>
+        <!-- qpos order: q_B q_BC q_C q_D q_DE q_E q_F (degrees) -->
+        <key name="init" qpos="-202 8.17 -4.74 -193 -5.13 5.13 -1.9"/>
+    </keyframe>
+
+</mujoco>
