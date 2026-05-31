@@ -22,18 +22,12 @@
         <light name="spotlight" mode="targetbody" target="A" diffuse=".8 .8 .8" specular="0.3 0.3 0.3" pos="0 -6 4" cutoff="30"/>
         <light name="top" pos="0 0 2" mode="trackcom"/>
 
-        <!-- 台架：底座 + 立柱 + 侧安装板 -->
-        <body name="stand" pos="0 0 0">
-            <!-- 底座 -->
-            <geom name="stand_base" type="box" size="0.15 0.15 0.02" pos="0 0 0.02" rgba="0.3 0.3 0.3 1"/>
-            <!-- 立柱（高 0.80 m） -->
-            <geom name="stand_pole" type="cylinder" size="0.012 0.40" pos="0 0 0.42" rgba="0.4 0.4 0.4 1"/>
-            <!-- 侧安装板（沿 Y 伸出，使连杆与立柱错开平面） -->
-            <geom name="stand_arm" type="box" size="0.008 0.025 0.004" pos="0 0.037 0.80" rgba="0.5 0.5 0.5 1"/>
-        </body>
+        <!-- 平板：连接两个固定点 -->
+        <body name="plate" pos="0 0 0.80">
+            <geom name="mount_plate" type="box" size="0.12 0.04 0.005" pos="0 0 0" rgba="0.35 0.35 0.35 1"/>
 
-        <!-- A 点固定在台架侧面，离地 0.80 m，沿 Y 偏移避免干涉 -->
-        <body name="A" pos="0 0.065 0.80">
+            <!-- A 点固定在平板一侧，沿 Y 偏移避免干涉 -->
+            <body name="A" pos="0 0.065 0">
             <camera name="main" pos="-0.6 0 0.3" xyaxes="0 -1 0 1 0 1" mode="trackcom"/>
             <geom type="sphere" size="0.01"/>
 
@@ -87,6 +81,64 @@
                 </body>
             </body>
 
+            </body>
+
+            <!-- A2 点固定在平板另一侧，沿 Y 反向偏移 -->
+            <body name="A_2" pos="0 -0.065 0" euler="0 0 3.141592653589793">
+            <geom type="sphere" size="0.01"/>
+
+            <!-- B branch：绕 Y 轴转，在 XZ 竖直平面内运动 -->
+            <body name="B_2" pos="0 0 0">
+                <joint name="q_B_2" type="hinge" axis="0 1 0" damping="0.2" frictionloss="0.01"/>
+                <geom type="capsule" fromto="0 0 0 0.0945 0 0" size="0.01"/>
+
+                <body name="BC_2" pos="0.0945 0 0">
+                    <joint name="q_BC_2" type="hinge" axis="0 1 0" damping="0.2" frictionloss="0.01"/>
+                    <geom type="capsule" fromto="0 0 0 0.1125 0 0" size="0.01"/>
+
+                    <body name="C_2" pos="0.1125 0 0">
+                        <joint name="q_C_2" type="hinge" axis="0 1 0" damping="0.2" frictionloss="0.01"/>
+                        <geom type="capsule" fromto="0 0 0 0.116 0 0" size="0.01"/>
+                        <site name="C_site_2" pos="0.116 0 0"/>
+                    </body>
+                </body>
+            </body>
+
+            <!-- D branch：绕 Y 轴转，在 XZ 竖直平面内运动 -->
+            <body name="D_2" pos="0 0 0">
+                <joint name="q_D_2" type="hinge" axis="0 1 0" damping="0.2" frictionloss="0.01"/>
+                <geom type="capsule" fromto="0 0 0 0.090 0 0" size="0.01"/>
+                <site name="D_site_2" pos="0.090 0 0"/>
+
+                <geom type="capsule" fromto="0 0 0 0.210 0 0" size="0.006"/>
+                <site name="G_site_2" pos="0.210 0 0"/>
+
+                <body name="DE_2" pos="0.090 0 0">
+                    <joint name="q_DE_2" type="hinge" axis="0 1 0" damping="0.2" frictionloss="0.01"/>
+                    <geom type="capsule" fromto="0 0 0 0.060 0 0" size="0.01"/>
+                    <site name="E_site_2" pos="0.060 0 0"/>
+
+                    <body name="E_2" pos="0.060 0 0">
+                        <joint name="q_E_2" type="hinge" axis="0 1 0" damping="0.2" frictionloss="0.01"/>
+                        <geom type="capsule" fromto="0 0 0 0.120 0 0" size="0.01"/>
+                        <site name="F_site_2" pos="0.120 0 0"/>
+
+                        <body name="F_2" pos="0.120 0 0">
+                            <joint name="q_F_2" type="hinge" axis="0 1 0" damping="0.2" frictionloss="0.01"/>
+                            <geom type="capsule" fromto="0 0 0 0.060 0 0" size="0.01"/>
+
+                            <body name="G_loop_2" pos="0.060 0 0">
+                                <site name="G_loop_site_2" pos="0 0 0"/>
+                                <geom type="capsule" fromto="0 0 0 0.250 0 0" size="0.008"/>
+                                <site name="H_site_2" pos="0.250 0 0"/>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>
+
+            </body>
+
         </body>
 
     </worldbody>
@@ -101,16 +153,29 @@
             <joint joint="q_BC" coef="1"/>
             <joint joint="q_C" coef="1"/>
         </fixed>
+        <fixed name="t_de_abs_2">
+            <joint joint="q_D_2" coef="1"/>
+            <joint joint="q_DE_2" coef="1"/>
+        </fixed>
+        <fixed name="t_dc_abs_2">
+            <joint joint="q_B_2" coef="1"/>
+            <joint joint="q_BC_2" coef="1"/>
+            <joint joint="q_C_2" coef="1"/>
+        </fixed>
     </tendon>
 
     <actuator>
         <position name="act_q_B" joint="q_B" kp="100" ctrlrange="-6.28 6.28"/>
         <position name="act_q_D" joint="q_D" kp="100" ctrlrange="-6.28 6.28"/>
+        <position name="act_q_B_2" joint="q_B_2" kp="100" ctrlrange="-6.28 6.28"/>
+        <position name="act_q_D_2" joint="q_D_2" kp="100" ctrlrange="-6.28 6.28"/>
     </actuator>
 
     <sensor>
         <jointpos name="angle_q_B" joint="q_B"/>
         <jointpos name="angle_q_D" joint="q_D"/>
+        <jointpos name="angle_q_B_2" joint="q_B_2"/>
+        <jointpos name="angle_q_D_2" joint="q_D_2"/>
     </sensor>
 
     <equality>
@@ -118,12 +183,18 @@
         <connect site1="G_loop_site" site2="G_site" solref="0.01 1" solimp="0.9 0.95 0.001"/>
         <tendon tendon1="t_de_abs" tendon2="t_dc_abs" solref="0.01 1" solimp="0.9 0.95 0.001"/>
         <joint joint1="q_E" joint2="q_F" polycoef="0 -1 0 0 0"/>
+        <connect site1="C_site_2" site2="D_site_2" solref="0.01 1" solimp="0.9 0.95 0.001"/>
+        <connect site1="G_loop_site_2" site2="G_site_2" solref="0.01 1" solimp="0.9 0.95 0.001"/>
+        <tendon tendon1="t_de_abs_2" tendon2="t_dc_abs_2" solref="0.01 1" solimp="0.9 0.95 0.001"/>
+        <joint joint1="q_E_2" joint2="q_F_2" polycoef="0 -1 0 0 0"/>
     </equality>
 
     <keyframe>
         <!-- qpos order: q_B q_BC q_C q_D q_DE q_E q_F (radians) -->
         <!-- ctrl order: act_q_B act_q_D (radians) -->
-        <key name="init" qpos="-3.527 0.143 -0.083 -3.369 -0.090 0.090 -0.033" ctrl="0 0"/>
+        <!-- qpos order (with A_2 added): q_B q_BC q_C q_D q_DE q_E q_F q_B_2 q_BC_2 q_C_2 q_D_2 q_DE_2 q_E_2 q_F_2 -->
+        <!-- ctrl order (with A_2 added): act_q_B act_q_D act_q_B_2 act_q_D_2 -->
+        <key name="init" qpos="-3.527 0.143 -0.083 -3.369 -0.090 0.090 -0.033 -3.527 0.143 -0.083 -3.369 -0.090 0.090 -0.033" ctrl="0 0 0 0"/>
     </keyframe>
 
 </mujoco>

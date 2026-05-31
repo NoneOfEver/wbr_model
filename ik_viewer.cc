@@ -166,9 +166,11 @@ bool button_right = false;
 double lastx = 0;
 double lasty = 0;
 
-// H 点目标 (相对于 A 的局部坐标 x, z)
+// H 点目标 (相对于各自 A 的局部坐标 x, z)
 double target_Hx = 0.15;
 double target_Hz = 0.10;
+double target_Hx_2 = 0.15;
+double target_Hz_2 = 0.10;
 double step_size = 0.01;
 bool paused = false;
 
@@ -191,6 +193,18 @@ void keyboard(GLFWwindow* window, int key, int scancode, int act, int mods) {
     case GLFW_KEY_RIGHT:
       target_Hx += step_size;
       break;
+    case GLFW_KEY_W:
+      target_Hz_2 += step_size;
+      break;
+    case GLFW_KEY_S:
+      target_Hz_2 -= step_size;
+      break;
+    case GLFW_KEY_A:
+      target_Hx_2 -= step_size;
+      break;
+    case GLFW_KEY_D:
+      target_Hx_2 += step_size;
+      break;
     case GLFW_KEY_PAGE_UP:
       step_size *= 2.0;
       if (step_size > 0.1) step_size = 0.1;
@@ -204,7 +218,9 @@ void keyboard(GLFWwindow* window, int key, int scancode, int act, int mods) {
     case GLFW_KEY_R:
       target_Hx = 0.15;
       target_Hz = 0.10;
-      std::printf("Reset target H to (%.3f, %.3f)\n", target_Hx, target_Hz);
+      target_Hx_2 = 0.15;
+      target_Hz_2 = 0.10;
+      std::printf("Reset target H1/H2 to (%.3f, %.3f)\n", target_Hx, target_Hz);
       break;
     case GLFW_KEY_SPACE:
       paused = !paused;
@@ -282,7 +298,8 @@ int main(int argc, const char** argv) {
   if (argc != 2) {
     std::printf("USAGE: ik_viewer modelfile\n");
     std::printf("  Controls:\n");
-    std::printf("    Arrow keys : move H target\n");
+    std::printf("    Arrow keys : move H1 target\n");
+    std::printf("    WASD : move H2 target\n");
     std::printf("    Page Up/Down : adjust step size\n");
     std::printf("    R : reset H target\n");
     std::printf("    Space : pause/unpause\n");
@@ -306,14 +323,18 @@ int main(int argc, const char** argv) {
   // 查找 actuator / body / site ID
   int act_q_b = mj_name2id(m, mjOBJ_ACTUATOR, "act_q_B");
   int act_q_d = mj_name2id(m, mjOBJ_ACTUATOR, "act_q_D");
+  int act_q_b_2 = mj_name2id(m, mjOBJ_ACTUATOR, "act_q_B_2");
+  int act_q_d_2 = mj_name2id(m, mjOBJ_ACTUATOR, "act_q_D_2");
   int body_a = mj_name2id(m, mjOBJ_BODY, "A");
+  int body_a_2 = mj_name2id(m, mjOBJ_BODY, "A_2");
   int h_site = mj_name2id(m, mjOBJ_SITE, "H_site");
+  int h_site_2 = mj_name2id(m, mjOBJ_SITE, "H_site_2");
 
-  if (act_q_b < 0 || act_q_d < 0) {
-    mju_error("act_q_B/act_q_D not found");
+  if (act_q_b < 0 || act_q_d < 0 || act_q_b_2 < 0 || act_q_d_2 < 0) {
+    mju_error("act_q_B/act_q_D or act_q_B_2/act_q_D_2 not found");
   }
-  if (body_a < 0) {
-    mju_error("Body A not found");
+  if (body_a < 0 || body_a_2 < 0) {
+    mju_error("Body A/A_2 not found");
   }
 
   // 初始状态
@@ -325,6 +346,11 @@ int main(int argc, const char** argv) {
   A_pos[0] = d->xpos[3 * body_a + 0];
   A_pos[1] = d->xpos[3 * body_a + 1];
   A_pos[2] = d->xpos[3 * body_a + 2];
+
+  double A2_pos[3];
+  A2_pos[0] = d->xpos[3 * body_a_2 + 0];
+  A2_pos[1] = d->xpos[3 * body_a_2 + 1];
+  A2_pos[2] = d->xpos[3 * body_a_2 + 2];
 
   // 初始化 GLFW
   if (!glfwInit()) {
@@ -351,14 +377,25 @@ int main(int argc, const char** argv) {
   // 上一帧的解 (弧度)
   double phi1_prev = 1.22;   // ~70 deg
   double phi2_prev = 2.44;   // ~140 deg
+  double phi1_prev_2 = 1.22;
+  double phi2_prev_2 = 2.44;
   bool ik_failed = false;
+  bool ik_failed_2 = false;
   int fail_count = 0;
+  int fail_count_2 = 0;
 
   while (!glfwWindowShouldClose(window)) {
     // ---- 逆运动学求解 ----
-    double target_Hx_world = -target_Hx;
+    double target_Hx_local = -target_Hx;
+    double target_Hx_local_2 = -target_Hx_2;
+    double target_Hz_local_2 = target_Hz_2;
+
     double phi1, phi2;
-    bool ok = InverseKinematics(target_Hx_world, target_Hz, phi1_prev, phi2_prev, phi1, phi2);
+    bool ok = InverseKinematics(target_Hx_local, target_Hz, phi1_prev, phi2_prev, phi1, phi2);
+
+    double phi1_2, phi2_2;
+    bool ok_2 = InverseKinematics(target_Hx_local_2, target_Hz_local_2,
+                                  phi1_prev_2, phi2_prev_2, phi1_2, phi2_2);
 
     if (ok) {
       phi1_prev = phi1;
@@ -369,10 +406,25 @@ int main(int argc, const char** argv) {
       fail_count = 0;
     } else {
       if (!ik_failed) {
-        std::printf("IK failed for target (%.3f, %.3f)\n", target_Hx, target_Hz);
+        std::printf("IK failed for H1 target (%.3f, %.3f)\n", target_Hx, target_Hz);
         ik_failed = true;
       }
       fail_count++;
+    }
+
+    if (ok_2) {
+      phi1_prev_2 = phi1_2;
+      phi2_prev_2 = phi2_2;
+      d->ctrl[act_q_b_2] = phi2_2;
+      d->ctrl[act_q_d_2] = phi1_2;
+      ik_failed_2 = false;
+      fail_count_2 = 0;
+    } else {
+      if (!ik_failed_2) {
+        std::printf("IK failed for H2 target (%.3f, %.3f)\n", target_Hx_2, target_Hz_2);
+        ik_failed_2 = true;
+      }
+      fail_count_2++;
     }
 
     // ---- 仿真步进 ----
@@ -389,14 +441,35 @@ int main(int argc, const char** argv) {
 
     mjv_updateScene(m, d, &opt, nullptr, &cam, mjCAT_ALL, &scn);
 
-    // 红色标记：H 点目标位置
-    double target_pos[3] = {A_pos[0] + target_Hx_world, A_pos[1], A_pos[2] + target_Hz};
+    // 红色标记：H1 目标位置
+    const double* a_xmat = d->xmat + 9 * body_a;
+    const double* a2_xmat = d->xmat + 9 * body_a_2;
+    double a_x[3] = {a_xmat[0], a_xmat[1], a_xmat[2]};
+    double a_z[3] = {a_xmat[6], a_xmat[7], a_xmat[8]};
+    double a2_x[3] = {a2_xmat[0], a2_xmat[1], a2_xmat[2]};
+    double a2_z[3] = {a2_xmat[6], a2_xmat[7], a2_xmat[8]};
+
+    double target_pos[3] = {
+      A_pos[0] + a_x[0] * target_Hx_local + a_z[0] * target_Hz,
+      A_pos[1] + a_x[1] * target_Hx_local + a_z[1] * target_Hz,
+      A_pos[2] + a_x[2] * target_Hx_local + a_z[2] * target_Hz
+    };
     AddMarker(&scn, target_pos, 1.0f, 0.0f, 0.0f, 0.015f);
+    // 紫色标记：H2 目标位置
+    double target_pos_2[3] = {
+      A2_pos[0] + a2_x[0] * target_Hx_local_2 + a2_z[0] * target_Hz_local_2,
+      A2_pos[1] + a2_x[1] * target_Hx_local_2 + a2_z[1] * target_Hz_local_2,
+      A2_pos[2] + a2_x[2] * target_Hx_local_2 + a2_z[2] * target_Hz_local_2
+    };
+    AddMarker(&scn, target_pos_2, 1.0f, 0.0f, 0.6f, 0.015f);
 
     // IK 计算的 H 点位置（相对于 A 的局部坐标）
     double ik_hx = 0.0;
     double ik_hz = 0.0;
     bool has_ik_h = ForwardKinematics(phi1_prev, phi2_prev, 1, ik_hx, ik_hz);
+    double ik_hx_2 = 0.0;
+    double ik_hz_2 = 0.0;
+    bool has_ik_h_2 = ForwardKinematics(phi1_prev_2, phi2_prev_2, 1, ik_hx_2, ik_hz_2);
 
     // 绿色标记：实际 H 点位置
     double actual_hx = 0.0;
@@ -409,42 +482,72 @@ int main(int argc, const char** argv) {
         d->site_xpos[3 * h_site + 2]
       };
       AddMarker(&scn, actual_pos, 0.0f, 1.0f, 0.0f, 0.012f);
-      actual_hx = actual_pos[0] - A_pos[0];
-      actual_hz = actual_pos[2] - A_pos[2];
+      double dx[3] = {
+        actual_pos[0] - A_pos[0],
+        actual_pos[1] - A_pos[1],
+        actual_pos[2] - A_pos[2]
+      };
+      actual_hx = dx[0] * a_x[0] + dx[1] * a_x[1] + dx[2] * a_x[2];
+      actual_hz = dx[0] * a_z[0] + dx[1] * a_z[1] + dx[2] * a_z[2];
       has_actual_h = true;
+    }
+
+    double actual_hx_2 = 0.0;
+    double actual_hz_2 = 0.0;
+    bool has_actual_h_2 = false;
+    if (h_site_2 >= 0) {
+      double actual_pos_2[3] = {
+        d->site_xpos[3 * h_site_2 + 0],
+        d->site_xpos[3 * h_site_2 + 1],
+        d->site_xpos[3 * h_site_2 + 2]
+      };
+      AddMarker(&scn, actual_pos_2, 0.0f, 0.7f, 1.0f, 0.012f);
+      double dx_2[3] = {
+        actual_pos_2[0] - A2_pos[0],
+        actual_pos_2[1] - A2_pos[1],
+        actual_pos_2[2] - A2_pos[2]
+      };
+      actual_hx_2 = dx_2[0] * a2_x[0] + dx_2[1] * a2_x[1] + dx_2[2] * a2_x[2];
+      actual_hz_2 = dx_2[0] * a2_z[0] + dx_2[1] * a2_z[1] + dx_2[2] * a2_z[2];
+      has_actual_h_2 = true;
     }
 
     mjr_render(viewport, &scn, &con);
 
     // 状态文字
     char status[256];
-    if (has_actual_h && has_ik_h) {
-      double err_hx = actual_hx - target_Hx_world;
+    if (has_actual_h && has_actual_h_2 && has_ik_h && has_ik_h_2) {
+      double err_hx = actual_hx - target_Hx_local;
       double err_hz = actual_hz - target_Hz;
-      double ik_err_hx = ik_hx - target_Hx_world;
+      double err_hx_2 = actual_hx_2 - target_Hx_local_2;
+      double err_hz_2 = actual_hz_2 - target_Hz_local_2;
+      double ik_err_hx = ik_hx - target_Hx_local;
       double ik_err_hz = ik_hz - target_Hz;
+      double ik_err_hx_2 = ik_hx_2 - target_Hx_local_2;
+      double ik_err_hz_2 = ik_hz_2 - target_Hz_local_2;
       std::snprintf(status, sizeof(status),
-        "Target H: (%.3f, %.3f) | IK H: (%.3f, %.3f) | Actual H: (%.3f, %.3f) | Error: (%.3f, %.3f) | IK Err: (%.3f, %.3f) | ctrl: phi1=%.3f phi2=%.3f | Step=%.4f %s",
-        target_Hx_world, target_Hz, ik_hx, ik_hz, actual_hx, actual_hz, err_hx, err_hz, ik_err_hx, ik_err_hz,
-        phi1_prev, phi2_prev, step_size, ik_failed ? "| IK FAILED" : "");
+        "H1 T:(%.3f, %.3f) IK:(%.3f, %.3f) A:(%.3f, %.3f) E:(%.3f, %.3f) | H2 T:(%.3f, %.3f) IK:(%.3f, %.3f) A:(%.3f, %.3f) E:(%.3f, %.3f) | Step=%.4f %s%s",
+        target_Hx_local, target_Hz, ik_hx, ik_hz, actual_hx, actual_hz, err_hx, err_hz,
+        target_Hx_local_2, target_Hz_local_2, ik_hx_2, ik_hz_2, actual_hx_2, actual_hz_2, err_hx_2, err_hz_2,
+        step_size, ik_failed ? "| IK1 FAILED" : "", ik_failed_2 ? "| IK2 FAILED" : "");
     } else if (has_actual_h) {
-      double err_hx = actual_hx - target_Hx_world;
+      double err_hx = actual_hx - target_Hx_local;
       double err_hz = actual_hz - target_Hz;
       std::snprintf(status, sizeof(status),
         "Target H: (%.3f, %.3f) | IK H: (n/a) | Actual H: (%.3f, %.3f) | Error: (%.3f, %.3f) | ctrl: phi1=%.3f phi2=%.3f | Step=%.4f %s",
-        target_Hx_world, target_Hz, actual_hx, actual_hz, err_hx, err_hz, phi1_prev, phi2_prev, step_size,
+        target_Hx_local, target_Hz, actual_hx, actual_hz, err_hx, err_hz, phi1_prev, phi2_prev, step_size,
         ik_failed ? "| IK FAILED" : "");
     } else if (has_ik_h) {
-      double ik_err_hx = ik_hx - target_Hx_world;
+      double ik_err_hx = ik_hx - target_Hx_local;
       double ik_err_hz = ik_hz - target_Hz;
       std::snprintf(status, sizeof(status),
         "Target H: (%.3f, %.3f) | IK H: (%.3f, %.3f) | Actual H: (n/a) | IK Err: (%.3f, %.3f) | ctrl: phi1=%.3f phi2=%.3f | Step=%.4f %s",
-        target_Hx_world, target_Hz, ik_hx, ik_hz, ik_err_hx, ik_err_hz, phi1_prev, phi2_prev, step_size,
+        target_Hx_local, target_Hz, ik_hx, ik_hz, ik_err_hx, ik_err_hz, phi1_prev, phi2_prev, step_size,
         ik_failed ? "| IK FAILED" : "");
     } else {
       std::snprintf(status, sizeof(status),
         "Target H: (%.3f, %.3f) | IK H: (n/a) | Actual H: (n/a) | ctrl: phi1=%.3f phi2=%.3f | Step=%.4f %s",
-        target_Hx_world, target_Hz, phi1_prev, phi2_prev, step_size,
+        target_Hx_local, target_Hz, phi1_prev, phi2_prev, step_size,
         ik_failed ? "| IK FAILED" : "");
     }
     mjr_overlay(mjFONT_NORMAL, mjGRID_TOPLEFT, viewport, status, nullptr, &con);
