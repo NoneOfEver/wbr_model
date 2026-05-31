@@ -181,11 +181,11 @@
     <equality>
         <connect site1="C_site" site2="D_site" solref="0.01 1" solimp="0.9 0.95 0.001"/>
         <connect site1="G_loop_site" site2="G_site" solref="0.01 1" solimp="0.9 0.95 0.001"/>
-        <tendon tendon1="t_de_abs" tendon2="t_dc_abs" solref="0.01 1" solimp="0.9 0.95 0.001"/>
+        <tendon tendon1="t_de_abs" tendon2="t_dc_abs" solref="0.002 1" solimp="0.9 0.95 0.001"/>
         <joint joint1="q_E" joint2="q_F" polycoef="0 -1 0 0 0"/>
         <connect site1="C_site_2" site2="D_site_2" solref="0.01 1" solimp="0.9 0.95 0.001"/>
         <connect site1="G_loop_site_2" site2="G_site_2" solref="0.01 1" solimp="0.9 0.95 0.001"/>
-        <tendon tendon1="t_de_abs_2" tendon2="t_dc_abs_2" solref="0.01 1" solimp="0.9 0.95 0.001"/>
+        <tendon tendon1="t_de_abs_2" tendon2="t_dc_abs_2" solref="0.002 1" solimp="0.9 0.95 0.001"/>
         <joint joint1="q_E_2" joint2="q_F_2" polycoef="0 -1 0 0 0"/>
     </equality>
 
@@ -194,7 +194,7 @@
         <!-- ctrl order: act_q_B act_q_D (radians) -->
         <!-- qpos order (with A_2 added): q_B q_BC q_C q_D q_DE q_E q_F q_B_2 q_BC_2 q_C_2 q_D_2 q_DE_2 q_E_2 q_F_2 -->
         <!-- ctrl order (with A_2 added): act_q_B act_q_D act_q_B_2 act_q_D_2 -->
-        <key name="init" qpos="-3.527 0.143 -0.083 -3.369 -0.090 0.090 -0.033 -3.527 0.143 -0.083 -3.369 -0.090 0.090 -0.033" ctrl="0 0 0 0"/>
+        <key name="init" qpos="-3.527 0.143 -0.083 -3.369 -0.090 0.090 -0.033 -3.527 0.143 -0.083 -3.369 -0.090 0.090 -0.033" />
     </keyframe>
 
 </mujoco>

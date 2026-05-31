@@ -17,6 +17,46 @@ constexpr double L_AG = 0.210;
 constexpr double L_FG = 0.060;
 constexpr double L_GH = 0.250;
 
+inline void ClampTargetHStart(double& Hx, double& Hz)
+{
+    // 先计算四边形顶点 A/D/G 的世界平面坐标
+    // 我们只做局部 x-z 平面限制
+    // H 最远不能超过 G + L_GH
+    double r = 0.4 + 1e-6;  // 安全缓冲
+    double dist = std::sqrt(Hx*Hx + Hz*Hz);
+    if(dist > r) {
+        Hx *= r / dist;
+        Hz *= r / dist;
+    }
+}
+
+inline bool ClampTargetH(
+  double& Hx,
+  double& Hz,
+  double prev_Hx,
+  double prev_Hz)
+{
+  double r = 0.4;
+  double dist = std::sqrt(Hx * Hx + Hz * Hz);
+
+  if(dist > r)
+  {
+      Hx = prev_Hx;
+      Hz = prev_Hz;
+      return false;
+  }
+
+  return true;
+}
+
+// 将角度 phi 尽量靠近 ref，避免跨 pi/2 的跳变
+inline double unwrap_angle(double phi, double ref)
+{
+    while (phi - ref > M_PI)  phi -= 2*M_PI;
+    while (phi - ref < -M_PI) phi += 2*M_PI;
+    return phi;
+}
+
 // ================================
 // 正运动学
 //   branch: 1=C1 (MATLAB 上方解), 2=C2
@@ -76,7 +116,7 @@ bool ForwardKinematics(double phi1, double phi2, int branch, double& Hx, double&
 // ================================
 bool InverseKinematics(double Hx_target, double Hz_target,
                        double phi1_init, double phi2_init,
-                       double& phi1, double& phi2) {
+                       double& phi1, double& phi2,int& branch_out) {
   // 多组初始猜测，类似 IKS.m 的 phi_init_set
   const std::vector<std::pair<double, double>> inits = {
     {phi1_init, phi2_init},
@@ -115,6 +155,9 @@ bool InverseKinematics(double Hx_target, double Hz_target,
             best_dist = dist;
             phi1 = p1;
             phi2 = p2;
+
+            branch_out = branch;
+
             found = true;
           }
           break;
@@ -173,38 +216,71 @@ double target_Hx_2 = 0.15;
 double target_Hz_2 = 0.10;
 double step_size = 0.01;
 bool paused = false;
-bool flip_hx = true;
 
 // ================================
 // 键盘回调
 // ================================
 void keyboard(GLFWwindow* window, int key, int scancode, int act, int mods) {
   if (act != GLFW_PRESS && act != GLFW_REPEAT) return;
-
+  double newHz, newHx, newHz_2, newHx_2;
   switch (key) {
     case GLFW_KEY_UP:
-      target_Hz += step_size;
+      newHz = target_Hz + step_size;
+      if(std::sqrt(target_Hx*target_Hx +
+                  newHz*newHz) <= 0.4)
+      {
+          target_Hz = newHz;
+      }
       break;
     case GLFW_KEY_DOWN:
-      target_Hz -= step_size;
+      newHz = target_Hz - step_size;
+      if(std::sqrt(target_Hx*target_Hx + newHz*newHz) <= 0.4)
+      {
+          target_Hz = newHz;
+      }
       break;
     case GLFW_KEY_LEFT:
-      target_Hx -= step_size;
+      newHx = target_Hx - step_size;
+      if(std::sqrt(newHx*newHx + target_Hz*target_Hz) <= 0.4)
+      {
+          target_Hx = newHx;
+      }
       break;
     case GLFW_KEY_RIGHT:
-      target_Hx += step_size;
+      newHx = target_Hx + step_size;
+      if(std::sqrt(newHx*newHx + target_Hz*target_Hz) <= 0.4)
+      {
+          target_Hx = newHx;
+      }
       break;
     case GLFW_KEY_W:
-      target_Hz_2 += step_size;
+      newHz_2 = target_Hz_2 + step_size;
+      if(std::sqrt(target_Hx_2*target_Hx_2 +
+                  newHz_2*newHz_2) <= 0.4)
+      {
+          target_Hz_2 = newHz_2;
+      }
       break;
     case GLFW_KEY_S:
-      target_Hz_2 -= step_size;
+      newHz_2 = target_Hz_2 - step_size;
+      if(std::sqrt(target_Hx_2*target_Hx_2 + newHz_2*newHz_2) <= 0.4)
+      {
+          target_Hz_2 = newHz_2;
+      }
       break;
     case GLFW_KEY_A:
-      target_Hx_2 -= step_size;
+      newHx_2 = target_Hx_2 - step_size;
+      if(std::sqrt(newHx_2*newHx_2 + target_Hz_2*target_Hz_2) <= 0.4)
+      {
+          target_Hx_2 = newHx_2;
+      }
       break;
     case GLFW_KEY_D:
-      target_Hx_2 += step_size;
+      newHx_2 = target_Hx_2 + step_size;
+      if(std::sqrt(newHx_2*newHx_2 + target_Hz_2*target_Hz_2) <= 0.4)
+      {
+          target_Hx_2 = newHx_2;
+      }
       break;
     case GLFW_KEY_PAGE_UP:
       step_size *= 2.0;
@@ -226,10 +302,7 @@ void keyboard(GLFWwindow* window, int key, int scancode, int act, int mods) {
     case GLFW_KEY_SPACE:
       paused = !paused;
       break;
-    case GLFW_KEY_X:
-      flip_hx = !flip_hx;
-      std::printf("flip_hx = %s\n", flip_hx ? "true" : "false");
-      break;
+
     case GLFW_KEY_BACKSPACE:
       mj_resetData(m, d);
       mj_forward(m, d);
@@ -330,6 +403,10 @@ int main(int argc, const char** argv) {
   int act_q_d = mj_name2id(m, mjOBJ_ACTUATOR, "act_q_D");
   int act_q_b_2 = mj_name2id(m, mjOBJ_ACTUATOR, "act_q_B_2");
   int act_q_d_2 = mj_name2id(m, mjOBJ_ACTUATOR, "act_q_D_2");
+  int joint_B = mj_name2id(m, mjOBJ_JOINT, "q_B");
+  int joint_D = mj_name2id(m, mjOBJ_JOINT, "q_D");
+  int joint_B_2 = mj_name2id(m, mjOBJ_JOINT, "q_B_2");
+  int joint_D_2 = mj_name2id(m, mjOBJ_JOINT, "q_D_2");
   int body_a = mj_name2id(m, mjOBJ_BODY, "A");
   int body_a_2 = mj_name2id(m, mjOBJ_BODY, "A_2");
   int h_site = mj_name2id(m, mjOBJ_SITE, "H_site");
@@ -384,33 +461,103 @@ int main(int argc, const char** argv) {
   glfwSetScrollCallback(window, scroll);
 
   // 上一帧的解 (弧度)
-  double phi1_prev = 1.22;   // ~70 deg
-  double phi2_prev = 2.44;   // ~140 deg
-  double phi1_prev_2 = 1.22;
-  double phi2_prev_2 = 2.44;
+  double phi1_prev = d->qpos[m->jnt_qposadr[joint_D]];;  
+  double phi2_prev = d->qpos[m->jnt_qposadr[joint_B]];  
+  double phi1_prev_2 = d->qpos[m->jnt_qposadr[joint_D_2]]; 
+  double phi2_prev_2 = d->qpos[m->jnt_qposadr[joint_B_2]];
   bool ik_failed = false;
   bool ik_failed_2 = false;
   int fail_count = 0;
   int fail_count_2 = 0;
 
+  ForwardKinematics(phi1_prev, phi2_prev, 1, target_Hx, target_Hz);
+  ForwardKinematics(phi1_prev_2, phi2_prev_2, 1, target_Hx_2, target_Hz_2);
   while (!glfwWindowShouldClose(window)) {
     // ---- 逆运动学求解 ----
-    double target_Hx_local = flip_hx ? -target_Hx : target_Hx;
-    double target_Hx_local_2 = flip_hx ? -target_Hx_2 : target_Hx_2;
+    double target_Hx_local = target_Hx;
+    double target_Hz_local = target_Hz;
+    double target_Hx_local_2 = target_Hx_2;
     double target_Hz_local_2 = target_Hz_2;
 
+    ClampTargetHStart(target_Hx_local, target_Hz_local);
+    ClampTargetHStart(target_Hx_local_2, target_Hz_local_2);
+
+    static bool first_print = true;
+    if(first_print)
+    {
+      printf("\n=== IK INPUT ===\n");
+      printf("target_Hx=%.6f\n", target_Hx);
+      printf("target_Hx_local=%.6f\n", target_Hx_local);
+      printf("target_Hz=%.6f\n", target_Hz);
+      printf("phi1_prev=%.6f\n", phi1_prev);
+      printf("phi2_prev=%.6f\n", phi2_prev);
+    }
+
+
     double phi1, phi2;
-    bool ok = InverseKinematics(target_Hx_local, target_Hz, phi1_prev, phi2_prev, phi1, phi2);
+    int branch_used;
+    bool ok = InverseKinematics(target_Hx_local, target_Hz_local, phi1_prev, phi2_prev, phi1, phi2,branch_used);
 
     double phi1_2, phi2_2;
+    int branch_used_2;
     bool ok_2 = InverseKinematics(target_Hx_local_2, target_Hz_local_2,
-                                  phi1_prev_2, phi2_prev_2, phi1_2, phi2_2);
+                                  phi1_prev_2, phi2_prev_2, phi1_2, phi2_2,branch_used_2);
 
     if (ok) {
+      // 保持角度连续
+      phi1 = unwrap_angle(phi1, phi1_prev);
+      phi2 = unwrap_angle(phi2, phi2_prev);
+      
       phi1_prev = phi1;
       phi2_prev = phi2;
+
+      if(first_print)
+      {
+          printf("\n=== IK OUTPUT ===\n");
+          printf("branch=%d phi1=%.6f rad (%.2f deg)\n",
+                branch_used,
+                phi1,
+                phi1*180/M_PI);
+          printf("phi2=%.6f rad (%.2f deg)\n",
+                phi2,
+                phi2*180/M_PI);
+          double fkx, fkz;
+          ForwardKinematics(
+              phi1,
+              phi2,
+              branch_used,
+              fkx,
+              fkz);
+          printf("\n=== FK CHECK ===\n");
+          printf("target : %.6f %.6f\n",
+                  target_Hx_local,
+                  target_Hz);
+          printf("fk     : %.6f %.6f\n",
+                  fkx,
+                  fkz);
+          printf("error  : %.6f %.6f\n",
+                  fkx - target_Hx_local,
+                  fkz - target_Hz);
+      }
       d->ctrl[act_q_b] = phi2;
       d->ctrl[act_q_d] = phi1;
+      if(first_print)
+      {
+        int joint_B = mj_name2id(m, mjOBJ_JOINT, "q_B");
+        int joint_D = mj_name2id(m, mjOBJ_JOINT, "q_D");
+
+        printf("\n=== MUJOCO ===\n");
+
+        printf("ctrl phi1 = %.6f\n", phi1);
+        printf("ctrl phi2 = %.6f\n", phi2);
+
+        printf("joint_D qpos = %.6f\n",
+                d->qpos[m->jnt_qposadr[joint_D]]);
+
+        printf("joint_B qpos = %.6f\n",
+                d->qpos[m->jnt_qposadr[joint_B]]);
+      }
+      first_print = false;
       ik_failed = false;
       fail_count = 0;
     } else {
@@ -422,6 +569,9 @@ int main(int argc, const char** argv) {
     }
 
     if (ok_2) {
+      phi1_2 = unwrap_angle(phi1_2, phi1_prev_2);
+      phi2_2 = unwrap_angle(phi2_2, phi2_prev_2);
+      
       phi1_prev_2 = phi1_2;
       phi2_prev_2 = phi2_2;
       d->ctrl[act_q_b_2] = phi2_2;
@@ -475,10 +625,10 @@ int main(int argc, const char** argv) {
     // IK 计算的 H 点位置（相对于 A 的局部坐标）
     double ik_hx = 0.0;
     double ik_hz = 0.0;
-    bool has_ik_h = ForwardKinematics(phi1_prev, phi2_prev, 1, ik_hx, ik_hz);
+    bool has_ik_h = ForwardKinematics(phi1_prev, phi2_prev, branch_used, ik_hx, ik_hz);
     double ik_hx_2 = 0.0;
     double ik_hz_2 = 0.0;
-    bool has_ik_h_2 = ForwardKinematics(phi1_prev_2, phi2_prev_2, 1, ik_hx_2, ik_hz_2);
+    bool has_ik_h_2 = ForwardKinematics(phi1_prev_2, phi2_prev_2, branch_used_2, ik_hx_2, ik_hz_2);
 
     // 绿色标记：实际 H 点位置
     double actual_hx = 0.0;
