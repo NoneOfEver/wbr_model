@@ -173,6 +173,7 @@ double target_Hx_2 = 0.15;
 double target_Hz_2 = 0.10;
 double step_size = 0.01;
 bool paused = false;
+bool flip_hx = true;
 
 // ================================
 // 键盘回调
@@ -224,6 +225,10 @@ void keyboard(GLFWwindow* window, int key, int scancode, int act, int mods) {
       break;
     case GLFW_KEY_SPACE:
       paused = !paused;
+      break;
+    case GLFW_KEY_X:
+      flip_hx = !flip_hx;
+      std::printf("flip_hx = %s\n", flip_hx ? "true" : "false");
       break;
     case GLFW_KEY_BACKSPACE:
       mj_resetData(m, d);
@@ -390,8 +395,8 @@ int main(int argc, const char** argv) {
 
   while (!glfwWindowShouldClose(window)) {
     // ---- 逆运动学求解 ----
-    double target_Hx_local = -target_Hx;
-    double target_Hx_local_2 = -target_Hx_2;
+    double target_Hx_local = flip_hx ? -target_Hx : target_Hx;
+    double target_Hx_local_2 = flip_hx ? -target_Hx_2 : target_Hx_2;
     double target_Hz_local_2 = target_Hz_2;
 
     double phi1, phi2;
