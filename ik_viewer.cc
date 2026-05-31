@@ -337,8 +337,12 @@ int main(int argc, const char** argv) {
     mju_error("Body A/A_2 not found");
   }
 
-  // 初始状态
+  // 初始状态（优先加载 init keyframe）
   mj_resetData(m, d);
+  int key_id = mj_name2id(m, mjOBJ_KEY, "init");
+  if (key_id >= 0) {
+    mj_resetDataKeyframe(m, d, key_id);
+  }
   mj_forward(m, d);
 
   // A 点 world 位置 (固定)
