@@ -186,6 +186,8 @@
         <position name="act_q_D" joint="q_D" kp="100" ctrlrange="-6.28 6.28"/>
         <position name="act_q_B_2" joint="q_B_2" kp="100" ctrlrange="-6.28 6.28"/>
         <position name="act_q_D_2" joint="q_D_2" kp="100" ctrlrange="-6.28 6.28"/>
+        <motor name="act_H_wheel" joint="q_H_wheel" gear="1" ctrlrange="-5 5"/>
+        <motor name="act_H_wheel_2" joint="q_H_wheel_2" gear="1" ctrlrange="-5 5"/>
     </actuator>
 
     <sensor>
@@ -210,9 +212,9 @@
         <!-- qpos order: q_B q_BC q_C q_D q_DE q_E q_F (radians) -->
         <!-- ctrl order: act_q_B act_q_D (radians) -->
         <!-- qpos order (free root + wheels): root_pos root_quat q_B q_BC q_C q_D q_DE q_E q_F q_H_wheel q_B_2 q_BC_2 q_C_2 q_D_2 q_DE_2 q_E_2 q_F_2 q_H_wheel_2 -->
-        <!-- ctrl order (with A_2 added): act_q_B act_q_D act_q_B_2 act_q_D_2 -->
+        <!-- ctrl order: act_q_B act_q_D act_q_B_2 act_q_D_2 act_H_wheel act_H_wheel_2 -->
         <key name="init" qpos="0 0 0.30 1 0 0 0 0.43 2.02 1.45 2.88 1.02 -1.01 -2.03 0 -0.43 -2.02 -1.45 -2.88 -1.02 1.01 2.03 0"
-             ctrl="0.43 2.88 -0.43 -2.88" />
+             ctrl="0.43 2.88 -0.43 -2.88 0 0" />
     </keyframe>
 
 </mujoco>

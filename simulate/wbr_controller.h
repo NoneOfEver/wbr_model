@@ -18,16 +18,23 @@ class WbrController {
   int act_q_d_ = -1;
   int act_q_b_2_ = -1;
   int act_q_d_2_ = -1;
+  int act_wheel_ = -1;
+  int act_wheel_2_ = -1;
   int joint_q_b_ = -1;
   int joint_q_d_ = -1;
   int joint_q_b_2_ = -1;
   int joint_q_d_2_ = -1;
+  int joint_root_ = -1;
+  int body_plate_ = -1;
   double phi1_prev_ = 0.0;
   double phi2_prev_ = 0.0;
   double phi1_prev_2_ = 0.0;
   double phi2_prev_2_ = 0.0;
+  double balance_integral_ = 0.0;
+  double balance_last_time_ = 0.0;
   int branch_prev_ = 1;
   int branch_prev_2_ = 1;
+  bool balance_initialized_ = false;
 };
 
 #endif  // WBR_MODEL_SIMULATE_WBR_CONTROLLER_H_

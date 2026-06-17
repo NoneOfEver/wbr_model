@@ -13,6 +13,20 @@ constexpr double L_AG = 0.210;
 constexpr double L_GH = 0.250;
 constexpr double kTargetHRadius = 0.4;
 
+constexpr double kWheelTorqueLimit = 5.0;
+constexpr double kWheel1Sign = 1.0;
+constexpr double kWheel2Sign = -1.0;
+constexpr double kBalanceSign = 1.0;
+constexpr double kPitchKp = -2000.0;
+constexpr double kPitchKi = 0.0;
+constexpr double kPitchKd = -1.0;
+constexpr double kPositionKp = 0.10;
+constexpr double kVelocityKd = 0.20;
+
+double Clamp(double value, double lo, double hi) {
+  return std::fmin(std::fmax(value, lo), hi);
+}
+
 void ClampTargetH(double& hx, double& hz) {
   const double dist = std::sqrt(hx * hx + hz * hz);
   if (dist > kTargetHRadius) {
@@ -159,6 +173,11 @@ bool InverseKinematics(double hx_target, double hz_target,
 
   return found;
 }
+
+double RootPitch(const mjData* data, int body_id) {
+  const double* xmat = data->xmat + 9 * body_id;
+  return std::atan2(-xmat[2], xmat[0]);
+}
 }  // namespace
 
 void WbrController::Reset(const mjModel* model) {
@@ -166,13 +185,20 @@ void WbrController::Reset(const mjModel* model) {
   act_q_d_ = mj_name2id(model, mjOBJ_ACTUATOR, "act_q_D");
   act_q_b_2_ = mj_name2id(model, mjOBJ_ACTUATOR, "act_q_B_2");
   act_q_d_2_ = mj_name2id(model, mjOBJ_ACTUATOR, "act_q_D_2");
+  act_wheel_ = mj_name2id(model, mjOBJ_ACTUATOR, "act_H_wheel");
+  act_wheel_2_ = mj_name2id(model, mjOBJ_ACTUATOR, "act_H_wheel_2");
   joint_q_b_ = mj_name2id(model, mjOBJ_JOINT, "q_B");
   joint_q_d_ = mj_name2id(model, mjOBJ_JOINT, "q_D");
   joint_q_b_2_ = mj_name2id(model, mjOBJ_JOINT, "q_B_2");
   joint_q_d_2_ = mj_name2id(model, mjOBJ_JOINT, "q_D_2");
+  joint_root_ = mj_name2id(model, mjOBJ_JOINT, "root_free");
+  body_plate_ = mj_name2id(model, mjOBJ_BODY, "plate");
 
   branch_prev_ = 1;
   branch_prev_2_ = 1;
+  balance_integral_ = 0.0;
+  balance_last_time_ = 0.0;
+  balance_initialized_ = false;
 
   if (act_q_b_ < 0 || act_q_d_ < 0 || joint_q_b_ < 0 || joint_q_d_ < 0) {
     std::printf("WbrController: first linkage actuators/joints not found; controller disabled.\n");
@@ -180,6 +206,10 @@ void WbrController::Reset(const mjModel* model) {
 
   if (act_q_b_2_ < 0 || act_q_d_2_ < 0 || joint_q_b_2_ < 0 || joint_q_d_2_ < 0) {
     std::printf("WbrController: second linkage actuators/joints not found; controlling first linkage only.\n");
+  }
+
+  if (joint_root_ >= 0 && body_plate_ >= 0 && act_wheel_ >= 0 && act_wheel_2_ >= 0) {
+    std::printf("WbrController: wheel balance PID enabled.\n");
   }
 }
 
@@ -257,5 +287,33 @@ void WbrController::Apply(const mjModel* model, mjData* data,
       data->ctrl[act_q_b_2_] = -phi2_2;
       data->ctrl[act_q_d_2_] = -phi1_2;
     }
+  }
+
+  if (joint_root_ >= 0 && body_plate_ >= 0 && act_wheel_ >= 0 && act_wheel_2_ >= 0) {
+    double dt = model->opt.timestep;
+    if (balance_initialized_) {
+      dt = Clamp(data->time - balance_last_time_, 1e-4, 0.02);
+    }
+    if (data->time == 0.0 || data->time < balance_last_time_) {
+      balance_integral_ = 0.0;
+    }
+    balance_last_time_ = data->time;
+    balance_initialized_ = true;
+
+    const int root_qposadr = model->jnt_qposadr[joint_root_];
+    const int root_dofadr = model->jnt_dofadr[joint_root_];
+    const double pitch = RootPitch(data, body_plate_);
+    const double pitch_rate = data->qvel[root_dofadr + 4];
+    const double x = data->qpos[root_qposadr + 0];
+    const double x_velocity = data->qvel[root_dofadr + 0];
+
+    balance_integral_ = Clamp(balance_integral_ + pitch * dt, -0.3, 0.3);
+    double wheel_torque = kBalanceSign *
+                          (kPitchKp * pitch + kPitchKi * balance_integral_ + kPitchKd * pitch_rate + 
+                           kPositionKp * x + kVelocityKd * x_velocity);
+    wheel_torque = Clamp(wheel_torque, -kWheelTorqueLimit, kWheelTorqueLimit);
+
+    data->ctrl[act_wheel_] = kWheel1Sign * wheel_torque;
+    data->ctrl[act_wheel_2_] = kWheel2Sign * wheel_torque;
   }
 }
