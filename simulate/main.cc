@@ -29,6 +29,7 @@
 #include "glfw_adapter.h"
 #include "simulate.h"
 #include "array_safety.h"
+#include "wbr_controller.h"
 
 #define MUJOCO_PLUGIN_DIR "mujoco_plugin"
 
@@ -56,140 +57,9 @@ const int kErrorLength = 1024;          // load error string length
 // model and data
 mjModel* m = nullptr;
 mjData* d = nullptr;
+WbrController controller;
 
 using Seconds = std::chrono::duration<double>;
-
-// ================================
-// 连杆参数 (与 MATLAB IKS.m 一致)
-// ================================
-constexpr double L_AB = 0.0945;
-constexpr double L_BC = 0.1125;
-constexpr double L_CD = 0.116;
-constexpr double L_AD = 0.090;
-constexpr double L_AG = 0.210;
-constexpr double L_FG = 0.060;
-constexpr double L_GH = 0.250;
-
-// ================================
-// 正运动学
-// ================================
-bool ForwardKinematics(double phi1, double phi2, int branch, double& Hx, double& Hz) {
-  double Bx = L_AB * std::cos(phi2);
-  double Bz = L_AB * std::sin(phi2);
-
-  double Dx = L_AD * std::cos(phi1);
-  double Dz = L_AD * std::sin(phi1);
-
-  double Gx = L_AG * std::cos(phi1);
-  double Gz = L_AG * std::sin(phi1);
-
-  double dx = Dx - Bx;
-  double dz = Dz - Bz;
-  double dist = std::sqrt(dx * dx + dz * dz);
-
-  if (dist > L_BC + L_CD - 1e-9 || dist < 1e-9) {
-    return false;
-  }
-
-  double a = (L_BC * L_BC - L_CD * L_CD + dist * dist) / (2.0 * dist);
-  double h2 = L_BC * L_BC - a * a;
-  if (h2 < 0) h2 = 0;
-  double h = std::sqrt(h2);
-
-  double Px = Bx + a * dx / dist;
-  double Pz = Bz + a * dz / dist;
-
-  double Cx, Cz;
-  if (branch == 1) {
-    Cx = Px - h * dz / dist;
-    Cz = Pz + h * dx / dist;
-  } else {
-    Cx = Px + h * dz / dist;
-    Cz = Pz - h * dx / dist;
-  }
-
-  double theta = std::atan2(Cz - Dz, Cx - Dx);
-  Hx = Gx + L_GH * std::cos(theta);
-  Hz = Gz + L_GH * std::sin(theta);
-  return true;
-}
-
-// ================================
-// 逆运动学 (阻尼牛顿法 + 多初始值 + 双分支)
-// ================================
-bool InverseKinematics(double Hx_target, double Hz_target,
-                       double phi1_init, double phi2_init,
-                       double& phi1, double& phi2) {
-  const std::pair<double, double> inits[] = {
-    {phi1_init, phi2_init},
-    {1.05, 2.44},
-    {-1.05, 2.44},
-    {1.05, -2.44},
-    {-1.05, -2.44}
-  };
-
-  double best_err = 1e20;
-  bool found = false;
-
-  for (int branch = 1; branch <= 2; ++branch) {
-    for (const auto& init : inits) {
-      double p1 = init.first;
-      double p2 = init.second;
-
-      for (int iter = 0; iter < 50; ++iter) {
-        double Hx, Hz;
-        if (!ForwardKinematics(p1, p2, branch, Hx, Hz)) {
-          break;
-        }
-
-        double ex = Hx - Hx_target;
-        double ez = Hz - Hz_target;
-        double err = ex * ex + ez * ez;
-
-        if (err < 1e-12) {
-          if (err < best_err) {
-            best_err = err;
-            phi1 = p1;
-            phi2 = p2;
-            found = true;
-          }
-          break;
-        }
-
-        const double dphi = 1e-7;
-        double Hx1, Hz1, Hx2, Hz2;
-        ForwardKinematics(p1 + dphi, p2, branch, Hx1, Hz1);
-        ForwardKinematics(p1, p2 + dphi, branch, Hx2, Hz2);
-
-        double J11 = (Hx1 - Hx) / dphi;
-        double J21 = (Hz1 - Hz) / dphi;
-        double J12 = (Hx2 - Hx) / dphi;
-        double J22 = (Hz2 - Hz) / dphi;
-
-        double det = J11 * J22 - J12 * J21;
-        if (std::fabs(det) < 1e-12) {
-          p1 -= 0.05 * (J11 * ex + J21 * ez);
-          p2 -= 0.05 * (J12 * ex + J22 * ez);
-        } else {
-          double d1 = (J22 * ex - J12 * ez) / det;
-          double d2 = (-J21 * ex + J11 * ez) / det;
-          p1 -= 0.5 * d1;
-          p2 -= 0.5 * d2;
-        }
-      }
-    }
-  }
-
-  return found;
-}
-
-// actuator IDs (cached after model load)
-int act_q_b_id = -1;
-int act_q_d_id = -1;
-
-// previous IK solution for continuity
-double phi1_prev = 1.22;
-double phi2_prev = 2.44;
 
 
 //---------------------------------------- plugin handling -----------------------------------------
@@ -342,6 +212,15 @@ const char* Diverged(int disableflags, const mjData* d) {
   return nullptr;
 }
 
+void ResetDataToInitKeyframe(const mjModel* model, mjData* data) {
+  mj_resetData(model, data);
+  const int key_id = mj_name2id(model, mjOBJ_KEY, "init");
+  if (key_id >= 0) {
+    mj_resetDataKeyframe(model, data, key_id);
+  }
+  mj_forward(model, data);
+}
+
 mjModel* LoadModel(const char* file, mj::Simulate& sim) {
   // this copy is needed so that the mju::strlen call below compiles
   char filename[mj::Simulate::kMaxFilenameLength];
@@ -432,6 +311,7 @@ void PhysicsLoop(mj::Simulate& sim) {
       mjData* dnew = nullptr;
       if (mnew) dnew = mj_makeData(mnew);
       if (dnew) {
+        ResetDataToInitKeyframe(mnew, dnew);
         sim.Load(mnew, dnew, sim.dropfilename);
 
         // lock the sim mutex
@@ -442,11 +322,9 @@ void PhysicsLoop(mj::Simulate& sim) {
 
         m = mnew;
         d = dnew;
-        mj_forward(m, d);
-
-        // cache actuator IDs for IK
-        act_q_b_id = mj_name2id(m, mjOBJ_ACTUATOR, "act_q_B");
-        act_q_d_id = mj_name2id(m, mjOBJ_ACTUATOR, "act_q_D");
+        controller.Reset(m);
+        controller.SyncTargetsFromState(m, d, sim.target_Hx, sim.target_Hz,
+                                        sim.target_Hx_2, sim.target_Hz_2);
 
       } else {
         sim.LoadMessageClear();
@@ -460,6 +338,7 @@ void PhysicsLoop(mj::Simulate& sim) {
       mjData* dnew = nullptr;
       if (mnew) dnew = mj_makeData(mnew);
       if (dnew) {
+        ResetDataToInitKeyframe(mnew, dnew);
         sim.Load(mnew, dnew, sim.filename);
 
         // lock the sim mutex
@@ -470,11 +349,9 @@ void PhysicsLoop(mj::Simulate& sim) {
 
         m = mnew;
         d = dnew;
-        mj_forward(m, d);
-
-        // cache actuator IDs for IK
-        act_q_b_id = mj_name2id(m, mjOBJ_ACTUATOR, "act_q_B");
-        act_q_d_id = mj_name2id(m, mjOBJ_ACTUATOR, "act_q_D");
+        controller.Reset(m);
+        controller.SyncTargetsFromState(m, d, sim.target_Hx, sim.target_Hz,
+                                        sim.target_Hx_2, sim.target_Hz_2);
 
       } else {
         sim.LoadMessageClear();
@@ -523,18 +400,8 @@ void PhysicsLoop(mj::Simulate& sim) {
 
             // inject noise
             sim.InjectNoise(sim.key);
-
-            // IK control: compute phi1/phi2 from H target and set ctrl
-            if (act_q_b_id >= 0 && act_q_d_id >= 0) {
-              double phi1, phi2;
-              if (InverseKinematics(sim.target_Hx, sim.target_Hz,
-                                    phi1_prev, phi2_prev, phi1, phi2)) {
-                phi1_prev = phi1;
-                phi2_prev = phi2;
-                d->ctrl[act_q_b_id] = phi2;
-                d->ctrl[act_q_d_id] = phi1;
-              }
-            }
+            controller.Apply(m, d, sim.target_Hx, sim.target_Hz,
+                             sim.target_Hx_2, sim.target_Hz_2);
 
             // run single step, let next iteration deal with timing
             mj_step(m, d);
@@ -566,18 +433,8 @@ void PhysicsLoop(mj::Simulate& sim) {
 
               // inject noise
               sim.InjectNoise(sim.key);
-
-              // IK control: compute phi1/phi2 from H target and set ctrl
-              if (act_q_b_id >= 0 && act_q_d_id >= 0) {
-                double phi1, phi2;
-                if (InverseKinematics(sim.target_Hx, sim.target_Hz,
-                                      phi1_prev, phi2_prev, phi1, phi2)) {
-                  phi1_prev = phi1;
-                  phi2_prev = phi2;
-                  d->ctrl[act_q_b_id] = phi2;
-                  d->ctrl[act_q_d_id] = phi1;
-                }
-              }
+              controller.Apply(m, d, sim.target_Hx, sim.target_Hz,
+                               sim.target_Hx_2, sim.target_Hz_2);
 
               // call mj_step
               mj_step(m, d);
@@ -629,18 +486,18 @@ void PhysicsThread(mj::Simulate* sim, const char* filename) {
       const std::unique_lock<std::recursive_mutex> lock(sim->mtx);
 
       d = mj_makeData(m);
+      if (d) {
+        ResetDataToInitKeyframe(m, d);
+      }
     }
     if (d) {
       sim->Load(m, d, filename);
 
       // lock the sim mutex
       const std::unique_lock<std::recursive_mutex> lock(sim->mtx);
-
-      mj_forward(m, d);
-
-      // cache actuator IDs for IK
-      act_q_b_id = mj_name2id(m, mjOBJ_ACTUATOR, "act_q_B");
-      act_q_d_id = mj_name2id(m, mjOBJ_ACTUATOR, "act_q_D");
+      controller.Reset(m);
+      controller.SyncTargetsFromState(m, d, sim->target_Hx, sim->target_Hz,
+                                      sim->target_Hx_2, sim->target_Hz_2);
 
     } else {
       sim->LoadMessageClear();

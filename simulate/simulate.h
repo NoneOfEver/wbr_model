@@ -249,8 +249,10 @@ class Simulate {
   double ctrl_noise_rate = 0.0;
 
   // IK target (H point relative to A, in XZ plane)
-  double target_Hx = 0.15;
-  double target_Hz = 0.10;
+  double target_Hx = -0.0027;
+  double target_Hz = -0.231;
+  double target_Hx_2 = -0.027;
+  double target_Hz_2 = -0.231;
 
   // watch
   char field[mjMAXUITEXT] = "qpos";
@@ -329,7 +331,7 @@ class Simulate {
 
 
   // simulation section of UI
-  const mjuiDef def_simulation[17] = {
+  const mjuiDef def_simulation[19] = {
     {mjITEM_SECTION,   "Simulation",    mjPRESERVE, nullptr,     "AS"},
     {mjITEM_RADIO,     "",              5, &this->run,           "Pause\nRun"},
     {mjITEM_EDITINT,   "Num threads",   5, &this->nthread,       "1"},
@@ -342,8 +344,10 @@ class Simulate {
     {mjITEM_BUTTON,    "Save key",      3},
     {mjITEM_SLIDERNUM, "Noise scale",   5, &this->ctrl_noise_std,  "0 1"},
     {mjITEM_SLIDERNUM, "Noise rate",    5, &this->ctrl_noise_rate, "0 4"},
-    {mjITEM_SLIDERNUM, "Hx",            2, &this->target_Hx,       "-0.3 0.3"},
-    {mjITEM_SLIDERNUM, "Hz",            2, &this->target_Hz,       "-0.3 0.3"},
+    {mjITEM_SLIDERNUM, "H1 x",          2, &this->target_Hx,       "-0.3 0.3"},
+    {mjITEM_SLIDERNUM, "H1 z",          2, &this->target_Hz,       "-0.3 0.3"},
+    {mjITEM_SLIDERNUM, "H2 x",          2, &this->target_Hx_2,     "-0.3 0.3"},
+    {mjITEM_SLIDERNUM, "H2 z",          2, &this->target_Hz_2,     "-0.3 0.3"},
     {mjITEM_SEPARATOR, "History",       1},
     {mjITEM_SLIDERINT, "",              5, &this->scrub_index,     "0 0"},
     {mjITEM_END}

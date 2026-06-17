@@ -1409,6 +1409,7 @@ CMakeFiles/simulate.dir/simulate/main.cc.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/objc/objc-api.h \
   /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/simulate.h \
   /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/array_safety.h \
+  /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach-o/dyld.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach-o/loader.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/architecture/byte_order.h

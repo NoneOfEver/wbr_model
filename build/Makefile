@@ -339,6 +339,30 @@ simulate/simulate.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/simulate.cc.s
 .PHONY : simulate/simulate.cc.s
 
+simulate/wbr_controller.o: simulate/wbr_controller.cc.o
+.PHONY : simulate/wbr_controller.o
+
+# target to build an object file
+simulate/wbr_controller.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller.cc.o
+.PHONY : simulate/wbr_controller.cc.o
+
+simulate/wbr_controller.i: simulate/wbr_controller.cc.i
+.PHONY : simulate/wbr_controller.i
+
+# target to preprocess a source file
+simulate/wbr_controller.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller.cc.i
+.PHONY : simulate/wbr_controller.cc.i
+
+simulate/wbr_controller.s: simulate/wbr_controller.cc.s
+.PHONY : simulate/wbr_controller.s
+
+# target to generate assembly for a file
+simulate/wbr_controller.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller.cc.s
+.PHONY : simulate/wbr_controller.cc.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -373,6 +397,9 @@ help:
 	@echo "... simulate/simulate.o"
 	@echo "... simulate/simulate.i"
 	@echo "... simulate/simulate.s"
+	@echo "... simulate/wbr_controller.o"
+	@echo "... simulate/wbr_controller.i"
+	@echo "... simulate/wbr_controller.s"
 .PHONY : help
 
 

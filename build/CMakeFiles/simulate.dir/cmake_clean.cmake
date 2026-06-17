@@ -13,6 +13,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/simulate.dir/simulate/platform_ui_adapter.cc.o.d"
   "CMakeFiles/simulate.dir/simulate/simulate.cc.o"
   "CMakeFiles/simulate.dir/simulate/simulate.cc.o.d"
+  "CMakeFiles/simulate.dir/simulate/wbr_controller.cc.o"
+  "CMakeFiles/simulate.dir/simulate/wbr_controller.cc.o.d"
   "simulate"
   "simulate.pdb"
 )

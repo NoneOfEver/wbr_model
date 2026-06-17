@@ -1,4 +1,4 @@
-<mujoco model="closed_chain_vertical">
+<mujoco model="closed_chain_vertical_free">
 
     <compiler angle="radian" coordinate="local"/>
     <option timestep="0.001" gravity="0 0 -9.81" iterations="50"/>
@@ -24,6 +24,7 @@
 
         <!-- 平板：连接两个固定点 -->
         <body name="plate" pos="0 0 0.30">
+            <freejoint name="root_free"/>
             <geom name="mount_plate" type="box" size="0.12 0.135 0.10" pos="0 0 0" rgba="0.35 0.35 0.35 1"/>
 
             <!-- A 点固定在平板一侧，沿 Y 偏移避免干涉 -->
@@ -208,9 +209,9 @@
     <keyframe>
         <!-- qpos order: q_B q_BC q_C q_D q_DE q_E q_F (radians) -->
         <!-- ctrl order: act_q_B act_q_D (radians) -->
-        <!-- qpos order (with wheels): q_B q_BC q_C q_D q_DE q_E q_F q_H_wheel q_B_2 q_BC_2 q_C_2 q_D_2 q_DE_2 q_E_2 q_F_2 q_H_wheel_2 -->
+        <!-- qpos order (free root + wheels): root_pos root_quat q_B q_BC q_C q_D q_DE q_E q_F q_H_wheel q_B_2 q_BC_2 q_C_2 q_D_2 q_DE_2 q_E_2 q_F_2 q_H_wheel_2 -->
         <!-- ctrl order (with A_2 added): act_q_B act_q_D act_q_B_2 act_q_D_2 -->
-        <key name="init" qpos="0.43 2.02 1.45 2.88 1.02 -1.01 -2.03 0 -0.43 -2.02 -1.45 -2.88 -1.02 1.01 2.03 0"
+        <key name="init" qpos="0 0 0.30 1 0 0 0 0.43 2.02 1.45 2.88 1.02 -1.01 -2.03 0 -0.43 -2.02 -1.45 -2.88 -1.02 1.01 2.03 0"
              ctrl="0.43 2.88 -0.43 -2.88" />
     </keyframe>
 

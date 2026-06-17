@@ -685,6 +685,16 @@ static void mjui0_update_section(mj::Simulate* sim, int section) {
   mjui_update(section, -1, &sim->ui0, &sim->uistate, &sim->platform_ui->mjr_context());
 }
 
+static mjuiItem* SimulationItemByData(mj::Simulate* sim, void* pdata) {
+  mjuiSection& section = sim->ui0.sect[SECT_SIMULATION];
+  for (int i = 0; i < section.nitem; ++i) {
+    if (section.item[i].pdata == pdata) {
+      return &section.item[i];
+    }
+  }
+  return nullptr;
+}
+
 // prepare info text
 void UpdateInfoText(mj::Simulate* sim, const mjModel* m, const mjData* d,
               char (&title)[mj::Simulate::kMaxFilenameLength],
@@ -1641,41 +1651,41 @@ void UiEvent(mjuiState* state) {
 
     // simulation section
     else if (it && it->sectionid==SECT_SIMULATION) {
-      switch (it->itemid) {
-      case 1:             // Threadpool
-        sim->pending_.update_threadpool = true;
-        break;
-      case 2:             // Reset
-        sim->pending_.reset = true;
-        break;
-
-      case 3:             // Reload
-        sim->uiloadrequest.fetch_add(1);
-        break;
-
-      case 4:             // Align
-        sim->pending_.align = true;
-        break;
-
-      case 5:             // Copy key
-        sim->pending_.copy_key = true;
-        sim->pending_.copy_key_full_precision = sim->platform_ui->IsShiftKeyPressed();
-        break;
-
-      case 6:             // Adjust key
-      case 7:             // Load key
-        sim->pending_.load_key = true;
-        break;
-
-      case 8:             // Save key
-        sim->pending_.save_key = true;
-        break;
-
-      case 12:            // History scrubber
+      if (it->pdata == &sim->scrub_index) {
         sim->run = 0;
         sim->pending_.load_from_history = true;
         mjui0_update_section(sim, SECT_SIMULATION);
-        break;
+      } else {
+        switch (it->itemid) {
+        case 1:             // Threadpool
+          sim->pending_.update_threadpool = true;
+          break;
+        case 2:             // Reset
+          sim->pending_.reset = true;
+          break;
+
+        case 3:             // Reload
+          sim->uiloadrequest.fetch_add(1);
+          break;
+
+        case 4:             // Align
+          sim->pending_.align = true;
+          break;
+
+        case 5:             // Copy key
+          sim->pending_.copy_key = true;
+          sim->pending_.copy_key_full_precision = sim->platform_ui->IsShiftKeyPressed();
+          break;
+
+        case 6:             // Adjust key
+        case 7:             // Load key
+          sim->pending_.load_key = true;
+          break;
+
+        case 8:             // Save key
+          sim->pending_.save_key = true;
+          break;
+        }
       }
     }
 
@@ -2569,13 +2579,17 @@ void Simulate::LoadOnRenderThread() {
   }
 
   // set keyframe range and divisions
-  this->ui0.sect[SECT_SIMULATION].item[6].slider.range[0] = 0;
-  this->ui0.sect[SECT_SIMULATION].item[6].slider.range[1] = mjMAX(0, this->m_->nkey - 1);
-  this->ui0.sect[SECT_SIMULATION].item[6].slider.divisions = mjMAX(1, this->m_->nkey - 1);
+  if (mjuiItem* key_item = SimulationItemByData(this, &this->key)) {
+    key_item->slider.range[0] = 0;
+    key_item->slider.range[1] = mjMAX(0, this->m_->nkey - 1);
+    key_item->slider.divisions = mjMAX(1, this->m_->nkey - 1);
+  }
 
   // set scrubber range and divisions
-  this->ui0.sect[SECT_SIMULATION].item[14].slider.range[0] = 1 - nhistory_;
-  this->ui0.sect[SECT_SIMULATION].item[14].slider.divisions = nhistory_;
+  if (mjuiItem* scrub_item = SimulationItemByData(this, &this->scrub_index)) {
+    scrub_item->slider.range[0] = 1 - nhistory_;
+    scrub_item->slider.divisions = nhistory_;
+  }
 
   // detect image sensors for visualization
   DetectImageSensors(this, this->m_);

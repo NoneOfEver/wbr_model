@@ -24,6 +24,8 @@ target_link_options(ik_viewer PRIVATE "-Wl,-rpath,${MUJOCO_BUILD}/lib")
 file(GLOB SIMULATE_SRC
     ${CMAKE_CURRENT_SOURCE_DIR}/simulate/*.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/simulate/*.mm)
+list(APPEND SIMULATE_SRC ${CMAKE_CURRENT_SOURCE_DIR}/simulate/wbr_controller.cc)
+list(REMOVE_DUPLICATES SIMULATE_SRC)
 add_executable(simulate ${SIMULATE_SRC})
 target_link_libraries(simulate PRIVATE ${MUJOCO_LIB} glfw ${MUJOCO_BUILD}/lib/liblodepng.a)
 target_link_options(simulate PRIVATE "-Wl,-rpath,${MUJOCO_BUILD}/lib")

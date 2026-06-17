@@ -16,37 +16,16 @@ constexpr double L_AD = 0.090;
 constexpr double L_AG = 0.210;
 constexpr double L_FG = 0.060;
 constexpr double L_GH = 0.250;
+constexpr double kTargetHRadius = 0.4;
 
-inline void ClampTargetHStart(double& Hx, double& Hz)
+inline void ClampTargetH(double& Hx, double& Hz)
 {
-    // 先计算四边形顶点 A/D/G 的世界平面坐标
-    // 我们只做局部 x-z 平面限制
-    // H 最远不能超过 G + L_GH
-    double r = 0.4 + 1e-6;  // 安全缓冲
-    double dist = std::sqrt(Hx*Hx + Hz*Hz);
-    if(dist > r) {
-        Hx *= r / dist;
-        Hz *= r / dist;
-    }
-}
-
-inline bool ClampTargetH(
-  double& Hx,
-  double& Hz,
-  double prev_Hx,
-  double prev_Hz)
-{
-  double r = 0.4;
   double dist = std::sqrt(Hx * Hx + Hz * Hz);
 
-  if(dist > r)
-  {
-      Hx = prev_Hx;
-      Hz = prev_Hz;
-      return false;
+  if (dist > kTargetHRadius) {
+    Hx *= kTargetHRadius / dist;
+    Hz *= kTargetHRadius / dist;
   }
-
-  return true;
 }
 
 // 将角度 phi 尽量靠近 ref，避免跨 pi/2 的跳变
@@ -165,8 +144,10 @@ bool InverseKinematics(double Hx_target, double Hz_target,
 
         // 数值雅可比
         double Hx1, Hz1, Hx2, Hz2;
-        ForwardKinematics(p1 + dphi, p2, branch, Hx1, Hz1);
-        ForwardKinematics(p1, p2 + dphi, branch, Hx2, Hz2);
+        if (!ForwardKinematics(p1 + dphi, p2, branch, Hx1, Hz1) ||
+            !ForwardKinematics(p1, p2 + dphi, branch, Hx2, Hz2)) {
+          break;
+        }
 
         double J11 = (Hx1 - Hx) / dphi;
         double J21 = (Hz1 - Hz) / dphi;
@@ -217,70 +198,42 @@ double target_Hz_2 = 0.10;
 double step_size = 0.01;
 bool paused = false;
 
+void MoveTarget(double& Hx, double& Hz, double dx, double dz)
+{
+  Hx += dx;
+  Hz += dz;
+  ClampTargetH(Hx, Hz);
+}
+
 // ================================
 // 键盘回调
 // ================================
 void keyboard(GLFWwindow* window, int key, int scancode, int act, int mods) {
   if (act != GLFW_PRESS && act != GLFW_REPEAT) return;
-  double newHz, newHx, newHz_2, newHx_2;
   switch (key) {
     case GLFW_KEY_UP:
-      newHz = target_Hz + step_size;
-      if(std::sqrt(target_Hx*target_Hx +
-                  newHz*newHz) <= 0.4)
-      {
-          target_Hz = newHz;
-      }
+      MoveTarget(target_Hx, target_Hz, 0.0, step_size);
       break;
     case GLFW_KEY_DOWN:
-      newHz = target_Hz - step_size;
-      if(std::sqrt(target_Hx*target_Hx + newHz*newHz) <= 0.4)
-      {
-          target_Hz = newHz;
-      }
+      MoveTarget(target_Hx, target_Hz, 0.0, -step_size);
       break;
     case GLFW_KEY_LEFT:
-      newHx = target_Hx - step_size;
-      if(std::sqrt(newHx*newHx + target_Hz*target_Hz) <= 0.4)
-      {
-          target_Hx = newHx;
-      }
+      MoveTarget(target_Hx, target_Hz, -step_size, 0.0);
       break;
     case GLFW_KEY_RIGHT:
-      newHx = target_Hx + step_size;
-      if(std::sqrt(newHx*newHx + target_Hz*target_Hz) <= 0.4)
-      {
-          target_Hx = newHx;
-      }
+      MoveTarget(target_Hx, target_Hz, step_size, 0.0);
       break;
     case GLFW_KEY_W:
-      newHz_2 = target_Hz_2 + step_size;
-      if(std::sqrt(target_Hx_2*target_Hx_2 +
-                  newHz_2*newHz_2) <= 0.4)
-      {
-          target_Hz_2 = newHz_2;
-      }
+      MoveTarget(target_Hx_2, target_Hz_2, 0.0, step_size);
       break;
     case GLFW_KEY_S:
-      newHz_2 = target_Hz_2 - step_size;
-      if(std::sqrt(target_Hx_2*target_Hx_2 + newHz_2*newHz_2) <= 0.4)
-      {
-          target_Hz_2 = newHz_2;
-      }
+      MoveTarget(target_Hx_2, target_Hz_2, 0.0, -step_size);
       break;
     case GLFW_KEY_A:
-      newHx_2 = target_Hx_2 - step_size;
-      if(std::sqrt(newHx_2*newHx_2 + target_Hz_2*target_Hz_2) <= 0.4)
-      {
-          target_Hx_2 = newHx_2;
-      }
+      MoveTarget(target_Hx_2, target_Hz_2, -step_size, 0.0);
       break;
     case GLFW_KEY_D:
-      newHx_2 = target_Hx_2 + step_size;
-      if(std::sqrt(newHx_2*newHx_2 + target_Hz_2*target_Hz_2) <= 0.4)
-      {
-          target_Hx_2 = newHx_2;
-      }
+      MoveTarget(target_Hx_2, target_Hz_2, step_size, 0.0);
       break;
     case GLFW_KEY_PAGE_UP:
       step_size *= 2.0;
@@ -427,17 +380,6 @@ int main(int argc, const char** argv) {
   }
   mj_forward(m, d);
 
-  // A 点 world 位置 (固定)
-  double A_pos[3];
-  A_pos[0] = d->xpos[3 * body_a + 0];
-  A_pos[1] = d->xpos[3 * body_a + 1];
-  A_pos[2] = d->xpos[3 * body_a + 2];
-
-  double A2_pos[3];
-  A2_pos[0] = d->xpos[3 * body_a_2 + 0];
-  A2_pos[1] = d->xpos[3 * body_a_2 + 1];
-  A2_pos[2] = d->xpos[3 * body_a_2 + 2];
-
   // 初始化 GLFW
   if (!glfwInit()) {
     mju_error("Could not initialize GLFW");
@@ -461,17 +403,19 @@ int main(int argc, const char** argv) {
   glfwSetScrollCallback(window, scroll);
 
   // 上一帧的解 (弧度)
-  double phi1_prev = d->qpos[m->jnt_qposadr[joint_D]];;  
+  double phi1_prev = d->qpos[m->jnt_qposadr[joint_D]];
   double phi2_prev = d->qpos[m->jnt_qposadr[joint_B]];  
-  double phi1_prev_2 = d->qpos[m->jnt_qposadr[joint_D_2]]; 
-  double phi2_prev_2 = d->qpos[m->jnt_qposadr[joint_B_2]];
+  double phi1_prev_2 = -d->qpos[m->jnt_qposadr[joint_D_2]];
+  double phi2_prev_2 = -d->qpos[m->jnt_qposadr[joint_B_2]];
+  int branch_prev = 1;
+  int branch_prev_2 = 1;
   bool ik_failed = false;
   bool ik_failed_2 = false;
-  int fail_count = 0;
-  int fail_count_2 = 0;
 
   ForwardKinematics(phi1_prev, phi2_prev, 1, target_Hx, target_Hz);
   ForwardKinematics(phi1_prev_2, phi2_prev_2, 1, target_Hx_2, target_Hz_2);
+  ClampTargetH(target_Hx, target_Hz);
+  ClampTargetH(target_Hx_2, target_Hz_2);
   while (!glfwWindowShouldClose(window)) {
     // ---- 逆运动学求解 ----
     double target_Hx_local = target_Hx;
@@ -479,8 +423,8 @@ int main(int argc, const char** argv) {
     double target_Hx_local_2 = target_Hx_2;
     double target_Hz_local_2 = target_Hz_2;
 
-    ClampTargetHStart(target_Hx_local, target_Hz_local);
-    ClampTargetHStart(target_Hx_local_2, target_Hz_local_2);
+    ClampTargetH(target_Hx_local, target_Hz_local);
+    ClampTargetH(target_Hx_local_2, target_Hz_local_2);
 
     static bool first_print = true;
     if(first_print)
@@ -489,17 +433,18 @@ int main(int argc, const char** argv) {
       printf("target_Hx=%.6f\n", target_Hx);
       printf("target_Hx_local=%.6f\n", target_Hx_local);
       printf("target_Hz=%.6f\n", target_Hz);
+      printf("target_Hz_local=%.6f\n", target_Hz_local);
       printf("phi1_prev=%.6f\n", phi1_prev);
       printf("phi2_prev=%.6f\n", phi2_prev);
     }
 
 
     double phi1, phi2;
-    int branch_used;
+    int branch_used = branch_prev;
     bool ok = InverseKinematics(target_Hx_local, target_Hz_local, phi1_prev, phi2_prev, phi1, phi2,branch_used);
 
     double phi1_2, phi2_2;
-    int branch_used_2;
+    int branch_used_2 = branch_prev_2;
     bool ok_2 = InverseKinematics(target_Hx_local_2, target_Hz_local_2,
                                   phi1_prev_2, phi2_prev_2, phi1_2, phi2_2,branch_used_2);
 
@@ -510,6 +455,7 @@ int main(int argc, const char** argv) {
       
       phi1_prev = phi1;
       phi2_prev = phi2;
+      branch_prev = branch_used;
 
       if(first_print)
       {
@@ -531,13 +477,13 @@ int main(int argc, const char** argv) {
           printf("\n=== FK CHECK ===\n");
           printf("target : %.6f %.6f\n",
                   target_Hx_local,
-                  target_Hz);
+                  target_Hz_local);
           printf("fk     : %.6f %.6f\n",
                   fkx,
                   fkz);
           printf("error  : %.6f %.6f\n",
                   fkx - target_Hx_local,
-                  fkz - target_Hz);
+                  fkz - target_Hz_local);
       }
       d->ctrl[act_q_b] = phi2;
       d->ctrl[act_q_d] = phi1;
@@ -559,13 +505,12 @@ int main(int argc, const char** argv) {
       }
       first_print = false;
       ik_failed = false;
-      fail_count = 0;
     } else {
       if (!ik_failed) {
-        std::printf("IK failed for H1 target (%.3f, %.3f)\n", target_Hx, target_Hz);
+        std::printf("IK failed for H1 target (%.3f, %.3f)\n",
+                    target_Hx_local, target_Hz_local);
         ik_failed = true;
       }
-      fail_count++;
     }
 
     if (ok_2) {
@@ -574,16 +519,16 @@ int main(int argc, const char** argv) {
       
       phi1_prev_2 = phi1_2;
       phi2_prev_2 = phi2_2;
-      d->ctrl[act_q_b_2] = phi2_2;
-      d->ctrl[act_q_d_2] = phi1_2;
+      branch_prev_2 = branch_used_2;
+      d->ctrl[act_q_b_2] = -phi2_2;
+      d->ctrl[act_q_d_2] = -phi1_2;
       ik_failed_2 = false;
-      fail_count_2 = 0;
     } else {
       if (!ik_failed_2) {
-        std::printf("IK failed for H2 target (%.3f, %.3f)\n", target_Hx_2, target_Hz_2);
+        std::printf("IK failed for H2 target (%.3f, %.3f)\n",
+                    target_Hx_local_2, target_Hz_local_2);
         ik_failed_2 = true;
       }
-      fail_count_2++;
     }
 
     // ---- 仿真步进 ----
@@ -603,15 +548,17 @@ int main(int argc, const char** argv) {
     // 红色标记：H1 目标位置
     const double* a_xmat = d->xmat + 9 * body_a;
     const double* a2_xmat = d->xmat + 9 * body_a_2;
+    const double* A_pos = d->xpos + 3 * body_a;
+    const double* A2_pos = d->xpos + 3 * body_a_2;
     double a_x[3] = {a_xmat[0], a_xmat[1], a_xmat[2]};
     double a_z[3] = {a_xmat[6], a_xmat[7], a_xmat[8]};
     double a2_x[3] = {a2_xmat[0], a2_xmat[1], a2_xmat[2]};
     double a2_z[3] = {a2_xmat[6], a2_xmat[7], a2_xmat[8]};
 
     double target_pos[3] = {
-      A_pos[0] + a_x[0] * target_Hx_local + a_z[0] * target_Hz,
-      A_pos[1] + a_x[1] * target_Hx_local + a_z[1] * target_Hz,
-      A_pos[2] + a_x[2] * target_Hx_local + a_z[2] * target_Hz
+      A_pos[0] + a_x[0] * target_Hx_local + a_z[0] * target_Hz_local,
+      A_pos[1] + a_x[1] * target_Hx_local + a_z[1] * target_Hz_local,
+      A_pos[2] + a_x[2] * target_Hx_local + a_z[2] * target_Hz_local
     };
     AddMarker(&scn, target_pos, 1.0f, 0.0f, 0.0f, 0.015f);
     // 紫色标记：H2 目标位置
@@ -625,10 +572,10 @@ int main(int argc, const char** argv) {
     // IK 计算的 H 点位置（相对于 A 的局部坐标）
     double ik_hx = 0.0;
     double ik_hz = 0.0;
-    bool has_ik_h = ForwardKinematics(phi1_prev, phi2_prev, branch_used, ik_hx, ik_hz);
+    bool has_ik_h = ForwardKinematics(phi1_prev, phi2_prev, branch_prev, ik_hx, ik_hz);
     double ik_hx_2 = 0.0;
     double ik_hz_2 = 0.0;
-    bool has_ik_h_2 = ForwardKinematics(phi1_prev_2, phi2_prev_2, branch_used_2, ik_hx_2, ik_hz_2);
+    bool has_ik_h_2 = ForwardKinematics(phi1_prev_2, phi2_prev_2, branch_prev_2, ik_hx_2, ik_hz_2);
 
     // 绿色标记：实际 H 点位置
     double actual_hx = 0.0;
@@ -677,36 +624,32 @@ int main(int argc, const char** argv) {
     char status[256];
     if (has_actual_h && has_actual_h_2 && has_ik_h && has_ik_h_2) {
       double err_hx = actual_hx - target_Hx_local;
-      double err_hz = actual_hz - target_Hz;
+      double err_hz = actual_hz - target_Hz_local;
       double err_hx_2 = actual_hx_2 - target_Hx_local_2;
       double err_hz_2 = actual_hz_2 - target_Hz_local_2;
-      double ik_err_hx = ik_hx - target_Hx_local;
-      double ik_err_hz = ik_hz - target_Hz;
-      double ik_err_hx_2 = ik_hx_2 - target_Hx_local_2;
-      double ik_err_hz_2 = ik_hz_2 - target_Hz_local_2;
       std::snprintf(status, sizeof(status),
         "H1 T:(%.3f, %.3f) IK:(%.3f, %.3f) A:(%.3f, %.3f) E:(%.3f, %.3f) | H2 T:(%.3f, %.3f) IK:(%.3f, %.3f) A:(%.3f, %.3f) E:(%.3f, %.3f) | Step=%.4f %s%s",
-        target_Hx_local, target_Hz, ik_hx, ik_hz, actual_hx, actual_hz, err_hx, err_hz,
+        target_Hx_local, target_Hz_local, ik_hx, ik_hz, actual_hx, actual_hz, err_hx, err_hz,
         target_Hx_local_2, target_Hz_local_2, ik_hx_2, ik_hz_2, actual_hx_2, actual_hz_2, err_hx_2, err_hz_2,
         step_size, ik_failed ? "| IK1 FAILED" : "", ik_failed_2 ? "| IK2 FAILED" : "");
     } else if (has_actual_h) {
       double err_hx = actual_hx - target_Hx_local;
-      double err_hz = actual_hz - target_Hz;
+      double err_hz = actual_hz - target_Hz_local;
       std::snprintf(status, sizeof(status),
         "Target H: (%.3f, %.3f) | IK H: (n/a) | Actual H: (%.3f, %.3f) | Error: (%.3f, %.3f) | ctrl: phi1=%.3f phi2=%.3f | Step=%.4f %s",
-        target_Hx_local, target_Hz, actual_hx, actual_hz, err_hx, err_hz, phi1_prev, phi2_prev, step_size,
+        target_Hx_local, target_Hz_local, actual_hx, actual_hz, err_hx, err_hz, phi1_prev, phi2_prev, step_size,
         ik_failed ? "| IK FAILED" : "");
     } else if (has_ik_h) {
       double ik_err_hx = ik_hx - target_Hx_local;
-      double ik_err_hz = ik_hz - target_Hz;
+      double ik_err_hz = ik_hz - target_Hz_local;
       std::snprintf(status, sizeof(status),
         "Target H: (%.3f, %.3f) | IK H: (%.3f, %.3f) | Actual H: (n/a) | IK Err: (%.3f, %.3f) | ctrl: phi1=%.3f phi2=%.3f | Step=%.4f %s",
-        target_Hx_local, target_Hz, ik_hx, ik_hz, ik_err_hx, ik_err_hz, phi1_prev, phi2_prev, step_size,
+        target_Hx_local, target_Hz_local, ik_hx, ik_hz, ik_err_hx, ik_err_hz, phi1_prev, phi2_prev, step_size,
         ik_failed ? "| IK FAILED" : "");
     } else {
       std::snprintf(status, sizeof(status),
         "Target H: (%.3f, %.3f) | IK H: (n/a) | Actual H: (n/a) | ctrl: phi1=%.3f phi2=%.3f | Step=%.4f %s",
-        target_Hx_local, target_Hz, phi1_prev, phi2_prev, step_size,
+        target_Hx_local, target_Hz_local, phi1_prev, phi2_prev, step_size,
         ik_failed ? "| IK FAILED" : "");
     }
     mjr_overlay(mjFONT_NORMAL, mjGRID_TOPLEFT, viewport, status, nullptr, &con);
