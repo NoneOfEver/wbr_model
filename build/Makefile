@@ -143,6 +143,84 @@ ik_viewer/fast:
 .PHONY : ik_viewer/fast
 
 #=============================================================================
+# Target rules for targets named lqr_open_loop_test
+
+# Build rule for target.
+lqr_open_loop_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lqr_open_loop_test
+.PHONY : lqr_open_loop_test
+
+# fast build rule for target.
+lqr_open_loop_test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lqr_open_loop_test.dir/build.make CMakeFiles/lqr_open_loop_test.dir/build
+.PHONY : lqr_open_loop_test/fast
+
+#=============================================================================
+# Target rules for targets named lqr_identification
+
+# Build rule for target.
+lqr_identification: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lqr_identification
+.PHONY : lqr_identification
+
+# fast build rule for target.
+lqr_identification/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lqr_identification.dir/build.make CMakeFiles/lqr_identification.dir/build
+.PHONY : lqr_identification/fast
+
+#=============================================================================
+# Target rules for targets named kinematics_checker
+
+# Build rule for target.
+kinematics_checker: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 kinematics_checker
+.PHONY : kinematics_checker
+
+# fast build rule for target.
+kinematics_checker/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kinematics_checker.dir/build.make CMakeFiles/kinematics_checker.dir/build
+.PHONY : kinematics_checker/fast
+
+#=============================================================================
+# Target rules for targets named reduced_model_check
+
+# Build rule for target.
+reduced_model_check: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 reduced_model_check
+.PHONY : reduced_model_check
+
+# fast build rule for target.
+reduced_model_check/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/reduced_model_check.dir/build.make CMakeFiles/reduced_model_check.dir/build
+.PHONY : reduced_model_check/fast
+
+#=============================================================================
+# Target rules for targets named reduced_identification
+
+# Build rule for target.
+reduced_identification: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 reduced_identification
+.PHONY : reduced_identification
+
+# fast build rule for target.
+reduced_identification/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/reduced_identification.dir/build.make CMakeFiles/reduced_identification.dir/build
+.PHONY : reduced_identification/fast
+
+#=============================================================================
+# Target rules for targets named wbr_v2_closed_loop_test
+
+# Build rule for target.
+wbr_v2_closed_loop_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 wbr_v2_closed_loop_test
+.PHONY : wbr_v2_closed_loop_test
+
+# fast build rule for target.
+wbr_v2_closed_loop_test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/build
+.PHONY : wbr_v2_closed_loop_test/fast
+
+#=============================================================================
 # Target rules for targets named simulate
 
 # Build rule for target.
@@ -202,6 +280,126 @@ ik_viewer.s: ik_viewer.cc.s
 ik_viewer.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ik_viewer.dir/build.make CMakeFiles/ik_viewer.dir/ik_viewer.cc.s
 .PHONY : ik_viewer.cc.s
+
+kinematics_checker.o: kinematics_checker.cc.o
+.PHONY : kinematics_checker.o
+
+# target to build an object file
+kinematics_checker.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kinematics_checker.dir/build.make CMakeFiles/kinematics_checker.dir/kinematics_checker.cc.o
+.PHONY : kinematics_checker.cc.o
+
+kinematics_checker.i: kinematics_checker.cc.i
+.PHONY : kinematics_checker.i
+
+# target to preprocess a source file
+kinematics_checker.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kinematics_checker.dir/build.make CMakeFiles/kinematics_checker.dir/kinematics_checker.cc.i
+.PHONY : kinematics_checker.cc.i
+
+kinematics_checker.s: kinematics_checker.cc.s
+.PHONY : kinematics_checker.s
+
+# target to generate assembly for a file
+kinematics_checker.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kinematics_checker.dir/build.make CMakeFiles/kinematics_checker.dir/kinematics_checker.cc.s
+.PHONY : kinematics_checker.cc.s
+
+lqr_identification.o: lqr_identification.cc.o
+.PHONY : lqr_identification.o
+
+# target to build an object file
+lqr_identification.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lqr_identification.dir/build.make CMakeFiles/lqr_identification.dir/lqr_identification.cc.o
+.PHONY : lqr_identification.cc.o
+
+lqr_identification.i: lqr_identification.cc.i
+.PHONY : lqr_identification.i
+
+# target to preprocess a source file
+lqr_identification.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lqr_identification.dir/build.make CMakeFiles/lqr_identification.dir/lqr_identification.cc.i
+.PHONY : lqr_identification.cc.i
+
+lqr_identification.s: lqr_identification.cc.s
+.PHONY : lqr_identification.s
+
+# target to generate assembly for a file
+lqr_identification.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lqr_identification.dir/build.make CMakeFiles/lqr_identification.dir/lqr_identification.cc.s
+.PHONY : lqr_identification.cc.s
+
+lqr_open_loop_test.o: lqr_open_loop_test.cc.o
+.PHONY : lqr_open_loop_test.o
+
+# target to build an object file
+lqr_open_loop_test.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lqr_open_loop_test.dir/build.make CMakeFiles/lqr_open_loop_test.dir/lqr_open_loop_test.cc.o
+.PHONY : lqr_open_loop_test.cc.o
+
+lqr_open_loop_test.i: lqr_open_loop_test.cc.i
+.PHONY : lqr_open_loop_test.i
+
+# target to preprocess a source file
+lqr_open_loop_test.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lqr_open_loop_test.dir/build.make CMakeFiles/lqr_open_loop_test.dir/lqr_open_loop_test.cc.i
+.PHONY : lqr_open_loop_test.cc.i
+
+lqr_open_loop_test.s: lqr_open_loop_test.cc.s
+.PHONY : lqr_open_loop_test.s
+
+# target to generate assembly for a file
+lqr_open_loop_test.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lqr_open_loop_test.dir/build.make CMakeFiles/lqr_open_loop_test.dir/lqr_open_loop_test.cc.s
+.PHONY : lqr_open_loop_test.cc.s
+
+reduced_identification.o: reduced_identification.cc.o
+.PHONY : reduced_identification.o
+
+# target to build an object file
+reduced_identification.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/reduced_identification.dir/build.make CMakeFiles/reduced_identification.dir/reduced_identification.cc.o
+.PHONY : reduced_identification.cc.o
+
+reduced_identification.i: reduced_identification.cc.i
+.PHONY : reduced_identification.i
+
+# target to preprocess a source file
+reduced_identification.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/reduced_identification.dir/build.make CMakeFiles/reduced_identification.dir/reduced_identification.cc.i
+.PHONY : reduced_identification.cc.i
+
+reduced_identification.s: reduced_identification.cc.s
+.PHONY : reduced_identification.s
+
+# target to generate assembly for a file
+reduced_identification.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/reduced_identification.dir/build.make CMakeFiles/reduced_identification.dir/reduced_identification.cc.s
+.PHONY : reduced_identification.cc.s
+
+reduced_model_check.o: reduced_model_check.cc.o
+.PHONY : reduced_model_check.o
+
+# target to build an object file
+reduced_model_check.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/reduced_model_check.dir/build.make CMakeFiles/reduced_model_check.dir/reduced_model_check.cc.o
+.PHONY : reduced_model_check.cc.o
+
+reduced_model_check.i: reduced_model_check.cc.i
+.PHONY : reduced_model_check.i
+
+# target to preprocess a source file
+reduced_model_check.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/reduced_model_check.dir/build.make CMakeFiles/reduced_model_check.dir/reduced_model_check.cc.i
+.PHONY : reduced_model_check.cc.i
+
+reduced_model_check.s: reduced_model_check.cc.s
+.PHONY : reduced_model_check.s
+
+# target to generate assembly for a file
+reduced_model_check.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/reduced_model_check.dir/build.make CMakeFiles/reduced_model_check.dir/reduced_model_check.cc.s
+.PHONY : reduced_model_check.cc.s
 
 simulate/glfw_adapter.o: simulate/glfw_adapter.cc.o
 .PHONY : simulate/glfw_adapter.o
@@ -363,6 +561,57 @@ simulate/wbr_controller.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller.cc.s
 .PHONY : simulate/wbr_controller.cc.s
 
+simulate/wbr_controller_v2.o: simulate/wbr_controller_v2.cc.o
+.PHONY : simulate/wbr_controller_v2.o
+
+# target to build an object file
+simulate/wbr_controller_v2.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2.cc.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller_v2.cc.o
+.PHONY : simulate/wbr_controller_v2.cc.o
+
+simulate/wbr_controller_v2.i: simulate/wbr_controller_v2.cc.i
+.PHONY : simulate/wbr_controller_v2.i
+
+# target to preprocess a source file
+simulate/wbr_controller_v2.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2.cc.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller_v2.cc.i
+.PHONY : simulate/wbr_controller_v2.cc.i
+
+simulate/wbr_controller_v2.s: simulate/wbr_controller_v2.cc.s
+.PHONY : simulate/wbr_controller_v2.s
+
+# target to generate assembly for a file
+simulate/wbr_controller_v2.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2.cc.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller_v2.cc.s
+.PHONY : simulate/wbr_controller_v2.cc.s
+
+wbr_v2_closed_loop_test.o: wbr_v2_closed_loop_test.cc.o
+.PHONY : wbr_v2_closed_loop_test.o
+
+# target to build an object file
+wbr_v2_closed_loop_test.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/wbr_v2_closed_loop_test.cc.o
+.PHONY : wbr_v2_closed_loop_test.cc.o
+
+wbr_v2_closed_loop_test.i: wbr_v2_closed_loop_test.cc.i
+.PHONY : wbr_v2_closed_loop_test.i
+
+# target to preprocess a source file
+wbr_v2_closed_loop_test.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/wbr_v2_closed_loop_test.cc.i
+.PHONY : wbr_v2_closed_loop_test.cc.i
+
+wbr_v2_closed_loop_test.s: wbr_v2_closed_loop_test.cc.s
+.PHONY : wbr_v2_closed_loop_test.s
+
+# target to generate assembly for a file
+wbr_v2_closed_loop_test.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/wbr_v2_closed_loop_test.cc.s
+.PHONY : wbr_v2_closed_loop_test.cc.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -373,13 +622,34 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... basic"
 	@echo "... ik_viewer"
+	@echo "... kinematics_checker"
+	@echo "... lqr_identification"
+	@echo "... lqr_open_loop_test"
+	@echo "... reduced_identification"
+	@echo "... reduced_model_check"
 	@echo "... simulate"
+	@echo "... wbr_v2_closed_loop_test"
 	@echo "... basic.o"
 	@echo "... basic.i"
 	@echo "... basic.s"
 	@echo "... ik_viewer.o"
 	@echo "... ik_viewer.i"
 	@echo "... ik_viewer.s"
+	@echo "... kinematics_checker.o"
+	@echo "... kinematics_checker.i"
+	@echo "... kinematics_checker.s"
+	@echo "... lqr_identification.o"
+	@echo "... lqr_identification.i"
+	@echo "... lqr_identification.s"
+	@echo "... lqr_open_loop_test.o"
+	@echo "... lqr_open_loop_test.i"
+	@echo "... lqr_open_loop_test.s"
+	@echo "... reduced_identification.o"
+	@echo "... reduced_identification.i"
+	@echo "... reduced_identification.s"
+	@echo "... reduced_model_check.o"
+	@echo "... reduced_model_check.i"
+	@echo "... reduced_model_check.s"
 	@echo "... simulate/glfw_adapter.o"
 	@echo "... simulate/glfw_adapter.i"
 	@echo "... simulate/glfw_adapter.s"
@@ -400,6 +670,12 @@ help:
 	@echo "... simulate/wbr_controller.o"
 	@echo "... simulate/wbr_controller.i"
 	@echo "... simulate/wbr_controller.s"
+	@echo "... simulate/wbr_controller_v2.o"
+	@echo "... simulate/wbr_controller_v2.i"
+	@echo "... simulate/wbr_controller_v2.s"
+	@echo "... wbr_v2_closed_loop_test.o"
+	@echo "... wbr_v2_closed_loop_test.i"
+	@echo "... wbr_v2_closed_loop_test.s"
 .PHONY : help
 
 

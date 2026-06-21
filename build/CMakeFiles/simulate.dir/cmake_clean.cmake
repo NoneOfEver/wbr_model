@@ -15,6 +15,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/simulate.dir/simulate/simulate.cc.o.d"
   "CMakeFiles/simulate.dir/simulate/wbr_controller.cc.o"
   "CMakeFiles/simulate.dir/simulate/wbr_controller.cc.o.d"
+  "CMakeFiles/simulate.dir/simulate/wbr_controller_v2.cc.o"
+  "CMakeFiles/simulate.dir/simulate/wbr_controller_v2.cc.o.d"
   "simulate"
   "simulate.pdb"
 )

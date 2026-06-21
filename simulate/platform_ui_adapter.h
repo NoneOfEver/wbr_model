@@ -38,6 +38,10 @@ class PlatformUIAdapter {
     layout_callback_ = layout_callback;
   }
 
+  inline void SetRawKeyCallback(bool (*callback)(int, bool)) {
+    raw_key_callback_ = callback;
+  }
+
   // Optionally overridable function to (re)create an mjrContext for an mjModel
   virtual bool RefreshMjrContext(const mjModel* m, int fontscale);
 
@@ -88,6 +92,7 @@ class PlatformUIAdapter {
   int last_key_;
   void (*event_callback_)(mjuiState*);
   void (*layout_callback_)(mjuiState*);
+  bool (*raw_key_callback_)(int, bool) = nullptr;
 
   mjrContext con_;
   const mjModel* last_model_ = nullptr;

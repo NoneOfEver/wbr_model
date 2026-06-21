@@ -1,5 +1,11 @@
 /Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles/basic.dir
 /Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles/ik_viewer.dir
+/Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles/lqr_open_loop_test.dir
+/Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles/lqr_identification.dir
+/Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles/kinematics_checker.dir
+/Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles/reduced_model_check.dir
+/Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles/reduced_identification.dir
+/Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles/wbr_v2_closed_loop_test.dir
 /Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles/simulate.dir
 /Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles/edit_cache.dir
 /Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles/rebuild_cache.dir

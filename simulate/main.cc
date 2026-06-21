@@ -29,7 +29,7 @@
 #include "glfw_adapter.h"
 #include "simulate.h"
 #include "array_safety.h"
-#include "wbr_controller.h"
+#include "wbr_controller_v2.h"
 
 #define MUJOCO_PLUGIN_DIR "mujoco_plugin"
 
@@ -57,7 +57,32 @@ const int kErrorLength = 1024;          // load error string length
 // model and data
 mjModel* m = nullptr;
 mjData* d = nullptr;
-WbrController controller;
+WbrControllerV2 controller;
+std::atomic<bool> key_w{false};
+std::atomic<bool> key_s{false};
+std::atomic<bool> key_a{false};
+std::atomic<bool> key_d{false};
+
+bool DriveKeyCallback(int key, bool down) {
+  switch (key) {
+    case 'W': case 'w': key_w.store(down); return true;
+    case 'S': case 's': key_s.store(down); return true;
+    case 'A': case 'a': key_a.store(down); return true;
+    case 'D': case 'd': key_d.store(down); return true;
+    default: return false;
+  }
+}
+
+void UpdateVelocityCommand() {
+  constexpr double kKeyboardLinearVelocity = 0.35;
+  // SPR's spin mode starts at 5 rad/s and schedules up to 13 rad/s.
+  constexpr double kKeyboardYawRate = 5.0;
+  const double linear = kKeyboardLinearVelocity *
+      ((key_w.load() ? 1.0 : 0.0) - (key_s.load() ? 1.0 : 0.0));
+  const double yaw_rate = kKeyboardYawRate *
+      ((key_a.load() ? 1.0 : 0.0) - (key_d.load() ? 1.0 : 0.0));
+  controller.SetVelocityCommand(linear, yaw_rate);
+}
 
 using Seconds = std::chrono::duration<double>;
 
@@ -323,8 +348,8 @@ void PhysicsLoop(mj::Simulate& sim) {
         m = mnew;
         d = dnew;
         controller.Reset(m);
-        controller.SyncTargetsFromState(m, d, sim.target_Hx, sim.target_Hz,
-                                        sim.target_Hx_2, sim.target_Hz_2);
+        controller.SyncTargetsFromState(m, d, sim.target_leg_length,
+                                        sim.target_leg_angle);
 
       } else {
         sim.LoadMessageClear();
@@ -350,8 +375,8 @@ void PhysicsLoop(mj::Simulate& sim) {
         m = mnew;
         d = dnew;
         controller.Reset(m);
-        controller.SyncTargetsFromState(m, d, sim.target_Hx, sim.target_Hz,
-                                        sim.target_Hx_2, sim.target_Hz_2);
+        controller.SyncTargetsFromState(m, d, sim.target_leg_length,
+                                        sim.target_leg_angle);
 
       } else {
         sim.LoadMessageClear();
@@ -400,8 +425,11 @@ void PhysicsLoop(mj::Simulate& sim) {
 
             // inject noise
             sim.InjectNoise(sim.key);
-            controller.Apply(m, d, sim.target_Hx, sim.target_Hz,
-                             sim.target_Hx_2, sim.target_Hz_2);
+            controller.SetControlMode(
+                sim.wbr_control_mode == 0 ? WbrControlMode::kStandLeg
+                                          : WbrControlMode::kGroundBalance);
+            UpdateVelocityCommand();
+            controller.Apply(m, d, sim.target_leg_length, sim.target_leg_angle);
 
             // run single step, let next iteration deal with timing
             mj_step(m, d);
@@ -433,8 +461,11 @@ void PhysicsLoop(mj::Simulate& sim) {
 
               // inject noise
               sim.InjectNoise(sim.key);
-              controller.Apply(m, d, sim.target_Hx, sim.target_Hz,
-                               sim.target_Hx_2, sim.target_Hz_2);
+              controller.SetControlMode(
+                  sim.wbr_control_mode == 0 ? WbrControlMode::kStandLeg
+                                            : WbrControlMode::kGroundBalance);
+              UpdateVelocityCommand();
+              controller.Apply(m, d, sim.target_leg_length, sim.target_leg_angle);
 
               // call mj_step
               mj_step(m, d);
@@ -496,8 +527,8 @@ void PhysicsThread(mj::Simulate* sim, const char* filename) {
       // lock the sim mutex
       const std::unique_lock<std::recursive_mutex> lock(sim->mtx);
       controller.Reset(m);
-      controller.SyncTargetsFromState(m, d, sim->target_Hx, sim->target_Hz,
-                                      sim->target_Hx_2, sim->target_Hz_2);
+      controller.SyncTargetsFromState(m, d, sim->target_leg_length,
+                                      sim->target_leg_angle);
 
     } else {
       sim->LoadMessageClear();
@@ -556,6 +587,8 @@ int main(int argc, char** argv) {
       std::make_unique<mj::GlfwAdapter>(),
       &cam, &opt, &pert, /* is_passive = */ false
   );
+  sim->platform_ui->SetRawKeyCallback(DriveKeyCallback);
+  std::printf("WBR keyboard control: W/S forward/backward, A/D CCW/CW.\n");
 
   const char* filename = nullptr;
   if (argc >  1) {

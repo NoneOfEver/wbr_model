@@ -7,15 +7,11 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate -I/Users/panpoming/Documents/mujoco_ws/mujoco/include -isystem /opt/homebrew/include
 
-CXX_FLAGSarm64 = -std=gnu++17 -arch arm64
-
-CXX_FLAGS = -std=gnu++17 -arch arm64
+CXX_FLAGS = -std=gnu++17
 
 OBJCXX_DEFINES = 
 
 OBJCXX_INCLUDES = -I/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate -I/Users/panpoming/Documents/mujoco_ws/mujoco/include -isystem /opt/homebrew/include
 
-OBJCXX_FLAGSarm64 = -std=gnu++17 -arch arm64
-
-OBJCXX_FLAGS = -std=gnu++17 -arch arm64
+OBJCXX_FLAGS = -std=gnu++17
 

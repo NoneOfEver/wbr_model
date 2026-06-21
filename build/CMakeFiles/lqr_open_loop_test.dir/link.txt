@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wl,-search_paths_first -Wl,-headerpad_max_install_names -Wl,-rpath,/Users/panpoming/Documents/mujoco_ws/mujoco/build/lib CMakeFiles/lqr_open_loop_test.dir/lqr_open_loop_test.cc.o -o lqr_open_loop_test  -Wl,-rpath,/Users/panpoming/Documents/mujoco_ws/mujoco/build/lib /Users/panpoming/Documents/mujoco_ws/mujoco/build/lib/libmujoco.dylib

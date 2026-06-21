@@ -14,6 +14,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/platform_ui_adapter.cc" "CMakeFiles/simulate.dir/simulate/platform_ui_adapter.cc.o" "gcc" "CMakeFiles/simulate.dir/simulate/platform_ui_adapter.cc.o.d"
   "/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/simulate.cc" "CMakeFiles/simulate.dir/simulate/simulate.cc.o" "gcc" "CMakeFiles/simulate.dir/simulate/simulate.cc.o.d"
   "/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller.cc" "CMakeFiles/simulate.dir/simulate/wbr_controller.cc.o" "gcc" "CMakeFiles/simulate.dir/simulate/wbr_controller.cc.o.d"
+  "/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2.cc" "CMakeFiles/simulate.dir/simulate/wbr_controller_v2.cc.o" "gcc" "CMakeFiles/simulate.dir/simulate/wbr_controller_v2.cc.o.d"
   "/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/glfw_corevideo.mm" "CMakeFiles/simulate.dir/simulate/glfw_corevideo.mm.o" "gcc" "CMakeFiles/simulate.dir/simulate/glfw_corevideo.mm.o.d"
   "/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/macos_gui.mm" "CMakeFiles/simulate.dir/simulate/macos_gui.mm.o" "gcc" "CMakeFiles/simulate.dir/simulate/macos_gui.mm.o.d"
   )

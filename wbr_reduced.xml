@@ -1,0 +1,79 @@
+<mujoco model="wbr_reduced">
+  <compiler angle="radian" autolimits="true"/>
+
+  <option timestep="0.001" gravity="0 0 -9.81" integrator="implicitfast">
+    <flag contact="enable"/>
+  </option>
+
+  <default>
+    <joint damping="0.02" armature="0.0001"/>
+    <geom friction="1.0 0.005 0.0001" condim="3"/>
+    <motor ctrllimited="true"/>
+  </default>
+
+  <asset>
+    <texture name="ground_tex" type="2d" builtin="checker"
+             rgb1="0.28 0.30 0.32" rgb2="0.16 0.18 0.20" width="512" height="512"/>
+    <material name="ground_mat" texture="ground_tex" texrepeat="4 4" reflectance="0.1"/>
+    <material name="platform_mat" rgba="0.24 0.48 0.72 1"/>
+    <material name="leg_mat" rgba="0.78 0.80 0.82 1"/>
+    <material name="wheel_mat" rgba="0.08 0.08 0.09 1"/>
+  </asset>
+
+  <worldbody>
+    <light pos="0 -2 3" dir="0 1 -1" diffuse="0.8 0.8 0.8"/>
+    <geom name="ground" type="plane" size="5 5 0.1" material="ground_mat"/>
+
+    <body name="platform" pos="0 0 0.23">
+      <!-- A planar root keeps the reduced plant aligned with the paper model. -->
+      <joint name="root_x" type="slide" axis="1 0 0" damping="0"/>
+      <joint name="root_z" type="slide" axis="0 0 1" damping="0"/>
+      <joint name="root_pitch" type="hinge" axis="0 1 0" damping="0.05"/>
+      <inertial pos="0 0 0" mass="6.3"
+                diaginertia="0.11354 0.024008 0.1171525"/>
+      <geom name="platform_geom" type="box" size="0.12 0.135 0.10"
+            material="platform_mat" density="0"/>
+
+      <body name="leg_1" pos="0 0.15 0">
+        <joint name="leg_theta_1" type="hinge" axis="0 1 0"/>
+        <inertial pos="0 0 -0.09" mass="0.47"
+                  diaginertia="0.00130 0.00130 0.000024"/>
+        <geom name="leg_geom_1" type="capsule" fromto="0 0 0 0 0 -0.18"
+              size="0.01" material="leg_mat" density="0"/>
+        <body name="wheel_1" pos="0 0 -0.18">
+          <joint name="wheel_joint_1" type="hinge" axis="0 1 0" damping="0.001"/>
+          <inertial pos="0 0 0" mass="0.47"
+                    diaginertia="0.000329 0.0005875 0.000329"/>
+          <geom name="wheel_geom_1" type="cylinder" fromto="0 -0.015 0 0 0.015 0"
+                size="0.05" material="wheel_mat" density="0"/>
+        </body>
+      </body>
+
+      <body name="leg_2" pos="0 -0.15 0">
+        <joint name="leg_theta_2" type="hinge" axis="0 1 0"/>
+        <inertial pos="0 0 -0.09" mass="0.47"
+                  diaginertia="0.00130 0.00130 0.000024"/>
+        <geom name="leg_geom_2" type="capsule" fromto="0 0 0 0 0 -0.18"
+              size="0.01" material="leg_mat" density="0"/>
+        <body name="wheel_2" pos="0 0 -0.18">
+          <joint name="wheel_joint_2" type="hinge" axis="0 1 0" damping="0.001"/>
+          <inertial pos="0 0 0" mass="0.47"
+                    diaginertia="0.000329 0.0005875 0.000329"/>
+          <geom name="wheel_geom_2" type="cylinder" fromto="0 -0.015 0 0 0.015 0"
+                size="0.05" material="wheel_mat" density="0"/>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <motor name="wheel_motor_1" joint="wheel_joint_1" ctrlrange="-5 5"/>
+    <motor name="wheel_motor_2" joint="wheel_joint_2" ctrlrange="-5 5"/>
+    <motor name="hip_motor_1" joint="leg_theta_1" ctrlrange="-20 20"/>
+    <motor name="hip_motor_2" joint="leg_theta_2" ctrlrange="-20 20"/>
+  </actuator>
+
+  <keyframe>
+    <key name="standing" qpos="0 0 0 0 0 0 0" ctrl="0 0 0 0"/>
+  </keyframe>
+</mujoco>

@@ -4,6 +4,8 @@ project(MUJOCO_T LANGUAGES C CXX OBJCXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/simulate)
 
 set(MUJOCO_SRC "/Users/panpoming/Documents/mujoco_ws/mujoco" CACHE PATH "MuJoCo source path")
@@ -20,6 +22,32 @@ target_link_options(basic PRIVATE "-Wl,-rpath,${MUJOCO_BUILD}/lib")
 add_executable(ik_viewer ik_viewer.cc)
 target_link_libraries(ik_viewer PRIVATE ${MUJOCO_LIB} glfw)
 target_link_options(ik_viewer PRIVATE "-Wl,-rpath,${MUJOCO_BUILD}/lib")
+
+add_executable(lqr_open_loop_test lqr_open_loop_test.cc)
+target_link_libraries(lqr_open_loop_test PRIVATE ${MUJOCO_LIB})
+target_link_options(lqr_open_loop_test PRIVATE "-Wl,-rpath,${MUJOCO_BUILD}/lib")
+
+add_executable(lqr_identification lqr_identification.cc)
+target_link_libraries(lqr_identification PRIVATE ${MUJOCO_LIB})
+target_link_options(lqr_identification PRIVATE "-Wl,-rpath,${MUJOCO_BUILD}/lib")
+
+add_executable(kinematics_checker kinematics_checker.cc)
+target_link_libraries(kinematics_checker PRIVATE ${MUJOCO_LIB})
+target_link_options(kinematics_checker PRIVATE "-Wl,-rpath,${MUJOCO_BUILD}/lib")
+
+add_executable(reduced_model_check reduced_model_check.cc)
+target_link_libraries(reduced_model_check PRIVATE ${MUJOCO_LIB})
+target_link_options(reduced_model_check PRIVATE "-Wl,-rpath,${MUJOCO_BUILD}/lib")
+
+add_executable(reduced_identification reduced_identification.cc)
+target_link_libraries(reduced_identification PRIVATE ${MUJOCO_LIB})
+target_link_options(reduced_identification PRIVATE "-Wl,-rpath,${MUJOCO_BUILD}/lib")
+
+add_executable(wbr_v2_closed_loop_test
+    wbr_v2_closed_loop_test.cc
+    simulate/wbr_controller_v2.cc)
+target_link_libraries(wbr_v2_closed_loop_test PRIVATE ${MUJOCO_LIB})
+target_link_options(wbr_v2_closed_loop_test PRIVATE "-Wl,-rpath,${MUJOCO_BUILD}/lib")
 
 file(GLOB SIMULATE_SRC
     ${CMAKE_CURRENT_SOURCE_DIR}/simulate/*.cc

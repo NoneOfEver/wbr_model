@@ -58,8 +58,13 @@ void PlatformUIAdapter::OnKey(int key, int scancode, int act) {
   // translate API-specific key code
   int mj_key = TranslateKeyCode(key);
 
+  const bool key_down = IsKeyDownEvent(act);
+  if (raw_key_callback_ && raw_key_callback_(mj_key, key_down)) {
+    return;
+  }
+
   // release: nothing to do
-  if (!IsKeyDownEvent(act)) {
+  if (!key_down) {
     return;
   }
 

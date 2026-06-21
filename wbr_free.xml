@@ -17,20 +17,36 @@
 
     <size njmax="1000" nconmax="200"/>
 
+    <!-- Link density is scaled so each complete five-bar leg is 0.47 kg. -->
+    <default>
+        <geom density="1488.66083872"/>
+    </default>
+
     <worldbody>
         <geom name="floor" size="0 0 .05" type="plane" material="grid" condim="3"/>
+        <!-- Debug stand: top surface z=0.20 supports the bottom of mount_plate. -->
+        <!-- <geom name="leg_controller_stand" type="box" pos="0 0 0.10" size="0.08 0.10 0.10"
+              rgba="0.25 0.28 0.32 1" condim="3" friction="1.5 0.005 0.0001"/> -->
         <light name="spotlight" mode="targetbody" target="A" diffuse=".8 .8 .8" specular="0.3 0.3 0.3" pos="0 -6 4" cutoff="30"/>
         <light name="top" pos="0 0 2" mode="trackcom"/>
 
         <!-- 平板：连接两个固定点 -->
         <body name="plate" pos="0 0 0.30">
             <freejoint name="root_free"/>
-            <geom name="mount_plate" type="box" size="0.12 0.135 0.10" pos="0 0 0" rgba="0.35 0.35 0.35 1"/>
+            <site name="imu_site" pos="0 0 0" size="0.006" rgba="0.1 0.8 0.2 1"/>
+            <geom name="mount_plate" type="box" size="0.12 0.135 0.10" pos="0 0 0"
+                  density="189.814814815" rgba="0.35 0.35 0.35 1"/>
 
             <!-- A 点固定在平板一侧，沿 Y 偏移避免干涉 -->
             <body name="A" pos="0 0.15 0">
             <camera name="main" pos="-0.6 0 0.3" xyaxes="0 -1 0 1 0 1" mode="trackcom"/>
             <geom type="sphere" size="0.01"/>
+            <body name="motor_B_mass" pos="0 0 0">
+                <inertial pos="0 0 0" mass="0.96" diaginertia="0.001 0.001 0.001"/>
+            </body>
+            <body name="motor_D_mass" pos="0 0 0">
+                <inertial pos="0 0 0" mass="0.96" diaginertia="0.001 0.001 0.001"/>
+            </body>
 
             <!-- B branch：绕 Y 轴转，在 XZ 竖直平面内运动 -->
             <body name="B" pos="0 0 0">
@@ -79,7 +95,8 @@
                                 <body name="H_wheel_body" pos="0.250 0.027 0">
                                     <joint name="q_H_wheel" type="hinge" axis="0 1 0"
                                            damping="0.002" frictionloss="0.0001"/>
-                                    <inertial pos="0 0 0" mass="0.02" diaginertia="1e-5 1e-5 1e-5"/>
+                                    <inertial pos="0 0 0" mass="0.47"
+                                              diaginertia="0.000329 0.0005875 0.000329"/>
                                     <geom name="H_wheel" type="cylinder" fromto="0 -0.015 0 0 0.015 0"
                                           size="0.05" density="0" rgba="0.05 0.05 0.05 1"
                                           condim="6" friction="1.2 0.005 0.0001"/>
@@ -95,6 +112,12 @@
             <!-- A2 点固定在平板另一侧，沿 Y 偏移避免干涉 -->
             <body name="A_2" pos="0 -0.15 0">
             <geom type="sphere" size="0.01"/>
+            <body name="motor_B_mass_2" pos="0 0 0">
+                <inertial pos="0 0 0" mass="0.96" diaginertia="0.001 0.001 0.001"/>
+            </body>
+            <body name="motor_D_mass_2" pos="0 0 0">
+                <inertial pos="0 0 0" mass="0.96" diaginertia="0.001 0.001 0.001"/>
+            </body>
 
             <!-- B branch：绕 Y 轴转，在 XZ 竖直平面内运动 -->
             <body name="B_2" pos="0 0 0">
@@ -143,7 +166,8 @@
                                 <body name="H_wheel_body_2" pos="0.250 -0.027 0">
                                     <joint name="q_H_wheel_2" type="hinge" axis="0 -1 0"
                                            damping="0.002" frictionloss="0.0001"/>
-                                    <inertial pos="0 0 0" mass="0.02" diaginertia="1e-5 1e-5 1e-5"/>
+                                    <inertial pos="0 0 0" mass="0.47"
+                                              diaginertia="0.000329 0.0005875 0.000329"/>
                                     <geom name="H_wheel_2" type="cylinder" fromto="0 -0.015 0 0 0.015 0"
                                           size="0.05" density="0" rgba="0.05 0.05 0.05 1"
                                           condim="6" friction="1.2 0.005 0.0001"/>
@@ -159,6 +183,27 @@
         </body>
 
     </worldbody>
+
+    <!-- The planar linkage members occupy the same visual layer. Their internal
+         intersections are mechanical clearances, not physical contacts. -->
+    <contact>
+        <!-- For condim=6 the first two coefficients are the two sliding
+             tangents; torsional and rolling friction follow them. -->
+        <pair name="wheel_floor_1" geom1="floor" geom2="H_wheel" condim="6"
+              friction="0.2 1.2 0.005 0.0001 0.0001"/>
+        <pair name="wheel_floor_2" geom1="floor" geom2="H_wheel_2" condim="6"
+              friction="0.2 1.2 0.005 0.0001 0.0001"/>
+        <exclude body1="B" body2="D"/>
+        <exclude body1="C" body2="D"/>
+        <exclude body1="C" body2="DE"/>
+        <exclude body1="D" body2="F"/>
+        <exclude body1="D" body2="G_loop"/>
+        <exclude body1="B_2" body2="D_2"/>
+        <exclude body1="C_2" body2="D_2"/>
+        <exclude body1="C_2" body2="DE_2"/>
+        <exclude body1="D_2" body2="F_2"/>
+        <exclude body1="D_2" body2="G_loop_2"/>
+    </contact>
 
     <tendon>
         <fixed name="t_de_abs">
@@ -182,15 +227,20 @@
     </tendon>
 
     <actuator>
-        <position name="act_q_B" joint="q_B" kp="100" ctrlrange="-6.28 6.28"/>
-        <position name="act_q_D" joint="q_D" kp="100" ctrlrange="-6.28 6.28"/>
-        <position name="act_q_B_2" joint="q_B_2" kp="100" ctrlrange="-6.28 6.28"/>
-        <position name="act_q_D_2" joint="q_D_2" kp="100" ctrlrange="-6.28 6.28"/>
+        <motor name="act_q_B" joint="q_B" gear="1" ctrlrange="-20 20"/>
+        <motor name="act_q_D" joint="q_D" gear="1" ctrlrange="-20 20"/>
+        <motor name="act_q_B_2" joint="q_B_2" gear="1" ctrlrange="-20 20"/>
+        <motor name="act_q_D_2" joint="q_D_2" gear="1" ctrlrange="-20 20"/>
         <motor name="act_H_wheel" joint="q_H_wheel" gear="1" ctrlrange="-5 5"/>
         <motor name="act_H_wheel_2" joint="q_H_wheel_2" gear="1" ctrlrange="-5 5"/>
     </actuator>
 
     <sensor>
+        <gyro name="imu_gyro" site="imu_site"/>
+        <accelerometer name="imu_accelerometer" site="imu_site"/>
+        <framequat name="imu_quaternion" objtype="site" objname="imu_site"/>
+        <jointvel name="wheel_speed_1" joint="q_H_wheel"/>
+        <jointvel name="wheel_speed_2" joint="q_H_wheel_2"/>
         <jointpos name="angle_q_B" joint="q_B"/>
         <jointpos name="angle_q_D" joint="q_D"/>
         <jointpos name="angle_q_B_2" joint="q_B_2"/>
@@ -198,23 +248,22 @@
     </sensor>
 
     <equality>
-        <connect site1="C_site" site2="D_site" solref="0.01 1" solimp="0.9 0.95 0.001"/>
-        <connect site1="G_loop_site" site2="G_site" solref="0.01 1" solimp="0.9 0.95 0.001"/>
+        <connect site1="C_site" site2="D_site" solref="0.002 1" solimp="0.9 0.95 0.001"/>
+        <connect site1="G_loop_site" site2="G_site" solref="0.002 1" solimp="0.9 0.95 0.001"/>
         <tendon tendon1="t_de_abs" tendon2="t_dc_abs" solref="0.002 1" solimp="0.9 0.95 0.001"/>
-        <joint joint1="q_E" joint2="q_F" polycoef="0 -1 0 0 0"/>
-        <connect site1="C_site_2" site2="D_site_2" solref="0.01 1" solimp="0.9 0.95 0.001"/>
-        <connect site1="G_loop_site_2" site2="G_site_2" solref="0.01 1" solimp="0.9 0.95 0.001"/>
+        <joint joint1="q_E" joint2="q_F" polycoef="-3.141592653589793 -1 0 0 0" solref="0.002 1" solimp="0.9 0.95 0.001"/>
+        <connect site1="C_site_2" site2="D_site_2" solref="0.002 1" solimp="0.9 0.95 0.001"/>
+        <connect site1="G_loop_site_2" site2="G_site_2" solref="0.002 1" solimp="0.9 0.95 0.001"/>
         <tendon tendon1="t_de_abs_2" tendon2="t_dc_abs_2" solref="0.002 1" solimp="0.9 0.95 0.001"/>
-        <joint joint1="q_E_2" joint2="q_F_2" polycoef="0 -1 0 0 0"/>
+        <joint joint1="q_E_2" joint2="q_F_2" polycoef="3.141592653589793 -1 0 0 0" solref="0.002 1" solimp="0.9 0.95 0.001"/>
     </equality>
 
     <keyframe>
         <!-- qpos order: q_B q_BC q_C q_D q_DE q_E q_F (radians) -->
-        <!-- ctrl order: act_q_B act_q_D (radians) -->
         <!-- qpos order (free root + wheels): root_pos root_quat q_B q_BC q_C q_D q_DE q_E q_F q_H_wheel q_B_2 q_BC_2 q_C_2 q_D_2 q_DE_2 q_E_2 q_F_2 q_H_wheel_2 -->
         <!-- ctrl order: act_q_B act_q_D act_q_B_2 act_q_D_2 act_H_wheel act_H_wheel_2 -->
-        <key name="init" qpos="0 0 0.30 1 0 0 0 0.43 2.02 1.45 2.88 1.02 -1.01 -2.03 0 -0.43 -2.02 -1.45 -2.88 -1.02 1.01 2.03 0"
-             ctrl="0.43 2.88 -0.43 -2.88 0 0" />
+        <key name="init" qpos="0 0 0.30 1 0 0 0 0.43 2.083383236527022 1.416171967163293 2.88 1.049555203690315 -1.049555203690315 -2.092037449899478 0 -0.43 -2.083383236527022 -1.416171967163293 -2.88 -1.049555203690315 1.049555203690315 2.092037449899478 0"
+             ctrl="0 0 0 0 0 0" />
     </keyframe>
 
 </mujoco>

@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wl,-search_paths_first -Wl,-headerpad_max_install_names -Wl,-rpath,/Users/panpoming/Documents/mujoco_ws/mujoco/build/lib CMakeFiles/lqr_identification.dir/lqr_identification.cc.o -o lqr_identification  -Wl,-rpath,/Users/panpoming/Documents/mujoco_ws/mujoco/build/lib /Users/panpoming/Documents/mujoco_ws/mujoco/build/lib/libmujoco.dylib

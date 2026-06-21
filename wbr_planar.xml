@@ -1,0 +1,267 @@
+<mujoco model="closed_chain_sagittal_lqr">
+
+    <compiler angle="radian" coordinate="local"/>
+    <option timestep="0.001" gravity="0 0 -9.81" iterations="50"/>
+
+    <visual>
+        <map force="0.1" zfar="30"/>
+        <rgba haze="0.15 0.25 0.35 1"/>
+        <global offwidth="2560" offheight="1440" elevation="-20" azimuth="120"/>
+    </visual>
+
+    <asset>
+        <texture type="skybox" builtin="gradient" rgb1=".3 .5 .7" rgb2="0 0 0" width="32" height="512"/>
+        <texture name="grid" type="2d" builtin="checker" width="512" height="512" rgb1=".1 .2 .3" rgb2=".2 .3 .4"/>
+        <material name="grid" texture="grid" texrepeat="1 1" texuniform="true" reflectance=".2"/>
+    </asset>
+
+    <size njmax="1000" nconmax="200"/>
+
+    <!-- Link density is scaled so each complete five-bar leg is 0.47 kg. -->
+    <default>
+        <geom density="1488.66083872"/>
+    </default>
+
+    <worldbody>
+        <geom name="floor" size="0 0 .05" type="plane" material="grid" condim="3"/>
+        <!-- Debug stand: top surface z=0.20 supports the bottom of mount_plate. -->
+        <!-- <geom name="leg_controller_stand" type="box" pos="0 0 0.10" size="0.08 0.10 0.10"
+              rgba="0.25 0.28 0.32 1" condim="3" friction="1.5 0.005 0.0001"/> -->
+        <light name="spotlight" mode="targetbody" target="A" diffuse=".8 .8 .8" specular="0.3 0.3 0.3" pos="0 -6 4" cutoff="30"/>
+        <light name="top" pos="0 0 2" mode="trackcom"/>
+
+        <!-- 平板：连接两个固定点 -->
+        <body name="plate" pos="0 0 0.30">
+            <!-- Planar root for the sagittal six-state LQR: x, z and pitch. -->
+            <joint name="root_free" type="slide" axis="1 0 0"/>
+            <joint name="root_z" type="slide" axis="0 0 1"/>
+            <joint name="root_pitch" type="hinge" axis="0 1 0"/>
+            <geom name="mount_plate" type="box" size="0.12 0.135 0.10" pos="0 0 0"
+                  density="189.814814815" rgba="0.35 0.35 0.35 1"/>
+
+            <!-- A 点固定在平板一侧，沿 Y 偏移避免干涉 -->
+            <body name="A" pos="0 0.15 0">
+            <camera name="main" pos="-0.6 0 0.3" xyaxes="0 -1 0 1 0 1" mode="trackcom"/>
+            <geom type="sphere" size="0.01"/>
+            <body name="motor_B_mass" pos="0 0 0">
+                <inertial pos="0 0 0" mass="0.96" diaginertia="0.001 0.001 0.001"/>
+            </body>
+            <body name="motor_D_mass" pos="0 0 0">
+                <inertial pos="0 0 0" mass="0.96" diaginertia="0.001 0.001 0.001"/>
+            </body>
+
+            <!-- B branch：绕 Y 轴转，在 XZ 竖直平面内运动 -->
+            <body name="B" pos="0 0 0">
+                <joint name="q_B" type="hinge" axis="0 1 0" damping="0.2" frictionloss="0.01"/>
+                <geom type="capsule" fromto="0 0 0 0.0945 0 0" size="0.01"/>
+
+                <body name="BC" pos="0.0945 0 0">
+                    <joint name="q_BC" type="hinge" axis="0 1 0" damping="0.2" frictionloss="0.01"/>
+                    <geom type="capsule" fromto="0 0 0 0.1125 0 0" size="0.01"/>
+
+                    <body name="C" pos="0.1125 0 0">
+                        <joint name="q_C" type="hinge" axis="0 1 0" damping="0.2" frictionloss="0.01"/>
+                        <geom type="capsule" fromto="0 0 0 0.116 0 0" size="0.01"/>
+                        <site name="C_site" pos="0.116 0 0"/>
+                    </body>
+                </body>
+            </body>
+
+            <!-- D branch：绕 Y 轴转，在 XZ 竖直平面内运动 -->
+            <body name="D" pos="0 0 0">
+                <joint name="q_D" type="hinge" axis="0 1 0" damping="0.2" frictionloss="0.01"/>
+                <geom type="capsule" fromto="0 0 0 0.090 0 0" size="0.01"/>
+                <site name="D_site" pos="0.090 0 0"/>
+
+                <geom type="capsule" fromto="0 0 0 0.210 0 0" size="0.006"/>
+                <site name="G_site" pos="0.210 0 0"/>
+
+                <body name="DE" pos="0.090 0 0">
+                    <joint name="q_DE" type="hinge" axis="0 1 0" damping="0.2" frictionloss="0.01"/>
+                    <geom type="capsule" fromto="0 0 0 0.060 0 0" size="0.01"/>
+                    <site name="E_site" pos="0.060 0 0"/>
+
+                    <body name="E" pos="0.060 0 0">
+                        <joint name="q_E" type="hinge" axis="0 1 0" damping="0.2" frictionloss="0.01"/>
+                        <geom type="capsule" fromto="0 0 0 0.120 0 0" size="0.01"/>
+                        <site name="F_site" pos="0.120 0 0"/>
+
+                        <body name="F" pos="0.120 0 0">
+                            <joint name="q_F" type="hinge" axis="0 1 0" damping="0.2" frictionloss="0.01"/>
+                            <geom type="capsule" fromto="0 0 0 0.060 0 0" size="0.01"/>
+
+                            <body name="G_loop" pos="0.060 0 0">
+                                <site name="G_loop_site" pos="0 0 0"/>
+                                <geom type="capsule" fromto="0 0 0 0.250 0 0" size="0.008"/>
+                                <site name="H_site" pos="0.250 0 0"/>
+                                <body name="H_wheel_body" pos="0.250 0.027 0">
+                                    <joint name="q_H_wheel" type="hinge" axis="0 1 0"
+                                           damping="0.002" frictionloss="0.0001"/>
+                                    <inertial pos="0 0 0" mass="0.47"
+                                              diaginertia="0.000329 0.0005875 0.000329"/>
+                                    <geom name="H_wheel" type="cylinder" fromto="0 -0.015 0 0 0.015 0"
+                                          size="0.05" density="0" rgba="0.05 0.05 0.05 1"
+                                          condim="6" friction="1.2 0.005 0.0001"/>
+                                </body>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>
+
+            </body>
+
+            <!-- A2 点固定在平板另一侧，沿 Y 偏移避免干涉 -->
+            <body name="A_2" pos="0 -0.15 0">
+            <geom type="sphere" size="0.01"/>
+            <body name="motor_B_mass_2" pos="0 0 0">
+                <inertial pos="0 0 0" mass="0.96" diaginertia="0.001 0.001 0.001"/>
+            </body>
+            <body name="motor_D_mass_2" pos="0 0 0">
+                <inertial pos="0 0 0" mass="0.96" diaginertia="0.001 0.001 0.001"/>
+            </body>
+
+            <!-- B branch：绕 Y 轴转，在 XZ 竖直平面内运动 -->
+            <body name="B_2" pos="0 0 0">
+                <joint name="q_B_2" type="hinge" axis="0 -1 0" damping="0.2" frictionloss="0.01"/>
+                <geom type="capsule" fromto="0 0 0 0.0945 0 0" size="0.01"/>
+
+                <body name="BC_2" pos="0.0945 0 0">
+                    <joint name="q_BC_2" type="hinge" axis="0 -1 0" damping="0.2" frictionloss="0.01"/>
+                    <geom type="capsule" fromto="0 0 0 0.1125 0 0" size="0.01"/>
+
+                    <body name="C_2" pos="0.1125 0 0">
+                        <joint name="q_C_2" type="hinge" axis="0 -1 0" damping="0.2" frictionloss="0.01"/>
+                        <geom type="capsule" fromto="0 0 0 0.116 0 0" size="0.01"/>
+                        <site name="C_site_2" pos="0.116 0 0"/>
+                    </body>
+                </body>
+            </body>
+
+            <!-- D branch：绕 Y 轴转，在 XZ 竖直平面内运动 -->
+            <body name="D_2" pos="0 0 0">
+                <joint name="q_D_2" type="hinge" axis="0 -1 0" damping="0.2" frictionloss="0.01"/>
+                <geom type="capsule" fromto="0 0 0 0.090 0 0" size="0.01"/>
+                <site name="D_site_2" pos="0.090 0 0"/>
+
+                <geom type="capsule" fromto="0 0 0 0.210 0 0" size="0.006"/>
+                <site name="G_site_2" pos="0.210 0 0"/>
+
+                <body name="DE_2" pos="0.090 0 0">
+                    <joint name="q_DE_2" type="hinge" axis="0 -1 0" damping="0.2" frictionloss="0.01"/>
+                    <geom type="capsule" fromto="0 0 0 0.060 0 0" size="0.01"/>
+                    <site name="E_site_2" pos="0.060 0 0"/>
+
+                    <body name="E_2" pos="0.060 0 0">
+                        <joint name="q_E_2" type="hinge" axis="0 -1 0" damping="0.2" frictionloss="0.01"/>
+                        <geom type="capsule" fromto="0 0 0 0.120 0 0" size="0.01"/>
+                        <site name="F_site_2" pos="0.120 0 0"/>
+
+                        <body name="F_2" pos="0.120 0 0">
+                            <joint name="q_F_2" type="hinge" axis="0 -1 0" damping="0.2" frictionloss="0.01"/>
+                            <geom type="capsule" fromto="0 0 0 0.060 0 0" size="0.01"/>
+
+                            <body name="G_loop_2" pos="0.060 0 0">
+                                <site name="G_loop_site_2" pos="0 0 0"/>
+                                <geom type="capsule" fromto="0 0 0 0.250 0 0" size="0.008"/>
+                                <site name="H_site_2" pos="0.250 0 0"/>
+                                <body name="H_wheel_body_2" pos="0.250 -0.027 0">
+                                    <joint name="q_H_wheel_2" type="hinge" axis="0 -1 0"
+                                           damping="0.002" frictionloss="0.0001"/>
+                                    <inertial pos="0 0 0" mass="0.47"
+                                              diaginertia="0.000329 0.0005875 0.000329"/>
+                                    <geom name="H_wheel_2" type="cylinder" fromto="0 -0.015 0 0 0.015 0"
+                                          size="0.05" density="0" rgba="0.05 0.05 0.05 1"
+                                          condim="6" friction="1.2 0.005 0.0001"/>
+                                </body>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>
+
+            </body>
+
+        </body>
+
+    </worldbody>
+
+    <!-- The planar linkage members occupy the same visual layer. Their internal
+         intersections are mechanical clearances, not physical contacts. -->
+    <contact>
+        <exclude body1="B" body2="D"/>
+        <exclude body1="C" body2="D"/>
+        <exclude body1="C" body2="DE"/>
+        <exclude body1="D" body2="F"/>
+        <exclude body1="D" body2="G_loop"/>
+        <exclude body1="B_2" body2="D_2"/>
+        <exclude body1="C_2" body2="D_2"/>
+        <exclude body1="C_2" body2="DE_2"/>
+        <exclude body1="D_2" body2="F_2"/>
+        <exclude body1="D_2" body2="G_loop_2"/>
+    </contact>
+
+    <tendon>
+        <fixed name="t_de_abs">
+            <joint joint="q_D" coef="1"/>
+            <joint joint="q_DE" coef="1"/>
+        </fixed>
+        <fixed name="t_dc_abs">
+            <joint joint="q_B" coef="1"/>
+            <joint joint="q_BC" coef="1"/>
+            <joint joint="q_C" coef="1"/>
+        </fixed>
+        <fixed name="t_de_abs_2">
+            <joint joint="q_D_2" coef="1"/>
+            <joint joint="q_DE_2" coef="1"/>
+        </fixed>
+        <fixed name="t_dc_abs_2">
+            <joint joint="q_B_2" coef="1"/>
+            <joint joint="q_BC_2" coef="1"/>
+            <joint joint="q_C_2" coef="1"/>
+        </fixed>
+    </tendon>
+
+    <actuator>
+        <motor name="act_q_B" joint="q_B" gear="1" ctrlrange="-20 20"/>
+        <motor name="act_q_D" joint="q_D" gear="1" ctrlrange="-20 20"/>
+        <motor name="act_q_B_2" joint="q_B_2" gear="1" ctrlrange="-20 20"/>
+        <motor name="act_q_D_2" joint="q_D_2" gear="1" ctrlrange="-20 20"/>
+        <motor name="act_H_wheel" joint="q_H_wheel" gear="1" ctrlrange="-5 5"/>
+        <motor name="act_H_wheel_2" joint="q_H_wheel_2" gear="1" ctrlrange="-5 5"/>
+    </actuator>
+
+    <sensor>
+        <jointpos name="angle_q_B" joint="q_B"/>
+        <jointpos name="angle_q_D" joint="q_D"/>
+        <jointpos name="angle_q_B_2" joint="q_B_2"/>
+        <jointpos name="angle_q_D_2" joint="q_D_2"/>
+    </sensor>
+
+    <equality>
+        <connect site1="C_site" site2="D_site" solref="0.002 1" solimp="0.9 0.95 0.001"/>
+        <connect site1="G_loop_site" site2="G_site" solref="0.002 1" solimp="0.9 0.95 0.001"/>
+        <tendon tendon1="t_de_abs" tendon2="t_dc_abs" solref="0.002 1" solimp="0.9 0.95 0.001"/>
+        <joint joint1="q_E" joint2="q_F" polycoef="-3.141592653589793 -1 0 0 0" solref="0.002 1" solimp="0.9 0.95 0.001"/>
+        <connect site1="C_site_2" site2="D_site_2" solref="0.002 1" solimp="0.9 0.95 0.001"/>
+        <connect site1="G_loop_site_2" site2="G_site_2" solref="0.002 1" solimp="0.9 0.95 0.001"/>
+        <tendon tendon1="t_de_abs_2" tendon2="t_dc_abs_2" solref="0.002 1" solimp="0.9 0.95 0.001"/>
+        <joint joint1="q_E_2" joint2="q_F_2" polycoef="3.141592653589793 -1 0 0 0" solref="0.002 1" solimp="0.9 0.95 0.001"/>
+        <!-- A sagittal model has one virtual leg. Keep the two rendered
+             five-bars on that symmetric manifold so their unobserved
+             antisymmetric mode cannot split the wheel contacts. -->
+        <joint joint1="q_B" joint2="q_B_2" polycoef="0 -1 0 0 0"
+               solref="0.002 1" solimp="0.9 0.95 0.001"/>
+        <joint joint1="q_D" joint2="q_D_2" polycoef="0 -1 0 0 0"
+               solref="0.002 1" solimp="0.9 0.95 0.001"/>
+    </equality>
+
+    <keyframe>
+        <!-- qpos order: q_B q_BC q_C q_D q_DE q_E q_F (radians) -->
+        <!-- qpos order (planar root + wheels): root_x root_z root_pitch q_B q_BC q_C q_D q_DE q_E q_F q_H_wheel q_B_2 q_BC_2 q_C_2 q_D_2 q_DE_2 q_E_2 q_F_2 q_H_wheel_2 -->
+        <!-- ctrl order: act_q_B act_q_D act_q_B_2 act_q_D_2 act_H_wheel act_H_wheel_2 -->
+        <key name="init" qpos="0 0.30 0 0.43 2.083383236527022 1.416171967163293 2.88 1.049555203690315 -1.049555203690315 -2.092037449899478 0 -0.43 -2.083383236527022 -1.416171967163293 -2.88 -1.049555203690315 1.049555203690315 2.092037449899478 0"
+             ctrl="0 0 0 0 0 0" />
+    </keyframe>
+
+</mujoco>
