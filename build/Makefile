@@ -537,30 +537,6 @@ simulate/simulate.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/simulate.cc.s
 .PHONY : simulate/simulate.cc.s
 
-simulate/wbr_controller.o: simulate/wbr_controller.cc.o
-.PHONY : simulate/wbr_controller.o
-
-# target to build an object file
-simulate/wbr_controller.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller.cc.o
-.PHONY : simulate/wbr_controller.cc.o
-
-simulate/wbr_controller.i: simulate/wbr_controller.cc.i
-.PHONY : simulate/wbr_controller.i
-
-# target to preprocess a source file
-simulate/wbr_controller.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller.cc.i
-.PHONY : simulate/wbr_controller.cc.i
-
-simulate/wbr_controller.s: simulate/wbr_controller.cc.s
-.PHONY : simulate/wbr_controller.s
-
-# target to generate assembly for a file
-simulate/wbr_controller.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller.cc.s
-.PHONY : simulate/wbr_controller.cc.s
-
 simulate/wbr_controller_v2.o: simulate/wbr_controller_v2.cc.o
 .PHONY : simulate/wbr_controller_v2.o
 
@@ -587,6 +563,222 @@ simulate/wbr_controller_v2.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2.cc.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller_v2.cc.s
 .PHONY : simulate/wbr_controller_v2.cc.s
+
+simulate/wbr_controller_v2/common/controller_math.o: simulate/wbr_controller_v2/common/controller_math.cc.o
+.PHONY : simulate/wbr_controller_v2/common/controller_math.o
+
+# target to build an object file
+simulate/wbr_controller_v2/common/controller_math.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/common/controller_math.cc.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller_v2/common/controller_math.cc.o
+.PHONY : simulate/wbr_controller_v2/common/controller_math.cc.o
+
+simulate/wbr_controller_v2/common/controller_math.i: simulate/wbr_controller_v2/common/controller_math.cc.i
+.PHONY : simulate/wbr_controller_v2/common/controller_math.i
+
+# target to preprocess a source file
+simulate/wbr_controller_v2/common/controller_math.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/common/controller_math.cc.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller_v2/common/controller_math.cc.i
+.PHONY : simulate/wbr_controller_v2/common/controller_math.cc.i
+
+simulate/wbr_controller_v2/common/controller_math.s: simulate/wbr_controller_v2/common/controller_math.cc.s
+.PHONY : simulate/wbr_controller_v2/common/controller_math.s
+
+# target to generate assembly for a file
+simulate/wbr_controller_v2/common/controller_math.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/common/controller_math.cc.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller_v2/common/controller_math.cc.s
+.PHONY : simulate/wbr_controller_v2/common/controller_math.cc.s
+
+simulate/wbr_controller_v2/control/contact_safety.o: simulate/wbr_controller_v2/control/contact_safety.cc.o
+.PHONY : simulate/wbr_controller_v2/control/contact_safety.o
+
+# target to build an object file
+simulate/wbr_controller_v2/control/contact_safety.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/contact_safety.cc.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/contact_safety.cc.o
+.PHONY : simulate/wbr_controller_v2/control/contact_safety.cc.o
+
+simulate/wbr_controller_v2/control/contact_safety.i: simulate/wbr_controller_v2/control/contact_safety.cc.i
+.PHONY : simulate/wbr_controller_v2/control/contact_safety.i
+
+# target to preprocess a source file
+simulate/wbr_controller_v2/control/contact_safety.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/contact_safety.cc.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/contact_safety.cc.i
+.PHONY : simulate/wbr_controller_v2/control/contact_safety.cc.i
+
+simulate/wbr_controller_v2/control/contact_safety.s: simulate/wbr_controller_v2/control/contact_safety.cc.s
+.PHONY : simulate/wbr_controller_v2/control/contact_safety.s
+
+# target to generate assembly for a file
+simulate/wbr_controller_v2/control/contact_safety.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/contact_safety.cc.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/contact_safety.cc.s
+.PHONY : simulate/wbr_controller_v2/control/contact_safety.cc.s
+
+simulate/wbr_controller_v2/control/lqr_schedule.o: simulate/wbr_controller_v2/control/lqr_schedule.cc.o
+.PHONY : simulate/wbr_controller_v2/control/lqr_schedule.o
+
+# target to build an object file
+simulate/wbr_controller_v2/control/lqr_schedule.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.o
+.PHONY : simulate/wbr_controller_v2/control/lqr_schedule.cc.o
+
+simulate/wbr_controller_v2/control/lqr_schedule.i: simulate/wbr_controller_v2/control/lqr_schedule.cc.i
+.PHONY : simulate/wbr_controller_v2/control/lqr_schedule.i
+
+# target to preprocess a source file
+simulate/wbr_controller_v2/control/lqr_schedule.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.i
+.PHONY : simulate/wbr_controller_v2/control/lqr_schedule.cc.i
+
+simulate/wbr_controller_v2/control/lqr_schedule.s: simulate/wbr_controller_v2/control/lqr_schedule.cc.s
+.PHONY : simulate/wbr_controller_v2/control/lqr_schedule.s
+
+# target to generate assembly for a file
+simulate/wbr_controller_v2/control/lqr_schedule.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.s
+.PHONY : simulate/wbr_controller_v2/control/lqr_schedule.cc.s
+
+simulate/wbr_controller_v2/control/wheel_allocator.o: simulate/wbr_controller_v2/control/wheel_allocator.cc.o
+.PHONY : simulate/wbr_controller_v2/control/wheel_allocator.o
+
+# target to build an object file
+simulate/wbr_controller_v2/control/wheel_allocator.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.o
+.PHONY : simulate/wbr_controller_v2/control/wheel_allocator.cc.o
+
+simulate/wbr_controller_v2/control/wheel_allocator.i: simulate/wbr_controller_v2/control/wheel_allocator.cc.i
+.PHONY : simulate/wbr_controller_v2/control/wheel_allocator.i
+
+# target to preprocess a source file
+simulate/wbr_controller_v2/control/wheel_allocator.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.i
+.PHONY : simulate/wbr_controller_v2/control/wheel_allocator.cc.i
+
+simulate/wbr_controller_v2/control/wheel_allocator.s: simulate/wbr_controller_v2/control/wheel_allocator.cc.s
+.PHONY : simulate/wbr_controller_v2/control/wheel_allocator.s
+
+# target to generate assembly for a file
+simulate/wbr_controller_v2/control/wheel_allocator.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.s
+.PHONY : simulate/wbr_controller_v2/control/wheel_allocator.cc.s
+
+simulate/wbr_controller_v2/control/yaw_coordinator.o: simulate/wbr_controller_v2/control/yaw_coordinator.cc.o
+.PHONY : simulate/wbr_controller_v2/control/yaw_coordinator.o
+
+# target to build an object file
+simulate/wbr_controller_v2/control/yaw_coordinator.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.o
+.PHONY : simulate/wbr_controller_v2/control/yaw_coordinator.cc.o
+
+simulate/wbr_controller_v2/control/yaw_coordinator.i: simulate/wbr_controller_v2/control/yaw_coordinator.cc.i
+.PHONY : simulate/wbr_controller_v2/control/yaw_coordinator.i
+
+# target to preprocess a source file
+simulate/wbr_controller_v2/control/yaw_coordinator.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.i
+.PHONY : simulate/wbr_controller_v2/control/yaw_coordinator.cc.i
+
+simulate/wbr_controller_v2/control/yaw_coordinator.s: simulate/wbr_controller_v2/control/yaw_coordinator.cc.s
+.PHONY : simulate/wbr_controller_v2/control/yaw_coordinator.s
+
+# target to generate assembly for a file
+simulate/wbr_controller_v2/control/yaw_coordinator.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.s
+.PHONY : simulate/wbr_controller_v2/control/yaw_coordinator.cc.s
+
+simulate/wbr_controller_v2/model/controller_binding.o: simulate/wbr_controller_v2/model/controller_binding.cc.o
+.PHONY : simulate/wbr_controller_v2/model/controller_binding.o
+
+# target to build an object file
+simulate/wbr_controller_v2/model/controller_binding.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/controller_binding.cc.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/controller_binding.cc.o
+.PHONY : simulate/wbr_controller_v2/model/controller_binding.cc.o
+
+simulate/wbr_controller_v2/model/controller_binding.i: simulate/wbr_controller_v2/model/controller_binding.cc.i
+.PHONY : simulate/wbr_controller_v2/model/controller_binding.i
+
+# target to preprocess a source file
+simulate/wbr_controller_v2/model/controller_binding.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/controller_binding.cc.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/controller_binding.cc.i
+.PHONY : simulate/wbr_controller_v2/model/controller_binding.cc.i
+
+simulate/wbr_controller_v2/model/controller_binding.s: simulate/wbr_controller_v2/model/controller_binding.cc.s
+.PHONY : simulate/wbr_controller_v2/model/controller_binding.s
+
+# target to generate assembly for a file
+simulate/wbr_controller_v2/model/controller_binding.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/controller_binding.cc.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/controller_binding.cc.s
+.PHONY : simulate/wbr_controller_v2/model/controller_binding.cc.s
+
+simulate/wbr_controller_v2/model/leg_kinematics.o: simulate/wbr_controller_v2/model/leg_kinematics.cc.o
+.PHONY : simulate/wbr_controller_v2/model/leg_kinematics.o
+
+# target to build an object file
+simulate/wbr_controller_v2/model/leg_kinematics.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.o
+.PHONY : simulate/wbr_controller_v2/model/leg_kinematics.cc.o
+
+simulate/wbr_controller_v2/model/leg_kinematics.i: simulate/wbr_controller_v2/model/leg_kinematics.cc.i
+.PHONY : simulate/wbr_controller_v2/model/leg_kinematics.i
+
+# target to preprocess a source file
+simulate/wbr_controller_v2/model/leg_kinematics.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.i
+.PHONY : simulate/wbr_controller_v2/model/leg_kinematics.cc.i
+
+simulate/wbr_controller_v2/model/leg_kinematics.s: simulate/wbr_controller_v2/model/leg_kinematics.cc.s
+.PHONY : simulate/wbr_controller_v2/model/leg_kinematics.s
+
+# target to generate assembly for a file
+simulate/wbr_controller_v2/model/leg_kinematics.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.s
+.PHONY : simulate/wbr_controller_v2/model/leg_kinematics.cc.s
+
+simulate/wbr_controller_v2/model/state_estimator.o: simulate/wbr_controller_v2/model/state_estimator.cc.o
+.PHONY : simulate/wbr_controller_v2/model/state_estimator.o
+
+# target to build an object file
+simulate/wbr_controller_v2/model/state_estimator.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/state_estimator.cc.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/state_estimator.cc.o
+.PHONY : simulate/wbr_controller_v2/model/state_estimator.cc.o
+
+simulate/wbr_controller_v2/model/state_estimator.i: simulate/wbr_controller_v2/model/state_estimator.cc.i
+.PHONY : simulate/wbr_controller_v2/model/state_estimator.i
+
+# target to preprocess a source file
+simulate/wbr_controller_v2/model/state_estimator.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/state_estimator.cc.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/state_estimator.cc.i
+.PHONY : simulate/wbr_controller_v2/model/state_estimator.cc.i
+
+simulate/wbr_controller_v2/model/state_estimator.s: simulate/wbr_controller_v2/model/state_estimator.cc.s
+.PHONY : simulate/wbr_controller_v2/model/state_estimator.s
+
+# target to generate assembly for a file
+simulate/wbr_controller_v2/model/state_estimator.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/wbr_v2_closed_loop_test.dir/build.make CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/state_estimator.cc.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulate.dir/build.make CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/state_estimator.cc.s
+.PHONY : simulate/wbr_controller_v2/model/state_estimator.cc.s
 
 wbr_v2_closed_loop_test.o: wbr_v2_closed_loop_test.cc.o
 .PHONY : wbr_v2_closed_loop_test.o
@@ -667,12 +859,33 @@ help:
 	@echo "... simulate/simulate.o"
 	@echo "... simulate/simulate.i"
 	@echo "... simulate/simulate.s"
-	@echo "... simulate/wbr_controller.o"
-	@echo "... simulate/wbr_controller.i"
-	@echo "... simulate/wbr_controller.s"
 	@echo "... simulate/wbr_controller_v2.o"
 	@echo "... simulate/wbr_controller_v2.i"
 	@echo "... simulate/wbr_controller_v2.s"
+	@echo "... simulate/wbr_controller_v2/common/controller_math.o"
+	@echo "... simulate/wbr_controller_v2/common/controller_math.i"
+	@echo "... simulate/wbr_controller_v2/common/controller_math.s"
+	@echo "... simulate/wbr_controller_v2/control/contact_safety.o"
+	@echo "... simulate/wbr_controller_v2/control/contact_safety.i"
+	@echo "... simulate/wbr_controller_v2/control/contact_safety.s"
+	@echo "... simulate/wbr_controller_v2/control/lqr_schedule.o"
+	@echo "... simulate/wbr_controller_v2/control/lqr_schedule.i"
+	@echo "... simulate/wbr_controller_v2/control/lqr_schedule.s"
+	@echo "... simulate/wbr_controller_v2/control/wheel_allocator.o"
+	@echo "... simulate/wbr_controller_v2/control/wheel_allocator.i"
+	@echo "... simulate/wbr_controller_v2/control/wheel_allocator.s"
+	@echo "... simulate/wbr_controller_v2/control/yaw_coordinator.o"
+	@echo "... simulate/wbr_controller_v2/control/yaw_coordinator.i"
+	@echo "... simulate/wbr_controller_v2/control/yaw_coordinator.s"
+	@echo "... simulate/wbr_controller_v2/model/controller_binding.o"
+	@echo "... simulate/wbr_controller_v2/model/controller_binding.i"
+	@echo "... simulate/wbr_controller_v2/model/controller_binding.s"
+	@echo "... simulate/wbr_controller_v2/model/leg_kinematics.o"
+	@echo "... simulate/wbr_controller_v2/model/leg_kinematics.i"
+	@echo "... simulate/wbr_controller_v2/model/leg_kinematics.s"
+	@echo "... simulate/wbr_controller_v2/model/state_estimator.o"
+	@echo "... simulate/wbr_controller_v2/model/state_estimator.i"
+	@echo "... simulate/wbr_controller_v2/model/state_estimator.s"
 	@echo "... wbr_v2_closed_loop_test.o"
 	@echo "... wbr_v2_closed_loop_test.i"
 	@echo "... wbr_v2_closed_loop_test.s"

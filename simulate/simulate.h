@@ -249,7 +249,6 @@ class Simulate {
   double ctrl_noise_rate = 0.0;
 
   // VMC target in the equivalent-leg task space.
-  int wbr_control_mode = 0;
   double target_leg_length = 0.18;
   double target_leg_angle = 0.0;
 
@@ -343,7 +342,6 @@ class Simulate {
     {mjITEM_BUTTON,    "Save key",      3},
     {mjITEM_SLIDERNUM, "Noise scale",   5, &this->ctrl_noise_std,  "0 1"},
     {mjITEM_SLIDERNUM, "Noise rate",    5, &this->ctrl_noise_rate, "0 4"},
-    {mjITEM_SELECT,    "Control mode",  2, &this->wbr_control_mode, "Stand leg\nGround balance"},
     {mjITEM_SLIDERNUM, "Leg length",    2, &this->target_leg_length, "0.15 0.4"},
     {mjITEM_SLIDERNUM, "Leg angle",     2, &this->target_leg_angle,  "-0.6 0.6"},
     {mjITEM_SEPARATOR, "History",       1},

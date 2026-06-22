@@ -55,6 +55,54 @@
 },
 {
   "directory": "/Users/panpoming/Documents/mujoco_ws/wbr_model/build",
+  "command": "/usr/bin/c++  -I/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate -I/Users/panpoming/Documents/mujoco_ws/mujoco/include -std=gnu++17 -o CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/common/controller_math.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/common/controller_math.cc",
+  "file": "/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/common/controller_math.cc",
+  "output": "CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/common/controller_math.cc.o"
+},
+{
+  "directory": "/Users/panpoming/Documents/mujoco_ws/wbr_model/build",
+  "command": "/usr/bin/c++  -I/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate -I/Users/panpoming/Documents/mujoco_ws/mujoco/include -std=gnu++17 -o CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/leg_kinematics.cc",
+  "file": "/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/leg_kinematics.cc",
+  "output": "CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.o"
+},
+{
+  "directory": "/Users/panpoming/Documents/mujoco_ws/wbr_model/build",
+  "command": "/usr/bin/c++  -I/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate -I/Users/panpoming/Documents/mujoco_ws/mujoco/include -std=gnu++17 -o CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/state_estimator.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/state_estimator.cc",
+  "file": "/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/state_estimator.cc",
+  "output": "CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/state_estimator.cc.o"
+},
+{
+  "directory": "/Users/panpoming/Documents/mujoco_ws/wbr_model/build",
+  "command": "/usr/bin/c++  -I/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate -I/Users/panpoming/Documents/mujoco_ws/mujoco/include -std=gnu++17 -o CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/controller_binding.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/controller_binding.cc",
+  "file": "/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/controller_binding.cc",
+  "output": "CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/controller_binding.cc.o"
+},
+{
+  "directory": "/Users/panpoming/Documents/mujoco_ws/wbr_model/build",
+  "command": "/usr/bin/c++  -I/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate -I/Users/panpoming/Documents/mujoco_ws/mujoco/include -std=gnu++17 -o CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/contact_safety.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/contact_safety.cc",
+  "file": "/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/contact_safety.cc",
+  "output": "CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/contact_safety.cc.o"
+},
+{
+  "directory": "/Users/panpoming/Documents/mujoco_ws/wbr_model/build",
+  "command": "/usr/bin/c++  -I/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate -I/Users/panpoming/Documents/mujoco_ws/mujoco/include -std=gnu++17 -o CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/yaw_coordinator.cc",
+  "file": "/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/yaw_coordinator.cc",
+  "output": "CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.o"
+},
+{
+  "directory": "/Users/panpoming/Documents/mujoco_ws/wbr_model/build",
+  "command": "/usr/bin/c++  -I/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate -I/Users/panpoming/Documents/mujoco_ws/mujoco/include -std=gnu++17 -o CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/lqr_schedule.cc",
+  "file": "/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/lqr_schedule.cc",
+  "output": "CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.o"
+},
+{
+  "directory": "/Users/panpoming/Documents/mujoco_ws/wbr_model/build",
+  "command": "/usr/bin/c++  -I/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate -I/Users/panpoming/Documents/mujoco_ws/mujoco/include -std=gnu++17 -o CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/wheel_allocator.cc",
+  "file": "/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/wheel_allocator.cc",
+  "output": "CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.o"
+},
+{
+  "directory": "/Users/panpoming/Documents/mujoco_ws/wbr_model/build",
   "command": "/usr/bin/c++  -I/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate -I/Users/panpoming/Documents/mujoco_ws/mujoco/include -isystem /opt/homebrew/include -std=gnu++17 -o CMakeFiles/simulate.dir/simulate/glfw_adapter.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/glfw_adapter.cc",
   "file": "/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/glfw_adapter.cc",
   "output": "CMakeFiles/simulate.dir/simulate/glfw_adapter.cc.o"
@@ -97,14 +145,56 @@
 },
 {
   "directory": "/Users/panpoming/Documents/mujoco_ws/wbr_model/build",
-  "command": "/usr/bin/c++  -I/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate -I/Users/panpoming/Documents/mujoco_ws/mujoco/include -isystem /opt/homebrew/include -std=gnu++17 -o CMakeFiles/simulate.dir/simulate/wbr_controller.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller.cc",
-  "file": "/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller.cc",
-  "output": "CMakeFiles/simulate.dir/simulate/wbr_controller.cc.o"
-},
-{
-  "directory": "/Users/panpoming/Documents/mujoco_ws/wbr_model/build",
   "command": "/usr/bin/c++  -I/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate -I/Users/panpoming/Documents/mujoco_ws/mujoco/include -isystem /opt/homebrew/include -std=gnu++17 -o CMakeFiles/simulate.dir/simulate/wbr_controller_v2.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2.cc",
   "file": "/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2.cc",
   "output": "CMakeFiles/simulate.dir/simulate/wbr_controller_v2.cc.o"
+},
+{
+  "directory": "/Users/panpoming/Documents/mujoco_ws/wbr_model/build",
+  "command": "/usr/bin/c++  -I/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate -I/Users/panpoming/Documents/mujoco_ws/mujoco/include -isystem /opt/homebrew/include -std=gnu++17 -o CMakeFiles/simulate.dir/simulate/wbr_controller_v2/common/controller_math.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/common/controller_math.cc",
+  "file": "/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/common/controller_math.cc",
+  "output": "CMakeFiles/simulate.dir/simulate/wbr_controller_v2/common/controller_math.cc.o"
+},
+{
+  "directory": "/Users/panpoming/Documents/mujoco_ws/wbr_model/build",
+  "command": "/usr/bin/c++  -I/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate -I/Users/panpoming/Documents/mujoco_ws/mujoco/include -isystem /opt/homebrew/include -std=gnu++17 -o CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/leg_kinematics.cc",
+  "file": "/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/leg_kinematics.cc",
+  "output": "CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.o"
+},
+{
+  "directory": "/Users/panpoming/Documents/mujoco_ws/wbr_model/build",
+  "command": "/usr/bin/c++  -I/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate -I/Users/panpoming/Documents/mujoco_ws/mujoco/include -isystem /opt/homebrew/include -std=gnu++17 -o CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/state_estimator.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/state_estimator.cc",
+  "file": "/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/state_estimator.cc",
+  "output": "CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/state_estimator.cc.o"
+},
+{
+  "directory": "/Users/panpoming/Documents/mujoco_ws/wbr_model/build",
+  "command": "/usr/bin/c++  -I/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate -I/Users/panpoming/Documents/mujoco_ws/mujoco/include -isystem /opt/homebrew/include -std=gnu++17 -o CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/controller_binding.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/controller_binding.cc",
+  "file": "/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/controller_binding.cc",
+  "output": "CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/controller_binding.cc.o"
+},
+{
+  "directory": "/Users/panpoming/Documents/mujoco_ws/wbr_model/build",
+  "command": "/usr/bin/c++  -I/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate -I/Users/panpoming/Documents/mujoco_ws/mujoco/include -isystem /opt/homebrew/include -std=gnu++17 -o CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/contact_safety.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/contact_safety.cc",
+  "file": "/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/contact_safety.cc",
+  "output": "CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/contact_safety.cc.o"
+},
+{
+  "directory": "/Users/panpoming/Documents/mujoco_ws/wbr_model/build",
+  "command": "/usr/bin/c++  -I/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate -I/Users/panpoming/Documents/mujoco_ws/mujoco/include -isystem /opt/homebrew/include -std=gnu++17 -o CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/yaw_coordinator.cc",
+  "file": "/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/yaw_coordinator.cc",
+  "output": "CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.o"
+},
+{
+  "directory": "/Users/panpoming/Documents/mujoco_ws/wbr_model/build",
+  "command": "/usr/bin/c++  -I/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate -I/Users/panpoming/Documents/mujoco_ws/mujoco/include -isystem /opt/homebrew/include -std=gnu++17 -o CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/lqr_schedule.cc",
+  "file": "/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/lqr_schedule.cc",
+  "output": "CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.o"
+},
+{
+  "directory": "/Users/panpoming/Documents/mujoco_ws/wbr_model/build",
+  "command": "/usr/bin/c++  -I/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate -I/Users/panpoming/Documents/mujoco_ws/mujoco/include -isystem /opt/homebrew/include -std=gnu++17 -o CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/wheel_allocator.cc",
+  "file": "/Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/wheel_allocator.cc",
+  "output": "CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.o"
 }
 ]

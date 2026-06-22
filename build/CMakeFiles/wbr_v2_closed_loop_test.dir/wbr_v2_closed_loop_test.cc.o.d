@@ -787,4 +787,9 @@ CMakeFiles/wbr_v2_closed_loop_test.dir/wbr_v2_closed_loop_test.cc.o: \
   /Users/panpoming/Documents/mujoco_ws/mujoco/include/mujoco/mjrender.h \
   /Users/panpoming/Documents/mujoco_ws/mujoco/include/mujoco/mjsan.h \
   /Users/panpoming/Documents/mujoco_ws/mujoco/include/mujoco/mjui.h \
-  /Users/panpoming/Documents/mujoco_ws/mujoco/include/mujoco/mjassert.h
+  /Users/panpoming/Documents/mujoco_ws/mujoco/include/mujoco/mjassert.h \
+  /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/common/controller_types.h \
+  /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/contact_safety.h \
+  /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/../common/controller_types.h \
+  /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/yaw_coordinator.h \
+  /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/state_estimator.h

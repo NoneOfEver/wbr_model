@@ -100,20 +100,148 @@ CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2.cc.s: cmake_fo
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2.cc.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2.cc -o CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2.cc.s
 
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/common/controller_math.cc.o: CMakeFiles/wbr_v2_closed_loop_test.dir/flags.make
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/common/controller_math.cc.o: /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/common/controller_math.cc
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/common/controller_math.cc.o: CMakeFiles/wbr_v2_closed_loop_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/common/controller_math.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/common/controller_math.cc.o -MF CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/common/controller_math.cc.o.d -o CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/common/controller_math.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/common/controller_math.cc
+
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/common/controller_math.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/common/controller_math.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/common/controller_math.cc > CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/common/controller_math.cc.i
+
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/common/controller_math.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/common/controller_math.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/common/controller_math.cc -o CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/common/controller_math.cc.s
+
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.o: CMakeFiles/wbr_v2_closed_loop_test.dir/flags.make
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.o: /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/leg_kinematics.cc
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.o: CMakeFiles/wbr_v2_closed_loop_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.o -MF CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.o.d -o CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/leg_kinematics.cc
+
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/leg_kinematics.cc > CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.i
+
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/leg_kinematics.cc -o CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.s
+
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/state_estimator.cc.o: CMakeFiles/wbr_v2_closed_loop_test.dir/flags.make
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/state_estimator.cc.o: /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/state_estimator.cc
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/state_estimator.cc.o: CMakeFiles/wbr_v2_closed_loop_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/state_estimator.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/state_estimator.cc.o -MF CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/state_estimator.cc.o.d -o CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/state_estimator.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/state_estimator.cc
+
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/state_estimator.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/state_estimator.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/state_estimator.cc > CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/state_estimator.cc.i
+
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/state_estimator.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/state_estimator.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/state_estimator.cc -o CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/state_estimator.cc.s
+
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/controller_binding.cc.o: CMakeFiles/wbr_v2_closed_loop_test.dir/flags.make
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/controller_binding.cc.o: /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/controller_binding.cc
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/controller_binding.cc.o: CMakeFiles/wbr_v2_closed_loop_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/controller_binding.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/controller_binding.cc.o -MF CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/controller_binding.cc.o.d -o CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/controller_binding.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/controller_binding.cc
+
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/controller_binding.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/controller_binding.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/controller_binding.cc > CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/controller_binding.cc.i
+
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/controller_binding.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/controller_binding.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/controller_binding.cc -o CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/controller_binding.cc.s
+
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/contact_safety.cc.o: CMakeFiles/wbr_v2_closed_loop_test.dir/flags.make
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/contact_safety.cc.o: /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/contact_safety.cc
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/contact_safety.cc.o: CMakeFiles/wbr_v2_closed_loop_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/contact_safety.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/contact_safety.cc.o -MF CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/contact_safety.cc.o.d -o CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/contact_safety.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/contact_safety.cc
+
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/contact_safety.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/contact_safety.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/contact_safety.cc > CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/contact_safety.cc.i
+
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/contact_safety.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/contact_safety.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/contact_safety.cc -o CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/contact_safety.cc.s
+
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.o: CMakeFiles/wbr_v2_closed_loop_test.dir/flags.make
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.o: /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/yaw_coordinator.cc
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.o: CMakeFiles/wbr_v2_closed_loop_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.o -MF CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.o.d -o CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/yaw_coordinator.cc
+
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/yaw_coordinator.cc > CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.i
+
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/yaw_coordinator.cc -o CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.s
+
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.o: CMakeFiles/wbr_v2_closed_loop_test.dir/flags.make
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.o: /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/lqr_schedule.cc
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.o: CMakeFiles/wbr_v2_closed_loop_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.o -MF CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.o.d -o CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/lqr_schedule.cc
+
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/lqr_schedule.cc > CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.i
+
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/lqr_schedule.cc -o CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.s
+
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.o: CMakeFiles/wbr_v2_closed_loop_test.dir/flags.make
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.o: /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/wheel_allocator.cc
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.o: CMakeFiles/wbr_v2_closed_loop_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.o -MF CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.o.d -o CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/wheel_allocator.cc
+
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/wheel_allocator.cc > CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.i
+
+CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/wheel_allocator.cc -o CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.s
+
 # Object files for target wbr_v2_closed_loop_test
 wbr_v2_closed_loop_test_OBJECTS = \
 "CMakeFiles/wbr_v2_closed_loop_test.dir/wbr_v2_closed_loop_test.cc.o" \
-"CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2.cc.o"
+"CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2.cc.o" \
+"CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/common/controller_math.cc.o" \
+"CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.o" \
+"CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/state_estimator.cc.o" \
+"CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/controller_binding.cc.o" \
+"CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/contact_safety.cc.o" \
+"CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.o" \
+"CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.o" \
+"CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.o"
 
 # External object files for target wbr_v2_closed_loop_test
 wbr_v2_closed_loop_test_EXTERNAL_OBJECTS =
 
 wbr_v2_closed_loop_test: CMakeFiles/wbr_v2_closed_loop_test.dir/wbr_v2_closed_loop_test.cc.o
 wbr_v2_closed_loop_test: CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2.cc.o
+wbr_v2_closed_loop_test: CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/common/controller_math.cc.o
+wbr_v2_closed_loop_test: CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.o
+wbr_v2_closed_loop_test: CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/state_estimator.cc.o
+wbr_v2_closed_loop_test: CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/model/controller_binding.cc.o
+wbr_v2_closed_loop_test: CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/contact_safety.cc.o
+wbr_v2_closed_loop_test: CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.o
+wbr_v2_closed_loop_test: CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.o
+wbr_v2_closed_loop_test: CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.o
 wbr_v2_closed_loop_test: CMakeFiles/wbr_v2_closed_loop_test.dir/build.make
 wbr_v2_closed_loop_test: /Users/panpoming/Documents/mujoco_ws/mujoco/build/lib/libmujoco.dylib
 wbr_v2_closed_loop_test: CMakeFiles/wbr_v2_closed_loop_test.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable wbr_v2_closed_loop_test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable wbr_v2_closed_loop_test"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/wbr_v2_closed_loop_test.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

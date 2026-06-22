@@ -787,4 +787,14 @@ CMakeFiles/wbr_v2_closed_loop_test.dir/simulate/wbr_controller_v2.cc.o: \
   /Users/panpoming/Documents/mujoco_ws/mujoco/include/mujoco/mjrender.h \
   /Users/panpoming/Documents/mujoco_ws/mujoco/include/mujoco/mjsan.h \
   /Users/panpoming/Documents/mujoco_ws/mujoco/include/mujoco/mjui.h \
-  /Users/panpoming/Documents/mujoco_ws/mujoco/include/mujoco/mjassert.h
+  /Users/panpoming/Documents/mujoco_ws/mujoco/include/mujoco/mjassert.h \
+  /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/common/controller_types.h \
+  /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/contact_safety.h \
+  /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/../common/controller_types.h \
+  /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/yaw_coordinator.h \
+  /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/state_estimator.h \
+  /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/common/controller_config.h \
+  /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/common/controller_math.h \
+  /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/lqr_schedule.h \
+  /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/wheel_allocator.h \
+  /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/leg_kinematics.h

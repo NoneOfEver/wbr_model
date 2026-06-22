@@ -170,24 +170,10 @@ CMakeFiles/simulate.dir/simulate/simulate.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/simulate.dir/simulate/simulate.cc.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/simulate.cc -o CMakeFiles/simulate.dir/simulate/simulate.cc.s
 
-CMakeFiles/simulate.dir/simulate/wbr_controller.cc.o: CMakeFiles/simulate.dir/flags.make
-CMakeFiles/simulate.dir/simulate/wbr_controller.cc.o: /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller.cc
-CMakeFiles/simulate.dir/simulate/wbr_controller.cc.o: CMakeFiles/simulate.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/simulate.dir/simulate/wbr_controller.cc.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simulate.dir/simulate/wbr_controller.cc.o -MF CMakeFiles/simulate.dir/simulate/wbr_controller.cc.o.d -o CMakeFiles/simulate.dir/simulate/wbr_controller.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller.cc
-
-CMakeFiles/simulate.dir/simulate/wbr_controller.cc.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/simulate.dir/simulate/wbr_controller.cc.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller.cc > CMakeFiles/simulate.dir/simulate/wbr_controller.cc.i
-
-CMakeFiles/simulate.dir/simulate/wbr_controller.cc.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/simulate.dir/simulate/wbr_controller.cc.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller.cc -o CMakeFiles/simulate.dir/simulate/wbr_controller.cc.s
-
 CMakeFiles/simulate.dir/simulate/wbr_controller_v2.cc.o: CMakeFiles/simulate.dir/flags.make
 CMakeFiles/simulate.dir/simulate/wbr_controller_v2.cc.o: /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2.cc
 CMakeFiles/simulate.dir/simulate/wbr_controller_v2.cc.o: CMakeFiles/simulate.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/simulate.dir/simulate/wbr_controller_v2.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/simulate.dir/simulate/wbr_controller_v2.cc.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simulate.dir/simulate/wbr_controller_v2.cc.o -MF CMakeFiles/simulate.dir/simulate/wbr_controller_v2.cc.o.d -o CMakeFiles/simulate.dir/simulate/wbr_controller_v2.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2.cc
 
 CMakeFiles/simulate.dir/simulate/wbr_controller_v2.cc.i: cmake_force
@@ -198,6 +184,118 @@ CMakeFiles/simulate.dir/simulate/wbr_controller_v2.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/simulate.dir/simulate/wbr_controller_v2.cc.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2.cc -o CMakeFiles/simulate.dir/simulate/wbr_controller_v2.cc.s
 
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/common/controller_math.cc.o: CMakeFiles/simulate.dir/flags.make
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/common/controller_math.cc.o: /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/common/controller_math.cc
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/common/controller_math.cc.o: CMakeFiles/simulate.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/simulate.dir/simulate/wbr_controller_v2/common/controller_math.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simulate.dir/simulate/wbr_controller_v2/common/controller_math.cc.o -MF CMakeFiles/simulate.dir/simulate/wbr_controller_v2/common/controller_math.cc.o.d -o CMakeFiles/simulate.dir/simulate/wbr_controller_v2/common/controller_math.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/common/controller_math.cc
+
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/common/controller_math.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/simulate.dir/simulate/wbr_controller_v2/common/controller_math.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/common/controller_math.cc > CMakeFiles/simulate.dir/simulate/wbr_controller_v2/common/controller_math.cc.i
+
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/common/controller_math.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/simulate.dir/simulate/wbr_controller_v2/common/controller_math.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/common/controller_math.cc -o CMakeFiles/simulate.dir/simulate/wbr_controller_v2/common/controller_math.cc.s
+
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.o: CMakeFiles/simulate.dir/flags.make
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.o: /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/leg_kinematics.cc
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.o: CMakeFiles/simulate.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.o -MF CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.o.d -o CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/leg_kinematics.cc
+
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/leg_kinematics.cc > CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.i
+
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/leg_kinematics.cc -o CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.s
+
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/state_estimator.cc.o: CMakeFiles/simulate.dir/flags.make
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/state_estimator.cc.o: /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/state_estimator.cc
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/state_estimator.cc.o: CMakeFiles/simulate.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/state_estimator.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/state_estimator.cc.o -MF CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/state_estimator.cc.o.d -o CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/state_estimator.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/state_estimator.cc
+
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/state_estimator.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/state_estimator.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/state_estimator.cc > CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/state_estimator.cc.i
+
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/state_estimator.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/state_estimator.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/state_estimator.cc -o CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/state_estimator.cc.s
+
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/controller_binding.cc.o: CMakeFiles/simulate.dir/flags.make
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/controller_binding.cc.o: /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/controller_binding.cc
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/controller_binding.cc.o: CMakeFiles/simulate.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/controller_binding.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/controller_binding.cc.o -MF CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/controller_binding.cc.o.d -o CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/controller_binding.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/controller_binding.cc
+
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/controller_binding.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/controller_binding.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/controller_binding.cc > CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/controller_binding.cc.i
+
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/controller_binding.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/controller_binding.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/controller_binding.cc -o CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/controller_binding.cc.s
+
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/contact_safety.cc.o: CMakeFiles/simulate.dir/flags.make
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/contact_safety.cc.o: /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/contact_safety.cc
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/contact_safety.cc.o: CMakeFiles/simulate.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/contact_safety.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/contact_safety.cc.o -MF CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/contact_safety.cc.o.d -o CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/contact_safety.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/contact_safety.cc
+
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/contact_safety.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/contact_safety.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/contact_safety.cc > CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/contact_safety.cc.i
+
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/contact_safety.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/contact_safety.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/contact_safety.cc -o CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/contact_safety.cc.s
+
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.o: CMakeFiles/simulate.dir/flags.make
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.o: /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/yaw_coordinator.cc
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.o: CMakeFiles/simulate.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.o -MF CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.o.d -o CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/yaw_coordinator.cc
+
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/yaw_coordinator.cc > CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.i
+
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/yaw_coordinator.cc -o CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.s
+
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.o: CMakeFiles/simulate.dir/flags.make
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.o: /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/lqr_schedule.cc
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.o: CMakeFiles/simulate.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.o -MF CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.o.d -o CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/lqr_schedule.cc
+
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/lqr_schedule.cc > CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.i
+
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/lqr_schedule.cc -o CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.s
+
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.o: CMakeFiles/simulate.dir/flags.make
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.o: /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/wheel_allocator.cc
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.o: CMakeFiles/simulate.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.o -MF CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.o.d -o CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.o -c /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/wheel_allocator.cc
+
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/wheel_allocator.cc > CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.i
+
+CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/wheel_allocator.cc -o CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.s
+
 # Object files for target simulate
 simulate_OBJECTS = \
 "CMakeFiles/simulate.dir/simulate/glfw_adapter.cc.o" \
@@ -207,8 +305,15 @@ simulate_OBJECTS = \
 "CMakeFiles/simulate.dir/simulate/main.cc.o" \
 "CMakeFiles/simulate.dir/simulate/platform_ui_adapter.cc.o" \
 "CMakeFiles/simulate.dir/simulate/simulate.cc.o" \
-"CMakeFiles/simulate.dir/simulate/wbr_controller.cc.o" \
-"CMakeFiles/simulate.dir/simulate/wbr_controller_v2.cc.o"
+"CMakeFiles/simulate.dir/simulate/wbr_controller_v2.cc.o" \
+"CMakeFiles/simulate.dir/simulate/wbr_controller_v2/common/controller_math.cc.o" \
+"CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.o" \
+"CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/state_estimator.cc.o" \
+"CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/controller_binding.cc.o" \
+"CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/contact_safety.cc.o" \
+"CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.o" \
+"CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.o" \
+"CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.o"
 
 # External object files for target simulate
 simulate_EXTERNAL_OBJECTS =
@@ -220,14 +325,21 @@ simulate: CMakeFiles/simulate.dir/simulate/macos_gui.mm.o
 simulate: CMakeFiles/simulate.dir/simulate/main.cc.o
 simulate: CMakeFiles/simulate.dir/simulate/platform_ui_adapter.cc.o
 simulate: CMakeFiles/simulate.dir/simulate/simulate.cc.o
-simulate: CMakeFiles/simulate.dir/simulate/wbr_controller.cc.o
 simulate: CMakeFiles/simulate.dir/simulate/wbr_controller_v2.cc.o
+simulate: CMakeFiles/simulate.dir/simulate/wbr_controller_v2/common/controller_math.cc.o
+simulate: CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/leg_kinematics.cc.o
+simulate: CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/state_estimator.cc.o
+simulate: CMakeFiles/simulate.dir/simulate/wbr_controller_v2/model/controller_binding.cc.o
+simulate: CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/contact_safety.cc.o
+simulate: CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/yaw_coordinator.cc.o
+simulate: CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/lqr_schedule.cc.o
+simulate: CMakeFiles/simulate.dir/simulate/wbr_controller_v2/control/wheel_allocator.cc.o
 simulate: CMakeFiles/simulate.dir/build.make
 simulate: /Users/panpoming/Documents/mujoco_ws/mujoco/build/lib/libmujoco.dylib
 simulate: /opt/homebrew/lib/libglfw.3.4.dylib
 simulate: /Users/panpoming/Documents/mujoco_ws/mujoco/build/lib/liblodepng.a
 simulate: CMakeFiles/simulate.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable simulate"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/panpoming/Documents/mujoco_ws/wbr_model/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Linking CXX executable simulate"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/simulate.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

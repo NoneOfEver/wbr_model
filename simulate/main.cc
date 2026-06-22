@@ -425,9 +425,6 @@ void PhysicsLoop(mj::Simulate& sim) {
 
             // inject noise
             sim.InjectNoise(sim.key);
-            controller.SetControlMode(
-                sim.wbr_control_mode == 0 ? WbrControlMode::kStandLeg
-                                          : WbrControlMode::kGroundBalance);
             UpdateVelocityCommand();
             controller.Apply(m, d, sim.target_leg_length, sim.target_leg_angle);
 
@@ -461,9 +458,6 @@ void PhysicsLoop(mj::Simulate& sim) {
 
               // inject noise
               sim.InjectNoise(sim.key);
-              controller.SetControlMode(
-                  sim.wbr_control_mode == 0 ? WbrControlMode::kStandLeg
-                                            : WbrControlMode::kGroundBalance);
               UpdateVelocityCommand();
               controller.Apply(m, d, sim.target_leg_length, sim.target_leg_angle);
 

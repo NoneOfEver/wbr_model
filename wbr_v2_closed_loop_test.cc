@@ -84,14 +84,14 @@ void ApplyHorizontalFixture(const mjModel* model, mjData* data,
   }
 }
 
-void RunStandModeCheck(const mjModel* model) {
+void RunLegVmcFreeCheck(const mjModel* model) {
   mjData* data = mj_makeData(model);
   mj_resetDataKeyframe(model, data, 0);
   mj_forward(model, data);
   WbrControllerV2 controller;
   controller.Reset(model);
   controller.SetYawEnabled(g_yaw_enabled);
-  controller.SetControlMode(WbrControlMode::kStandLeg);
+  controller.SetLqrEnabled(false);
   double target_length = g_target_leg_length;
   double target_angle = 0.0;
   double max_t = 0.0;
@@ -116,7 +116,7 @@ void RunStandModeCheck(const mjModel* model) {
     mj_step(model, data);
   }
   const auto& telemetry = controller.telemetry();
-  std::printf("\nSTAND MODE CHECK (no external fixture)\n");
+  std::printf("\nLEG VMC FREE CHECK (balance feedback disabled)\n");
   std::printf("  final L1/L2       = %.9f / %.9f m\n",
               telemetry.leg_length[0], telemetry.leg_length[1]);
   std::printf("  max T/Tp          = %.9f / %.9f N.m\n", max_t, max_tp);
@@ -705,7 +705,7 @@ int main(int argc, char** argv) {
               model->body_mass[mj_name2id(model, mjOBJ_BODY, "H_wheel_body")],
               model->body_mass[mj_name2id(model, mjOBJ_BODY,
                                           "H_wheel_body_2")]);
-  RunStandModeCheck(model);
+  RunLegVmcFreeCheck(model);
   RunLegLengthCheck(model);
   RunSingleWheelLiftSafetyCheck(model);
   bool passed = RunTorqueMarginCheck(model, 0);

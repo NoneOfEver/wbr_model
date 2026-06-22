@@ -1410,6 +1410,11 @@ CMakeFiles/simulate.dir/simulate/main.cc.o: \
   /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/simulate.h \
   /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/array_safety.h \
   /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2.h \
+  /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/common/controller_types.h \
+  /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/contact_safety.h \
+  /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/../common/controller_types.h \
+  /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/control/yaw_coordinator.h \
+  /Users/panpoming/Documents/mujoco_ws/wbr_model/simulate/wbr_controller_v2/model/state_estimator.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach-o/dyld.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach-o/loader.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/architecture/byte_order.h
