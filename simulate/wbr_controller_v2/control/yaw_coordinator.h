@@ -26,6 +26,8 @@ struct YawCoordinatorOutput {
   double split_activity = 0.0;
   double predicted_roll = 0.0;
   double predicted_normal_force[2] = {};
+  double split_residual_authority = 1.0;
+  double split_absolute_authority = 1.0;
   double split_authority = 1.0;
   double attitude_authority = 1.0;
   double contact_authority = 1.0;

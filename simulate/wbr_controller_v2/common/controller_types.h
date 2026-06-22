@@ -26,6 +26,8 @@ struct WbrControllerV2Telemetry {
   double yaw_contact_authority = 1.0;
   double yaw_torque_authority = 1.0;
   double yaw_split_authority = 1.0;
+  double yaw_split_residual_authority = 1.0;
+  double yaw_split_absolute_authority = 1.0;
   double spin_mode_blend = 0.0;
   double reserved_yaw_torque_per_wheel = 0.0;
   double balance_torque_authority = 1.0;

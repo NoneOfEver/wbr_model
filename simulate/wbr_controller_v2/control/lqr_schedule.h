@@ -3,7 +3,7 @@
 
 namespace wbr::v2 {
 
-void InterpolateLqrGain(double leg_length, double gain[2][6]);
+void EvaluateLqrGain(double leg_length, double gain[2][6]);
 
 }  // namespace wbr::v2
 

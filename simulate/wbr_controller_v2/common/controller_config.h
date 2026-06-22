@@ -69,11 +69,11 @@ inline constexpr double kWheelSlipHardSpeed = 0.50;
 
 // Command shaping.
 inline constexpr double kEmergencyLinearDeceleration = 1.5;
-inline constexpr double kMaxLinearVelocity = 0.6;
+inline constexpr double kMaxLinearVelocity = 1.5;
 inline constexpr double kMaxYawRate = 13.0;
-inline constexpr double kSustainedYawRateLimit = 5.0;
-inline constexpr double kLinearAccelerationLimit = 0.6;
-inline constexpr double kYawCommandAcceleration = 1.0;
+inline constexpr double kSustainedYawRateLimit = 13.0;
+inline constexpr double kLinearAccelerationLimit = 1.5;
+inline constexpr double kYawCommandAcceleration = 3.0;
 inline constexpr double kYawCommandDeceleration = 3.0;
 inline constexpr double kMaxPositionTrackingError = 0.5;
 
@@ -110,10 +110,8 @@ inline constexpr double kSpinModeFullYawRate = 2.0;
 inline constexpr double kSpinYawReservePerWheel = 2.0;
 inline constexpr double kSpinYawReserveBufferPerWheel = 0.15;
 inline constexpr double kYawPredictionHorizon = 0.15;
-inline constexpr double kYawPredictedSplitSoft = 0.09;
-inline constexpr double kYawPredictedSplitHard = 0.20;
-inline constexpr double kYawSplitActivitySoft = 0.22;
-inline constexpr double kYawSplitActivityHard = 0.65;
+inline constexpr double kYawPredictedSplitSoft = 0.16;
+inline constexpr double kYawPredictedSplitHard = 0.30;
 inline constexpr double kYawPredictedRollSoft = 0.06;
 inline constexpr double kYawPredictedRollHard = 0.16;
 inline constexpr double kYawForceFilterTimeConstant = 0.025;

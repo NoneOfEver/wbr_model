@@ -31,8 +31,8 @@ Modules:
   initial target synchronization.
 - `control/contact_safety.*`: contact grace, debounced support transitions and
   recovery authority.
-- `control/lqr_schedule.*`: leg-length-dependent gain schedule and
-  interpolation.
+- `control/lqr_schedule.*`: cubic-polynomial LQR gain scheduling over leg
+  length.
 - `control/yaw_coordinator.*`: leg-split reference, predictive safety authority
   and coordinated yaw-rate shaping.
 - `control/wheel_allocator.*`: wheel torque allocation and actuator writes.

@@ -76,7 +76,7 @@ bool DriveKeyCallback(int key, bool down) {
 void UpdateVelocityCommand() {
   constexpr double kKeyboardLinearVelocity = 0.35;
   // SPR's spin mode starts at 5 rad/s and schedules up to 13 rad/s.
-  constexpr double kKeyboardYawRate = 5.0;
+  constexpr double kKeyboardYawRate = 13.0;
   const double linear = kKeyboardLinearVelocity *
       ((key_w.load() ? 1.0 : 0.0) - (key_s.load() ? 1.0 : 0.0));
   const double yaw_rate = kKeyboardYawRate *

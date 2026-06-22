@@ -66,18 +66,21 @@ YawCoordinatorOutput YawCoordinator::Update(
   output.predicted_split_error = output.split_residual +
       kYawPredictionHorizon * output.split_rate_residual;
   output.split_activity = split_activity_;
-  const double residual_authority = std::fmin(
-      FadeAuthority(std::fabs(output.predicted_split_error),
-                    kYawPredictedSplitSoft, kYawPredictedSplitHard),
-      FadeAuthority(split_activity_,
-                    kYawSplitActivitySoft, kYawSplitActivityHard));
-  const double absolute_authority = std::fmin(
+  // predicted_split_error already includes residual split rate. Do not gate
+  // sustained spin a second time with the slowly decaying activity metric:
+  // normal yaw motion contains periodic split-rate activity even while the
+  // reference is tracked accurately. Absolute angle/rate limits below remain
+  // the independent hard-instability guard.
+  output.split_residual_authority = FadeAuthority(
+      std::fabs(output.predicted_split_error),
+      kYawPredictedSplitSoft, kYawPredictedSplitHard);
+  output.split_absolute_authority = std::fmin(
       FadeAuthority(std::fabs(input.split_angle),
                     kAbsoluteLegSplitSoftAngle, kAbsoluteLegSplitHardAngle),
       FadeAuthority(std::fabs(input.split_rate),
                     kAbsoluteLegSplitSoftRate, kAbsoluteLegSplitHardRate));
-  output.split_authority =
-      std::fmin(residual_authority, absolute_authority);
+  output.split_authority = std::fmin(
+      output.split_residual_authority, output.split_absolute_authority);
 
   output.predicted_roll =
       input.roll + kYawPredictionHorizon * input.roll_rate;

@@ -283,6 +283,10 @@ void WbrControllerV2::Apply(const mjModel* model, mjData* data,
     telemetry_.predicted_normal_force[1] =
         yaw_coord.predicted_normal_force[1];
     telemetry_.yaw_split_authority = yaw_coord.split_authority;
+    telemetry_.yaw_split_residual_authority =
+        yaw_coord.split_residual_authority;
+    telemetry_.yaw_split_absolute_authority =
+        yaw_coord.split_absolute_authority;
     telemetry_.yaw_attitude_authority = yaw_coord.attitude_authority;
     telemetry_.yaw_contact_authority = yaw_coord.contact_authority;
     telemetry_.yaw_authority_scale = yaw_coord.authority;
@@ -387,8 +391,8 @@ void WbrControllerV2::Apply(const mjModel* model, mjData* data,
     if (balance_active) {
       // Stage 5: compose sagittal LQR, roll control and yaw requests.
       double scheduled_lqr_gain[2][6];
-      InterpolateLqrGain(0.5 * (leg_1.length + leg_2.length),
-                         scheduled_lqr_gain);
+      EvaluateLqrGain(0.5 * (leg_1.length + leg_2.length),
+                      scheduled_lqr_gain);
       for (int state = 0; state < 6; ++state) {
         total_wheel_torque -=
             scheduled_lqr_gain[0][state] * state_error[state];
