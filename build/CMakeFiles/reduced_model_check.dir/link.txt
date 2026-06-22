@@ -1,1 +1,0 @@
-/usr/bin/c++ -Wl,-search_paths_first -Wl,-headerpad_max_install_names -Wl,-rpath,/Users/panpoming/Documents/mujoco_ws/mujoco/build/lib CMakeFiles/reduced_model_check.dir/reduced_model_check.cc.o -o reduced_model_check  -Wl,-rpath,/Users/panpoming/Documents/mujoco_ws/mujoco/build/lib /Users/panpoming/Documents/mujoco_ws/mujoco/build/lib/libmujoco.dylib
