@@ -412,8 +412,8 @@ bool RunTorqueMarginCheck(const mjModel* model, int perturbation_mode) {
   std::printf("\nGROUND-BALANCE TRACE\n");
   std::printf("  time    theta   dtheta        x       dx      phi     dphi "
               "    roll     yaw       y    int1    int2      F1      F2    T_req   Tp_req "
-              "  yaw_e  yaw_rate  yr_err ycoord auth att ctc tqm spl splr spla Fn1 Fn2 margin split_e split_dr  Tsplit "
-              " dv_ref      dv   Tyaw  vxhat  vodo conf contact active\n");
+              "  yaw_rate  yr_err ycoord auth att ctc spl splr spla Fn1 Fn2 split_e split_dr  Tsplit "
+              "  Tyaw  vxhat  vodo conf contact active\n");
   const int torque_check_steps =
       static_cast<int>(std::lround(
           (perturbation_mode == 1 ? 0.5 :
@@ -472,9 +472,9 @@ bool RunTorqueMarginCheck(const mjModel* model, int perturbation_mode) {
       std::printf("  %5.3f %+.5f %+.5f %+.5f %+.5f %+.5f %+.5f %+.5f "
                   "%+.5f %+.5f "
                   "%+7.2f %+7.2f %+7.2f %+7.2f %+8.3f %+8.3f "
-                  "%+.5f %+.5f %+.5f %+.5f %.3f %.3f %.3f %.3f %.3f %.3f %.3f "
-                  "%4.1f %4.1f %4.2f %+.5f %+.5f %+7.3f "
-                  "%+.4f %+.4f %+7.3f %+.4f %+.4f %.2f    %d%d      %d\n",
+                  "%+.5f %+.5f %+.5f %.3f %.3f %.3f %.3f %.3f %.3f "
+                  "%4.1f %4.1f %+.5f %+.5f %+7.3f "
+                  "%+7.3f %+.4f %+.4f %.2f    %d%d      %d\n",
                   data->time - test_start_time, e[0], e[1], e[2], e[3],
                   e[4], e[5], RootRoll(data, plate), RootYaw(data, plate),
                   data->xpos[3 * plate + 1],
@@ -482,23 +482,19 @@ bool RunTorqueMarginCheck(const mjModel* model, int perturbation_mode) {
                   telemetry.axial_force[0], telemetry.axial_force[1],
                   telemetry.requested_wheel_torque,
                   telemetry.requested_leg_angle_torque,
-                  telemetry.yaw_error, telemetry.yaw_rate,
+                  telemetry.yaw_rate,
                   telemetry.yaw_rate_error, telemetry.coordinated_yaw_rate,
                   telemetry.yaw_authority_scale,
                   telemetry.yaw_attitude_authority,
                   telemetry.yaw_contact_authority,
-                  telemetry.yaw_torque_authority,
                   telemetry.yaw_split_authority,
                   telemetry.yaw_split_residual_authority,
                   telemetry.yaw_split_absolute_authority,
                   telemetry.wheel_normal_force[0],
                   telemetry.wheel_normal_force[1],
-                  telemetry.wheel_torque_margin,
                   telemetry.differential_leg_angle_error,
                   telemetry.differential_leg_angle_rate,
                   telemetry.differential_leg_angle_torque,
-                  telemetry.target_wheel_speed_difference,
-                  telemetry.wheel_speed_difference,
                   telemetry.applied_yaw_torque,
                   telemetry.estimated_x_speed,
                   telemetry.wheel_odometry_x_speed,

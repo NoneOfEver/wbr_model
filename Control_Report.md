@@ -1,5 +1,9 @@
 # WBR 仓库控制代码汇报文档
 
+> 迁移提示：本文保留迁移前的实现路径作为历史记录。当前目录边界与
+> Zephyr 接入方式以 `docs/CONTROL_ARCHITECTURE.md` 和
+> `docs/ZEPHYR_PORTING.md` 为准；纯算法模块已迁入 `control_core/`。
+
 > 报告范围：当前仓库中所有与控制、状态估计、系统辨识及测试相关的源码与 MATLAB 脚本。重点为 `simulate/wbr_controller_v2/` 下的运行时控制器，同时覆盖离线工具与早期 demo。
 
 ---

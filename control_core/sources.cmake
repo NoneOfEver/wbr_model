@@ -1,0 +1,9 @@
+set(WBR_CONTROL_CORE_SOURCES
+    ${CMAKE_CURRENT_LIST_DIR}/src/common/math_utils.cc
+    ${CMAKE_CURRENT_LIST_DIR}/src/estimation/robot_observer.cc
+    ${CMAKE_CURRENT_LIST_DIR}/src/control/lqr_schedule.cc
+    ${CMAKE_CURRENT_LIST_DIR}/src/control/ground_balance_controller.cc
+    ${CMAKE_CURRENT_LIST_DIR}/src/control/wheel_allocator.cc
+    ${CMAKE_CURRENT_LIST_DIR}/src/control/yaw_coordinator.cc
+    ${CMAKE_CURRENT_LIST_DIR}/src/model/leg_kinematics.cc
+    ${CMAKE_CURRENT_LIST_DIR}/src/safety/contact_safety.cc)

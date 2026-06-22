@@ -43,21 +43,30 @@ add_executable(reduced_identification reduced_identification.cc)
 target_link_libraries(reduced_identification PRIVATE ${MUJOCO_LIB})
 target_link_options(reduced_identification PRIVATE "-Wl,-rpath,${MUJOCO_BUILD}/lib")
 
+add_subdirectory(control_core)
+
+add_executable(control_core_smoke_test
+    ${CMAKE_CURRENT_SOURCE_DIR}/tests/host/control_core_smoke_test.cc)
+target_link_libraries(control_core_smoke_test PRIVATE wbr_control_core)
+
+add_library(wbr_mujoco_platform STATIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/platform/mujoco/src/actuator_io.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/platform/mujoco/src/leg_io.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/platform/mujoco/src/observation_io.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/platform/mujoco/src/state_estimator.cc)
+target_include_directories(wbr_mujoco_platform PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/platform/mujoco/include)
+target_link_libraries(wbr_mujoco_platform PUBLIC wbr_control_core)
+
 set(WBR_CONTROLLER_V2_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/simulate/wbr_controller_v2.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/simulate/wbr_controller_v2/common/controller_math.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/simulate/wbr_controller_v2/model/leg_kinematics.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/simulate/wbr_controller_v2/model/state_estimator.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/simulate/wbr_controller_v2/model/controller_binding.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/simulate/wbr_controller_v2/control/contact_safety.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/simulate/wbr_controller_v2/control/yaw_coordinator.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/simulate/wbr_controller_v2/control/lqr_schedule.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/simulate/wbr_controller_v2/control/wheel_allocator.cc)
+    ${CMAKE_CURRENT_SOURCE_DIR}/platform/mujoco/src/controller_binding.cc)
 
 add_executable(wbr_v2_closed_loop_test
     wbr_v2_closed_loop_test.cc
     ${WBR_CONTROLLER_V2_SOURCES})
-target_link_libraries(wbr_v2_closed_loop_test PRIVATE ${MUJOCO_LIB})
+target_link_libraries(wbr_v2_closed_loop_test PRIVATE
+    wbr_mujoco_platform ${MUJOCO_LIB})
 target_link_options(wbr_v2_closed_loop_test PRIVATE "-Wl,-rpath,${MUJOCO_BUILD}/lib")
 
 file(GLOB SIMULATE_SRC
@@ -66,7 +75,9 @@ file(GLOB SIMULATE_SRC
 list(APPEND SIMULATE_SRC ${WBR_CONTROLLER_V2_SOURCES})
 list(REMOVE_DUPLICATES SIMULATE_SRC)
 add_executable(simulate ${SIMULATE_SRC})
-target_link_libraries(simulate PRIVATE ${MUJOCO_LIB} glfw ${MUJOCO_BUILD}/lib/liblodepng.a)
+target_link_libraries(simulate PRIVATE
+    wbr_mujoco_platform
+    ${MUJOCO_LIB} glfw ${MUJOCO_BUILD}/lib/liblodepng.a)
 target_link_options(simulate PRIVATE "-Wl,-rpath,${MUJOCO_BUILD}/lib")
 
 if (APPLE)
